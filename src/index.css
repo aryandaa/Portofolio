@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #070914;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.35);
+  color: #ffffff;
+}
+
+.neon-border {
+  position: relative;
+}
+
+.neon-border::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(34, 211, 238, 0.32);
+  box-shadow: inset 0 0 26px rgba(139, 92, 246, 0.16), 0 0 22px rgba(34, 211, 238, 0.12);
+}
+
+.clip-corner {
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+}
+
+.text-glow {
+  text-shadow: 0 0 18px rgba(34, 211, 238, 0.38), 0 0 38px rgba(139, 92, 246, 0.2);
+}
