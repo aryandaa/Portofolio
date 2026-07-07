@@ -1,5 +1,5 @@
 import { Trophy } from "lucide-react";
-import { awards } from "../data/portfolio.js";
+import { awards } from "../data/awards.js";
 import PageShell from "../components/PageShell.jsx";
 import Panel from "../components/Panel.jsx";
 

@@ -1,6 +1,6 @@
 export default function SectionTitle({ kicker, title }) {
   return (
-    <div className="mb-4 flex items-end justify-between gap-4 border-b border-white/10 pb-3">
+    <div className="section-title mb-4 flex items-end justify-between gap-4 border-b border-white/10 pb-3">
       <div>
         {kicker && (
           <p className="font-display text-[11px] uppercase tracking-[0.28em] text-danger">

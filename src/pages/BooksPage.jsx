@@ -1,5 +1,5 @@
 import { BookMarked } from "lucide-react";
-import { booksRead } from "../data/portfolio.js";
+import { booksRead } from "../data/books.js";
 import PageShell from "../components/PageShell.jsx";
 import Panel from "../components/Panel.jsx";
 import StarRating from "../components/StarRating.jsx";

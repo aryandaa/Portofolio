@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Award,
   BookOpen,
@@ -36,6 +36,8 @@ function getInitialPage() {
 export default function App() {
   const [activePage, setActivePage] = useState(getInitialPage);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isPageSwitching, setIsPageSwitching] = useState(false);
+  const didMount = useRef(false);
 
   useEffect(() => {
     const syncHash = () => setActivePage(getInitialPage());
@@ -43,12 +45,29 @@ export default function App() {
     return () => window.removeEventListener("hashchange", syncHash);
   }, []);
 
+  useEffect(() => {
+    if (!didMount.current) {
+      didMount.current = true;
+      return undefined;
+    }
+
+    setIsPageSwitching(true);
+    const timeoutId = window.setTimeout(() => setIsPageSwitching(false), 620);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [activePage]);
+
   const ActiveComponent = useMemo(
     () => pages.find((page) => page.id === activePage)?.component ?? ProfilePage,
     [activePage],
   );
 
   const navigate = (pageId) => {
+    if (pageId === activePage) {
+      setIsMenuOpen(false);
+      return;
+    }
+
     window.location.hash = pageId;
     setActivePage(pageId);
     setIsMenuOpen(false);
@@ -62,6 +81,16 @@ export default function App() {
       <CodeRain />
       <div className="pointer-events-none fixed inset-0 z-0 bg-grid bg-[length:56px_56px] opacity-18" />
       <div className="pointer-events-none fixed inset-0 z-0 bg-scanline bg-[length:100%_4px] opacity-15" />
+      <div
+        className={`page-switch-overlay pointer-events-none fixed inset-0 z-40 ${
+          isPageSwitching ? "is-active" : ""
+        }`}
+        aria-hidden="true"
+      >
+        <div className="page-switch-beam" />
+        <div className="page-switch-noise" />
+        <div className="page-switch-grid" />
+      </div>
 
       <header className="sticky top-0 z-30 border-b border-cyan/20 bg-void/75 backdrop-blur-xl">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -133,7 +162,9 @@ export default function App() {
       </header>
 
       <main className="relative z-10 mx-auto min-h-[calc(100vh-77px)] max-w-[1800px] px-4 py-8 sm:px-6 lg:px-8">
-        <ActiveComponent navigate={navigate} />
+        <div key={activePage} className="page-enter">
+          <ActiveComponent navigate={navigate} />
+        </div>
       </main>
     </div>
   );

@@ -1,9 +1,9 @@
 export default function PageShell({ eyebrow, title, children, aside, below }) {
   return (
     <section className="grid gap-6">
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div className={`grid gap-6 ${aside ? "lg:grid-cols-[minmax(0,1fr)_320px]" : ""}`}>
         <div className="min-w-0 lg:flex lg:flex-col">
-          <div className="mb-8">
+          <div className="page-hero mb-8">
             <p className="mb-3 font-display text-xs uppercase tracking-[0.32em] text-cyan">
               {eyebrow}
             </p>
