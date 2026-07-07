@@ -415,9 +415,16 @@ export default function ProfilePage({ navigate }) {
                   <h3 className="font-display text-lg font-bold text-white">{item.school}</h3>
                   <p className="text-sm text-danger">{item.degree} | {item.period}</p>
                   <p className="mt-2 text-sm leading-6 text-slate-300">{item.detail}</p>
-                  <p className="interactive-chip mt-3 inline-flex border border-cyan/30 bg-cyan/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan">
-                    {item.activity}
-                  </p>
+                  <div className="mt-3 grid gap-2">
+                    {(Array.isArray(item.activity) ? item.activity : [item.activity]).map((activity) => (
+                      <span
+                        key={`${item.school}-${activity}`}
+                        className="interactive-chip inline-flex w-fit border border-cyan/30 bg-cyan/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan"
+                      >
+                        {activity}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}

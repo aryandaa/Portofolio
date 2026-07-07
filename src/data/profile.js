@@ -1,17 +1,11 @@
 export const profile = {
   name: "M. Aryanda Sanggadiennata",
   title: "Information Systems Student | Full-Stack Web Developer | Cybersecurity Researcher",
-  // Optional single fallback photo. Prefer using `photos` below when you have multiple profile photos.
-  // Example: photo: "/assets/profile/profile-main.jpg",
-  photo: "",
-  // Put profile photos in public/assets/profile, then register them here.
-  // If there is only one photo, arrows will not appear. If there are multiple, the carousel auto-slides.
-  // Example:
-  // photos: [
-  //   "/assets/profile/profile-1.jpg",
-  //   "/assets/profile/profile-2.jpg",
-  // ],
-  photos: [],
+   photos: [
+    "../../public/assets/profile/foto 1.jpeg",
+    "../../public/assets/profile/foto 2.jpeg",
+    "../../public/assets/profile/foto 3.jpeg",
+  ],
   location: "Banjarmasin, South Kalimantan, Indonesia",
   phone: "+62 896-9277-8102",
   email: "aryandasanggadiennata26@gmail.com",
@@ -26,8 +20,11 @@ export const profile = {
       school: "Politeknik Negeri Banjarmasin",
       degree: "Associate Degree of Business Administration (D3) in Information Systems",
       period: "Expected Graduation: 2027",
-      detail: "Current cumulative GPA: 3.90 / 4.00.",
-      activity: "iTech Community",
+      detail: "Current cumulative GPA: 3.91 / 4.00.",
+      activity: [
+        "iTech Community",
+        "Class president for three years",
+      ],
     },
     {
       school: "SMK Negeri 2 Banjarmasin",
@@ -51,32 +48,54 @@ export const profile = {
         "Bootstrap",
         "SQL",
         "WordPress",
+        "Express.js",
       ],
     },
     {
       category: "Cybersecurity",
-      items: ["Cybersecurity", "Cryptography", "Web Exploitation", "CTF Development"],
+      items: [
+        "Cybersecurity", 
+        "Cryptography", 
+        "Web Exploitation",
+        "Steganography",
+        "Forensic Digital",  
+        "CTF Development"
+      ],
     },
     {
       category: "Programming & Tools",
-      items: ["Python", "Git", "GitHub", "Linux Bash Shell", "C# .NET"],
+      items: [
+        "Python", 
+        "Git", 
+        "GitHub", 
+        "Linux Bash Shell",
+        "Vercel",
+      ],
     },
     {
       category: "UI/UX Design",
-      items: ["UI/UX Design", "Wireframing", "Figma", "Responsive Design"],
+      items: [
+        "UI/UX Design", 
+        "Wireframing", 
+        "Figma", 
+        "Responsive Design"
+      ],
     },
     {
       category: "Office & Productivity",
-      items: ["Microsoft Word", "Microsoft Excel", "Microsoft PowerPoint", "ERP Configuration"],
+      items: [
+        "Microsoft Word", 
+        "Microsoft Excel", 
+        "Microsoft PowerPoint", 
+        "ERP Configuration"
+      ],
     },
     {
       category: "Soft Skills",
       items: [
         "Leadership",
-        "Community Mentoring",
         "Project Management",
         "Problem Solving",
-        "Technical Writing",
         "Team Collaboration",
       ],
     },

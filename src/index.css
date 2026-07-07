@@ -60,10 +60,10 @@ body {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(120deg, transparent 0 35%, rgba(34, 211, 238, 0.14) 48%, rgba(255, 46, 99, 0.1) 55%, transparent 68%),
+    linear-gradient(120deg, transparent 0 22%, rgba(34, 211, 238, 0.14) 38%, rgba(255, 46, 99, 0.1) 48%, transparent 64%),
     radial-gradient(circle at var(--hover-x, 50%) var(--hover-y, 50%), rgba(139, 92, 246, 0.18), transparent 34%);
   opacity: 0;
-  transform: translateX(-18%);
+  transform: translateX(-30%);
   transition:
     opacity 220ms ease,
     transform 420ms ease;
@@ -88,7 +88,7 @@ body {
 
 .interactive-card:hover::after {
   opacity: 1;
-  transform: translateX(18%);
+  transform: translateX(-4%);
 }
 
 .interactive-chip,
@@ -125,7 +125,7 @@ body {
 }
 
 .page-enter {
-  animation: page-enter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: page-enter 520ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
 .page-enter .page-hero,

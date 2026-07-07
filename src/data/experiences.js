@@ -121,6 +121,7 @@ export const experiences = [
     // ],
     evidence: [],
   },
+  
   {
     role: "Marketing Specialist & Web Developer",
     place: "Bahtera Mart - Internship (On-site)",
@@ -140,15 +141,13 @@ export const experiences = [
       "Created an interactive minigame campaign to encourage customer participation.",
       "Expanded the brand's online presence through web-based promotional tools.",
     ],
-    // Example:
-    // evidence: [
-    //   {
-    //     title: "Bahtera Mart web game",
-    //     type: "image",
-    //     url: "/assets/evidence/bahtera-game.jpg",
-    //     description: "Documentation of the web-based campaign game.",
-    //   },
-    // ],
-    evidence: [],
+    evidence: [
+      {
+        title: "Sertifikat Bahtera Mart",
+        type: "image",
+        url: "../../public/assets/evidence/bahtera1.jpg",
+        description: "internship completion certificate.",
+      },
+    ],
   },
 ];

@@ -1,7 +1,7 @@
 export const awards = [
   {
     rank: "Top 18 out of 96 Participants",
-    name: "FIT Competition 2026 Cyber Security CTF",
+    name: "Capture The Flag FIT Competition",
     date: "June 2026",
     publisher: "Satya Wacana Christian University",
   },
@@ -13,13 +13,13 @@ export const awards = [
   },
   {
     rank: "Top 25 Finalist out of 80 Participants",
-    name: "UI/UX Competition",
+    name: "Capture The Flag InTechFest",
     date: "September 2025",
     publisher: "Bali State Polytechnic",
   },
   {
     rank: "Top 30 Finalist out of 100 Participants",
-    name: "Competition",
+    name: "Capture The Flag FIT Competition",
     date: "July 2025",
     publisher: "Satya Wacana Christian University",
   },
