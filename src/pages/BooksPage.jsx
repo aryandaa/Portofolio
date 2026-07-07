@@ -19,7 +19,7 @@ export default function BooksPage() {
           <Panel key={book.title} className="flex min-h-[260px] flex-col p-6">
             <div className="mb-5 flex items-start justify-between gap-4">
               <BookMarked className="h-7 w-7 shrink-0 text-cyan" aria-hidden="true" />
-              <span className="border border-cyan/40 bg-cyan/10 px-3 py-1 text-xs text-cyan">
+              <span className="interactive-chip border border-cyan/40 bg-cyan/10 px-3 py-1 text-xs text-cyan">
                 {book.category}
               </span>
             </div>

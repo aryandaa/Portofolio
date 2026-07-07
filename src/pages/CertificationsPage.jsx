@@ -11,7 +11,7 @@ export default function CertificationsPage() {
           <Panel key={`${certificate.name}-${certificate.date}`} className="min-h-[300px] p-6">
             <div className="mb-5 flex items-start justify-between gap-4">
               <BadgeCheck className="h-7 w-7 shrink-0 text-cyan" aria-hidden="true" />
-              <span className="border border-plasma/50 bg-plasma/10 px-3 py-1 text-xs text-violet-100">
+              <span className="interactive-chip border border-plasma/50 bg-plasma/10 px-3 py-1 text-xs text-violet-100">
                 {certificate.category}
               </span>
             </div>

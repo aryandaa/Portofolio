@@ -1,6 +1,6 @@
-import { ExternalLink as ExternalLinkIcon } from "lucide-react";
+import { Download, ExternalLink as ExternalLinkIcon } from "lucide-react";
 
-export default function ExternalLink({ href, children, variant = "cyan" }) {
+export default function ExternalLink({ href, children, variant = "cyan", download = false }) {
   if (!href) return null;
 
   const styles =
@@ -11,12 +11,17 @@ export default function ExternalLink({ href, children, variant = "cyan" }) {
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noreferrer"
-      className={`inline-flex items-center gap-2 border px-4 py-2 text-sm font-semibold transition ${styles}`}
+      target={download ? undefined : "_blank"}
+      rel={download ? undefined : "noreferrer"}
+      download={download ? true : undefined}
+      className={`interactive-link inline-flex items-center gap-2 border px-4 py-2 text-sm font-semibold transition ${styles}`}
     >
       <span>{children}</span>
-      <ExternalLinkIcon className="h-4 w-4" aria-hidden="true" />
+      {download ? (
+        <Download className="h-4 w-4" aria-hidden="true" />
+      ) : (
+        <ExternalLinkIcon className="h-4 w-4" aria-hidden="true" />
+      )}
     </a>
   );
 }

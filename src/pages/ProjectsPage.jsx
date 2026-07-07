@@ -31,7 +31,7 @@ export default function ProjectsPage() {
                   <span className="text-cyan">{project.role}</span> at {project.institution}
                 </p>
               </div>
-              <span className="border border-danger/40 bg-danger/10 px-3 py-2 text-xs font-semibold text-rose-100">
+              <span className="interactive-chip border border-danger/40 bg-danger/10 px-3 py-2 text-xs font-semibold text-rose-100">
                 {project.period}
               </span>
             </div>

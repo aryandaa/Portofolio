@@ -10,7 +10,7 @@ export default function AwardsPage() {
         {awards.map((award) => (
           <Panel key={`${award.name}-${award.date}`} className="p-6">
             <div className="grid gap-5 md:grid-cols-[180px_minmax(0,1fr)]">
-              <div className="border border-danger/40 bg-danger/10 p-4 text-center">
+              <div className="interactive-row border border-danger/40 bg-danger/10 p-4 text-center">
                 <Trophy className="mx-auto mb-3 h-8 w-8 text-danger" aria-hidden="true" />
                 <p className="font-display text-lg font-bold text-white">{award.rank}</p>
               </div>
