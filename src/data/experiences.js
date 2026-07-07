@@ -145,7 +145,7 @@ export const experiences = [
       {
         title: "Sertifikat Bahtera Mart",
         type: "image",
-        url: "../../public/assets/evidence/bahtera1.jpg",
+        url: "/assets/evidence/bahtera1.jpg",
         description: "internship completion certificate.",
       },
     ],

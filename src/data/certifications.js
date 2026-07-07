@@ -6,8 +6,8 @@ export const certifications = [
     issuer: "Dicoding Indonesia",
     category: "Back-End Web",
     images: [
-      "../../public/assets/certificates/serti33.jpg",
-      "../../public/assets/certificates/serti34.png"
+      "/assets/certificates/serti33.jpg",
+      "/assets/certificates/serti34.png"
     ],
   },
   {
@@ -17,8 +17,8 @@ export const certifications = [
     issuer: "Dicoding Indonesia",
     category: "Back-End Web",
     images: [
-      "../../public/assets/certificates/serti31.jpg",
-      "../../public/assets/certificates/serti32.png"
+      "/assets/certificates/serti31.jpg",
+      "/assets/certificates/serti32.png"
     ],
   },
   {
@@ -28,8 +28,8 @@ export const certifications = [
     issuer: "Dicoding Indonesia",
     category: "React",
     images: [
-      "../../public/assets/certificates/serti29.jpg",
-      "../../public/assets/certificates/serti30.png"
+      "/assets/certificates/serti29.jpg",
+      "/assets/certificates/serti30.png"
     ],
   },
   {
@@ -39,8 +39,8 @@ export const certifications = [
     issuer: "Dicoding Indonesia",
     category: "React",
     images: [
-      "../../public/assets/certificates/serti27.jpg",
-      "../../public/assets/certificates/serti28.png",
+      "/assets/certificates/serti27.jpg",
+      "/assets/certificates/serti28.png",
     ],
   },
   {
@@ -50,8 +50,8 @@ export const certifications = [
     issuer: "Dicoding Indonesia",
     category: "Front-End Web",
     images: [
-      "../../public/assets/certificates/serti25.jpg",
-      "../../public/assets/certificates/serti26.png",
+      "/assets/certificates/serti25.jpg",
+      "/assets/certificates/serti26.png",
     ],
   },
   {
@@ -61,8 +61,8 @@ export const certifications = [
     issuer: "Dicoding Indonesia",
     category: "JavaScript",
     images: [
-      "../../public/assets/certificates/serti23.jpg",
-      "../../public/assets/certificates/serti24.png"
+      "/assets/certificates/serti23.jpg",
+      "/assets/certificates/serti24.png"
     ],
   },
   {
@@ -72,8 +72,8 @@ export const certifications = [
     issuer: "Dicoding Indonesia",
     category: "Web Development",
     images: [
-      "../../public/assets/certificates/serti21.jpg",
-      "../../public/assets/certificates/serti22.png"
+      "/assets/certificates/serti21.jpg",
+      "/assets/certificates/serti22.png"
     ],
   },
   {
@@ -83,8 +83,8 @@ export const certifications = [
     issuer: "Dicoding Indonesia",
     category: "Cloud & AI",
     images: [
-      "../../public/assets/certificates/serti19.jpg",
-      "../../public/assets/certificates/serti20.png"
+      "/assets/certificates/serti19.jpg",
+      "/assets/certificates/serti20.png"
     ],
   },
   {
@@ -94,8 +94,8 @@ export const certifications = [
     issuer: "Dicoding Indonesia",
     category: "Software Development",
     images: [
-      "../../public/assets/certificates/serti17.jpg",
-      "../../public/assets/certificates/serti18.png"
+      "/assets/certificates/serti17.jpg",
+      "/assets/certificates/serti18.png"
     ],
   },
   {
@@ -105,8 +105,8 @@ export const certifications = [
     issuer: "Dicoding Indonesia",
     category: "Programming Logic",
     images: [
-      "../../public/assets/certificates/serti15.jpg",
-      "../../public/assets/certificates/serti16.png"
+      "/assets/certificates/serti15.jpg",
+      "/assets/certificates/serti16.png"
     ],
   },
   {
@@ -116,7 +116,7 @@ export const certifications = [
     issuer: "Skilvul",
     category: "Programming",
     images: [
-      "../../public/assets/certificates/serti14.jpg"
+      "/assets/certificates/serti14.jpg"
     ],
   },
   {
@@ -126,7 +126,7 @@ export const certifications = [
     issuer: "Dicoding Indonesia",
     category: "Financial Literacy",
     images: [
-      "../../public/assets/certificates/serti13.jpg"
+      "/assets/certificates/serti13.jpg"
     ],
   },
   {
@@ -136,8 +136,8 @@ export const certifications = [
     issuer: "Vocational School Graduate Academy - Digital Talent Scholarship",
     category: "Web Development",
     images: [
-      "../../public/assets/certificates/serti11.jpg",
-      "../../public/assets/certificates/serti12.jpg"
+      "/assets/certificates/serti11.jpg",
+      "/assets/certificates/serti12.jpg"
     ],
   },
   {
@@ -147,8 +147,8 @@ export const certifications = [
     issuer: "Digital Talent Scholarship",
     category: "Cybersecurity",
     images: [
-      "../../public/assets/certificates/serti9.jpg",
-      "../../public/assets/certificates/serti10.jpg"
+      "/assets/certificates/serti9.jpg",
+      "/assets/certificates/serti10.jpg"
     ],
   },
   {
@@ -158,8 +158,8 @@ export const certifications = [
     issuer: "Digital Talent Scholarship",
     category: "Programming",
     images: [
-      "../../public/assets/certificates/serti7.jpg",
-      "../../public/assets/certificates/serti8.jpg",
+      "/assets/certificates/serti7.jpg",
+      "/assets/certificates/serti8.jpg",
     ],
 
   },
@@ -169,7 +169,7 @@ export const certifications = [
     date: "August 2022",
     issuer: "Skilvul",
     category: "Programming",
-    images: ["../../public/assets/certificates/serti6.jpg"],
+    images: ["/assets/certificates/serti6.jpg"],
   },
   {
     name: "Figma Camp",
@@ -177,7 +177,7 @@ export const certifications = [
     date: "January 2025",
     issuer: "Ousean School",
     category: "UI/UX",
-    images: ["../../public/assets/certificates/serti5.jpg"],
+    images: ["/assets/certificates/serti5.jpg"],
   },
   {
     name: "Sertifikat Kompetensi Teknisi Pendukung Operasional Jaringan",
@@ -186,7 +186,7 @@ export const certifications = [
     issuer: "BNSP",
     category: "Networking",
     images: [
-      "../../public/assets/certificates/serti4.jpg"
+      "/assets/certificates/serti4.jpg"
     ],
   },
   {
@@ -196,8 +196,8 @@ export const certifications = [
     issuer: "Poliban",
     category: "UI/UX",
     images: [
-      "../../public/assets/certificates/serti2.jpg",
-      "../../public/assets/certificates/serti3.jpg"
+      "/assets/certificates/serti2.jpg",
+      "/assets/certificates/serti3.jpg"
     ],
   },
   {
@@ -207,7 +207,7 @@ export const certifications = [
     issuer: "ITS University",
     category: "Cybersecurity",
     images: [
-      "../../public/assets/certificates/serti1.jpg"
+      "/assets/certificates/serti1.jpg"
     ],
   },
 ];
