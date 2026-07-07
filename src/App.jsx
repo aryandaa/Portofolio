@@ -104,9 +104,8 @@ export default function App() {
             </span>
             <span>
               <span className="block font-display text-sm uppercase tracking-[0.28em] text-cyan">
-                Portfolio
+                Portfolio Aryanda
               </span>
-              <span className="block text-xs text-slate-300">Cyber profile grid</span>
             </span>
           </button>
 
