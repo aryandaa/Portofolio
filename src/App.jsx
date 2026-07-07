@@ -4,6 +4,7 @@ import {
   BookOpen,
   Cpu,
   BriefcaseBusiness,
+  FileSearch,
   Home,
   IdCard,
   Menu,
@@ -16,6 +17,7 @@ import CertificationsPage from "./pages/CertificationsPage.jsx";
 import AwardsPage from "./pages/AwardsPage.jsx";
 import BooksPage from "./pages/BooksPage.jsx";
 import ExperiencePage from "./pages/ExperiencePage.jsx";
+import ResearchPage from "./pages/ResearchPage.jsx";
 import CyberCursor from "./components/CyberCursor.jsx";
 import CodeRain from "./components/CodeRain.jsx";
 
@@ -25,6 +27,7 @@ const pages = [
   { id: "projects", label: "Technical Project", icon: Cpu, component: ProjectsPage },
   { id: "certifications", label: "Certifications", icon: IdCard, component: CertificationsPage },
   { id: "awards", label: "Awards", icon: Award, component: AwardsPage },
+  { id: "research", label: "Research", icon: FileSearch, component: ResearchPage },
   { id: "books", label: "Books Read", icon: BookOpen, component: BooksPage },
 ];
 
