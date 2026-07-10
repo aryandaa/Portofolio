@@ -255,6 +255,14 @@ body {
   animation: page-grid-flash 620ms ease both;
 }
 
+.tech-marquee-track {
+  animation: tech-marquee 34s linear infinite;
+}
+
+.tech-marquee-track:hover {
+  animation-play-state: paused;
+}
+
 @keyframes page-enter {
   0% {
     opacity: 0;
@@ -283,6 +291,16 @@ body {
     filter: blur(0) saturate(1);
     transform: translate3d(0, 0, 0) scale(1);
     clip-path: inset(0);
+  }
+}
+
+@keyframes tech-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
   }
 }
 
@@ -488,6 +506,7 @@ body {
   .page-enter .interactive-row,
   .page-enter .interactive-chip,
   .page-enter .interactive-link,
+  .tech-marquee-track,
   .page-switch-overlay.is-active .page-switch-beam,
   .page-switch-overlay.is-active .page-switch-noise,
   .page-switch-overlay.is-active .page-switch-grid {

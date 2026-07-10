@@ -4,6 +4,7 @@ import {
   BookOpen,
   Cpu,
   BriefcaseBusiness,
+  ChevronUp,
   FileSearch,
   Home,
   IdCard,
@@ -40,6 +41,7 @@ export default function App() {
   const [activePage, setActivePage] = useState(getInitialPage);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPageSwitching, setIsPageSwitching] = useState(false);
+  const [scrollState, setScrollState] = useState({ progress: 0, isScrollable: false });
   const didMount = useRef(false);
 
   useEffect(() => {
@@ -60,6 +62,25 @@ export default function App() {
     return () => window.clearTimeout(timeoutId);
   }, [activePage]);
 
+  useEffect(() => {
+    const updateScrollState = () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const isScrollable = maxScroll > 80;
+      const progress = isScrollable ? Math.min(window.scrollY / maxScroll, 1) : 0;
+
+      setScrollState({ progress, isScrollable });
+    };
+
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+
+    return () => {
+      window.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, [activePage]);
+
   const ActiveComponent = useMemo(
     () => pages.find((page) => page.id === activePage)?.component ?? ProfilePage,
     [activePage],
@@ -76,6 +97,10 @@ export default function App() {
     setIsMenuOpen(false);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="relative isolate min-h-screen overflow-hidden bg-void text-ink antialiased">
       <CyberCursor />
@@ -84,6 +109,37 @@ export default function App() {
       <CodeRain />
       <div className="pointer-events-none fixed inset-0 z-0 bg-grid bg-[length:56px_56px] opacity-18" />
       <div className="pointer-events-none fixed inset-0 z-0 bg-scanline bg-[length:100%_4px] opacity-15" />
+      {scrollState.isScrollable ? (
+        <div
+          className="pointer-events-none fixed left-2 top-1/2 z-20 flex -translate-y-1/2 items-center gap-2 sm:left-3 lg:hidden"
+          aria-hidden="true"
+        >
+          <div className="relative h-44 w-1 overflow-hidden border border-cyan/40 bg-void/70 shadow-[0_0_18px_rgba(34,211,238,0.22)] backdrop-blur">
+            <div
+              className="absolute left-0 top-0 w-full bg-gradient-to-b from-cyan via-plasma to-danger shadow-[0_0_16px_rgba(34,211,238,0.65)]"
+              style={{ height: `${Math.max(scrollState.progress * 100, 8)}%` }}
+            />
+            <div className="absolute inset-x-[-3px] top-1/3 h-px bg-cyan/70 shadow-neon" />
+            <div className="absolute inset-x-[-3px] top-2/3 h-px bg-plasma/70 shadow-[0_0_14px_rgba(255,46,109,0.45)]" />
+          </div>
+          <div className="grid gap-2">
+            <span className="h-1.5 w-1.5 bg-cyan shadow-neon" />
+            <span className="h-1.5 w-1.5 bg-plasma shadow-[0_0_12px_rgba(255,46,109,0.75)]" />
+            <span className="h-1.5 w-1.5 bg-cyan/70 shadow-neon" />
+          </div>
+        </div>
+      ) : null}
+      {scrollState.isScrollable && scrollState.progress > 0.08 ? (
+        <button
+          type="button"
+          onClick={scrollToTop}
+          className="interactive-chip fixed bottom-5 right-5 z-30 grid h-12 w-12 place-items-center border border-cyan/50 bg-void/80 text-cyan shadow-[0_0_22px_rgba(34,211,238,0.28)] backdrop-blur transition hover:border-plasma hover:text-white hover:shadow-[0_0_28px_rgba(255,46,109,0.28)] sm:bottom-6 sm:right-6"
+          aria-label="Back to top"
+        >
+          <ChevronUp className="h-5 w-5" aria-hidden="true" />
+          <span className="absolute inset-1 border border-plasma/20" aria-hidden="true" />
+        </button>
+      ) : null}
       <div
         className={`page-switch-overlay pointer-events-none fixed inset-0 z-40 ${
           isPageSwitching ? "is-active" : ""

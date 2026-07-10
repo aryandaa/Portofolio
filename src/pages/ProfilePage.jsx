@@ -38,6 +38,29 @@ const pageButtons = [
   ["books", "Books Read"],
 ];
 
+const techLogos = [
+  { name: "HTML5", slug: "html5", mark: "HTML", color: "from-orange-400/20 to-danger/15" },
+  { name: "CSS", slug: "css", mark: "CSS", color: "from-cyan/20 to-blue-500/15" },
+  { name: "JavaScript", slug: "javascript", mark: "JS", color: "from-yellow-300/20 to-cyan/10" },
+  { name: "PHP", slug: "php", mark: "PHP", color: "from-violet-400/20 to-cyan/10" },
+  { name: "Laravel", slug: "laravel", mark: "L", color: "from-danger/20 to-rose-500/10" },
+  { name: "React.js", slug: "react", mark: "React", color: "from-cyan/20 to-plasma/10" },
+  { name: "Tailwind CSS", slug: "tailwindcss", mark: "TW", color: "from-cyan/20 to-emerald-400/10" },
+  { name: "Bootstrap", slug: "bootstrap", mark: "BS", color: "from-plasma/20 to-violet-400/10" },
+  { name: "MySQL", slug: "mysql", mark: "SQL", color: "from-blue-400/20 to-cyan/10" },
+  { name: "WordPress", slug: "wordpress", mark: "WP", color: "from-sky-400/20 to-white/5" },
+  { name: "Express.js", slug: "express", mark: "EX", color: "from-slate-300/15 to-cyan/10" },
+  { name: "Python", slug: "python", mark: "PY", color: "from-yellow-300/20 to-blue-500/15" },
+  { name: "Git", slug: "git", mark: "Git", color: "from-orange-500/20 to-danger/10" },
+  { name: "GitHub", slug: "github", mark: "GH", color: "from-white/15 to-cyan/10" },
+  { name: "GNU Bash", slug: "gnubash", mark: "Bash", color: "from-emerald-400/20 to-cyan/10" },
+  { name: "Vercel", slug: "vercel", mark: "VC", color: "from-white/15 to-plasma/10" },
+  { name: "Figma", slug: "figma", mark: "FIG", color: "from-plasma/20 to-cyan/10" },
+  { name: "Microsoft Word", slug: "microsoftword", mark: "DOC", color: "from-blue-400/20 to-cyan/10" },
+  { name: "Microsoft Excel", slug: "microsoftexcel", mark: "XLS", color: "from-emerald-400/20 to-cyan/10" },
+  { name: "Microsoft PowerPoint", slug: "microsoftpowerpoint", mark: "PPT", color: "from-orange-400/20 to-danger/10" },
+];
+
 const monthMap = {
   january: 0,
   february: 1,
@@ -71,6 +94,80 @@ function getCurrentMonthIndex() {
   const now = new Date();
 
   return createMonthIndex(now.getFullYear(), now.getMonth());
+}
+
+function normalizeSkill(skill) {
+  return typeof skill === "string" ? { name: skill } : skill;
+}
+
+function getSkillLevelClass(level) {
+  const normalizedLevel = level?.toLowerCase();
+
+  if (normalizedLevel === "advanced") {
+    return "border-emerald-400/50 bg-emerald-400/10 text-emerald-200 shadow-[0_0_18px_rgba(52,211,153,0.18)]";
+  }
+
+  if (normalizedLevel === "intermediate") {
+    return "border-cyan/50 bg-cyan/10 text-cyan shadow-[0_0_18px_rgba(34,211,238,0.16)]";
+  }
+
+  if (normalizedLevel === "basic") {
+    return "border-plasma/50 bg-plasma/10 text-rose-100 shadow-[0_0_18px_rgba(255,46,109,0.16)]";
+  }
+
+  return "border-white/20 bg-white/10 text-slate-200";
+}
+
+function TechLogoIcon({ tech }) {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError) {
+    return (
+      <span className="font-display text-xs font-black uppercase tracking-[0.08em] text-cyan">
+        {tech.mark}
+      </span>
+    );
+  }
+
+  return (
+    <img
+      src={`https://cdn.simpleicons.org/${tech.slug}/22D3EE?viewbox=auto`}
+      alt={`${tech.name} logo`}
+      className="h-full w-full object-contain drop-shadow-[0_0_8px_rgba(34,211,238,0.55)]"
+      draggable="false"
+      loading="lazy"
+      onError={() => setHasError(true)}
+    />
+  );
+}
+
+function TechLogoMarquee() {
+  const marqueeItems = [...techLogos, ...techLogos];
+
+  return (
+    <Panel className="overflow-hidden p-0">
+      <div className="border-b border-cyan/15 px-5 py-4 sm:px-6">
+        <SectionTitle title="Tech Stack Used" />
+      </div>
+      <div className="relative overflow-hidden py-5">
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-night to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-night to-transparent" />
+        <div className="tech-marquee-track flex w-max gap-3 px-3">
+          {marqueeItems.map((tech, index) => (
+            <div
+              key={`${tech.name}-${index}`}
+              className={`interactive-chip flex min-w-36 items-center gap-3 border border-cyan/25 bg-gradient-to-br ${tech.color} px-4 py-3 shadow-[0_0_20px_rgba(34,211,238,0.08)]`}
+            >
+              <span className="grid h-10 w-10 shrink-0 place-items-center border border-cyan/40 bg-night/90 p-2 shadow-neon">
+                <TechLogoIcon tech={tech} />
+              </span>
+              <span className="whitespace-nowrap text-sm font-semibold text-slate-100">{tech.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Panel>
+  );
 }
 
 function getExperienceMonthRange(period) {
@@ -282,9 +379,11 @@ function PartnerThanks() {
               >
                 <Users className="h-4 w-4 shrink-0" aria-hidden="true" />
                 <span>{partner.name}</span>
-                <span className="border border-white/10 bg-white/10 px-2 py-0.5 text-xs text-white">
-                  {partner.activities.length}
-                </span>
+                {partner.activities.length > 1 ? (
+                  <span className="border border-white/10 bg-white/10 px-2 py-0.5 text-xs text-white">
+                    {partner.activities.length}
+                  </span>
+                ) : null}
               </button>
               <div className="pointer-events-none absolute bottom-full left-0 z-20 mb-3 w-72 translate-y-2 border border-cyan/30 bg-night/95 p-4 text-left opacity-0 shadow-neon backdrop-blur-md transition group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
                 <p className="mb-3 font-display text-xs uppercase tracking-[0.2em] text-cyan">
@@ -453,14 +552,31 @@ export default function ProfilePage({ navigate }) {
                     {group.category}
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    {group.items.map((skill) => (
-                      <span
-                        key={`${group.category}-${skill}`}
-                        className="interactive-chip border border-cyan/30 bg-cyan/10 px-3 py-2 text-sm text-cyan"
-                      >
-                        {skill}
-                      </span>
-                    ))}
+                    {group.items.map((skill) => {
+                      const skillItem = normalizeSkill(skill);
+
+                      return (
+                        <div
+                          key={`${group.category}-${skillItem.name}`}
+                          className="interactive-chip group relative inline-flex items-center gap-2 border border-cyan/30 bg-cyan/10 px-3 py-2 text-left text-sm text-cyan"
+                          tabIndex={skillItem.context ? 0 : undefined}
+                        >
+                          <span className="font-semibold text-cyan">{skillItem.name}</span>
+                          {skillItem.level ? (
+                            <span
+                              className={`shrink-0 border px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] ${getSkillLevelClass(skillItem.level)}`}
+                            >
+                              {skillItem.level}
+                            </span>
+                          ) : null}
+                          {skillItem.context ? (
+                            <span className="pointer-events-none absolute bottom-[calc(100%+0.65rem)] left-0 z-30 w-64 max-w-[80vw] border border-cyan/40 bg-void/95 p-3 text-xs leading-5 text-slate-200 opacity-0 shadow-neon backdrop-blur transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus:translate-y-0 group-focus:opacity-100">
+                              {skillItem.context}
+                            </span>
+                          ) : null}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               ))}
@@ -497,6 +613,8 @@ export default function ProfilePage({ navigate }) {
           <PortfolioStats />
 
           <PartnerThanks />
+
+          <TechLogoMarquee />
         </div>
       }
     >
@@ -504,6 +622,18 @@ export default function ProfilePage({ navigate }) {
         <Panel className="p-6 sm:p-8">
           <p className="mb-4 font-display text-lg font-semibold text-cyan">{profile.title}</p>
           <p className="max-w-3xl text-base leading-8 text-slate-200">{profile.summary}</p>
+          {profile.aboutFocus?.length > 0 ? (
+            <div className="mt-6 grid gap-3 md:grid-cols-3">
+              {profile.aboutFocus.map((item) => (
+                <div key={item.title} className="interactive-row border border-white/10 bg-white/[0.035] p-4">
+                  <h3 className="font-display text-sm font-bold uppercase tracking-[0.16em] text-cyan">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-xs leading-6 text-slate-300">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          ) : null}
           <div className="mt-7 flex flex-wrap gap-3">
             {pageButtons.map(([id, label]) => (
               <button
