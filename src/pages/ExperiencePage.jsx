@@ -12,6 +12,7 @@ import {
 import { experiences } from "../data/experiences.js";
 import PageShell from "../components/PageShell.jsx";
 import Panel from "../components/Panel.jsx";
+import PartnerList from "../components/PartnerList.jsx";
 
 function DetailList({ icon: Icon, title, items }) {
   return (
@@ -55,6 +56,7 @@ export default function ExperiencePage() {
                     </div>
                     <h2 className="font-display text-xl font-bold text-white">{item.role}</h2>
                     <p className="mt-3 text-sm leading-6 text-cyan">{item.place}</p>
+                    <PartnerList partners={item.partners} compact />
                     <p className="mt-4 inline-flex border border-danger/40 bg-danger/10 px-3 py-2 text-xs font-semibold text-rose-100">
                       {item.period}
                     </p>
@@ -120,6 +122,7 @@ export default function ExperiencePage() {
                   {selectedExperience.role}
                 </h2>
                 <p className="mt-2 text-sm text-slate-300">{selectedExperience.place}</p>
+                <PartnerList partners={selectedExperience.partners} compact />
               </div>
               <button
                 type="button"

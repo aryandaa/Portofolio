@@ -4,6 +4,7 @@ import { technicalProjects } from "../data/projects.js";
 import ExternalLink from "../components/ExternalLink.jsx";
 import PageShell from "../components/PageShell.jsx";
 import Panel from "../components/Panel.jsx";
+import PartnerList from "../components/PartnerList.jsx";
 
 function ProjectDetailList({ icon: Icon, title, items }) {
   return (
@@ -54,6 +55,7 @@ export default function ProjectsPage() {
                   </span>
                 </div>
                 <p className="text-sm leading-7 text-slate-300">{project.description}</p>
+                <PartnerList partners={project.partners} compact />
                 <p className="mt-4 text-xs uppercase tracking-[0.22em] text-cyan">
                   Click card for more details
                 </p>
@@ -95,6 +97,7 @@ export default function ProjectsPage() {
 
             <div className="grid gap-6">
               <p className="text-sm leading-7 text-slate-300">{selectedProject.description}</p>
+              <PartnerList partners={selectedProject.partners} />
 
               <div className="grid gap-6 xl:grid-cols-3">
                 <ProjectDetailList

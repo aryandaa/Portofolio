@@ -2,6 +2,7 @@ import { Trophy } from "lucide-react";
 import { awards } from "../data/awards.js";
 import PageShell from "../components/PageShell.jsx";
 import Panel from "../components/Panel.jsx";
+import PartnerList from "../components/PartnerList.jsx";
 
 export default function AwardsPage() {
   return (
@@ -20,6 +21,7 @@ export default function AwardsPage() {
                 <p className="mt-3 text-sm leading-6 text-slate-300">
                   Published by <span className="text-white">{award.publisher}</span>
                 </p>
+                <PartnerList partners={award.partners} compact />
               </div>
             </div>
           </Panel>

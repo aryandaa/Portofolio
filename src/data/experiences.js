@@ -18,6 +18,9 @@ export const experiences = [
       "Delivered a capstone project as part of a remote apprenticeship workflow.",
       "Improved full-stack foundations from UI implementation to API integration.",
     ],
+    // Add partner names here. Use [] when the work was solo or partner names are not public.
+    // Example: partners: ["Partner Name", "Another Partner"],
+    partners: [],
     // Put files in public/assets/evidence, then register proof of work here.
     // Supported types: "image" for photos/screenshots, or "document" for PDF/DOCX/etc.
     // Example:
@@ -50,6 +53,7 @@ export const experiences = [
       "Built a community space for cybersecurity learners and practitioners.",
       "Created hands-on CTF material to help members understand real attack and defense patterns.",
     ],
+    partners: ["Aditya Rahman", "Muhammad Andika Anugerah", "Hipni", "Aide Rahman", "Muhammad Rezky Nor Rizali", "Rifki Al Ansyari"],
     // Example:
     // evidence: [
     //   {
@@ -80,6 +84,7 @@ export const experiences = [
       "Contributed to public-facing website interfaces for client needs.",
       "Balanced frontend implementation, backend support, and design asset creation in one internship role.",
     ],
+    partners: ["Bima Rizqy Prasurya", "Muhammad Hafiz Fansuri"],
     // Example:
     // evidence: [
     //   {
@@ -110,6 +115,7 @@ export const experiences = [
       "Reduced repetitive manual document creation through web-based automation.",
       "Supported a government institution workflow with a practical internal system.",
     ],
+    partners: ["Bima Rizqy Prasurya", "Siti Zahra Azizah", "Muhammad Sultan Nabil Akbar", "Aisyah Amini"],
     // Example:
     // evidence: [
     //   {
@@ -141,6 +147,7 @@ export const experiences = [
       "Created an interactive minigame campaign to encourage customer participation.",
       "Expanded the brand's online presence through web-based promotional tools.",
     ],
+    partners: ["Aditiya Noor Rahman", "Annida Afrilia", "Aisyah Amini", "Khairunnisa Zahra Ramanda Sari"],
     evidence: [
       {
         title: "Sertifikat Bahtera Mart",

@@ -15,6 +15,7 @@ import {
   MapPin,
   Phone,
   ShieldCheck,
+  Users,
 } from "lucide-react";
 import { profile } from "../data/profile.js";
 import { experiences } from "../data/experiences.js";
@@ -22,6 +23,7 @@ import { technicalProjects } from "../data/projects.js";
 import { certifications } from "../data/certifications.js";
 import { awards } from "../data/awards.js";
 import { booksRead } from "../data/books.js";
+import { researchRecords } from "../data/research.js";
 import ExternalLink from "../components/ExternalLink.jsx";
 import PageShell from "../components/PageShell.jsx";
 import Panel from "../components/Panel.jsx";
@@ -150,7 +152,48 @@ function getProjectDuration() {
   return formatProjectDuration(activeMonths.size, activeDays);
 }
 
+function addPartnerActivities(partnerMap, partners = [], activity) {
+  partners.forEach((partner) => {
+    const name = String(partner).trim();
+    const key = name.toLowerCase();
+
+    if (!name || key === "solo") return;
+
+    const current = partnerMap.get(key) ?? { name, activities: new Set() };
+    current.activities.add(activity);
+    partnerMap.set(key, current);
+  });
+}
+
+function getPartnerThanks() {
+  const partnerMap = new Map();
+
+  experiences.forEach((item) => {
+    addPartnerActivities(partnerMap, item.partners, `Experience: ${item.place}`);
+  });
+
+  technicalProjects.forEach((item) => {
+    addPartnerActivities(partnerMap, item.partners, `Project: ${item.name}`);
+  });
+
+  awards.forEach((item) => {
+    addPartnerActivities(partnerMap, item.partners, `Award: ${item.name}`);
+  });
+
+  researchRecords.forEach((item) => {
+    addPartnerActivities(partnerMap, item.partners, `Research: ${item.title}`);
+  });
+
+  return Array.from(partnerMap.values())
+    .map((partner) => ({
+      ...partner,
+      activities: Array.from(partner.activities),
+    }))
+    .sort((a, b) => b.activities.length - a.activities.length || a.name.localeCompare(b.name));
+}
+
 function PortfolioStats() {
+  const partnerCount = getPartnerThanks().length;
   const stats = [
     {
       label: "Experience Records",
@@ -184,6 +227,12 @@ function PortfolioStats() {
       icon: BookOpen,
       tone: "violet",
     },
+    {
+      label: "Partners",
+      value: partnerCount,
+      icon: Users,
+      tone: "blue",
+    },
   ];
 
   const toneStyles = {
@@ -192,10 +241,11 @@ function PortfolioStats() {
     yellow: "border-yellow-400/30 bg-yellow-400/10 text-yellow-300",
     green: "border-emerald-400/30 bg-emerald-400/10 text-emerald-300",
     violet: "border-plasma/30 bg-plasma/10 text-violet-200",
+    blue: "border-blue-400/30 bg-blue-400/10 text-blue-200",
   };
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
+    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
       {stats.map(({ label, value, detail, icon: Icon, tone }) => (
         <div
           key={label}
@@ -208,6 +258,57 @@ function PortfolioStats() {
         </div>
       ))}
     </div>
+  );
+}
+
+function PartnerThanks() {
+  const partners = getPartnerThanks();
+
+  return (
+    <Panel>
+      <SectionTitle kicker="Collaboration signal" title="Thank You, Partners" />
+      <p className="max-w-3xl text-sm leading-7 text-slate-300">
+        Thank you for everyone who has worked, competed, built, or researched with me. Hover or focus
+        each name to see the activities we have worked on together.
+      </p>
+
+      {partners.length > 0 ? (
+        <div className="mt-6 flex flex-wrap gap-3">
+          {partners.map((partner) => (
+            <div key={partner.name} className="group relative">
+              <button
+                type="button"
+                className="interactive-chip inline-flex items-center gap-3 border border-cyan/40 bg-cyan/10 px-4 py-3 text-left text-sm font-semibold text-cyan"
+              >
+                <Users className="h-4 w-4 shrink-0" aria-hidden="true" />
+                <span>{partner.name}</span>
+                <span className="border border-white/10 bg-white/10 px-2 py-0.5 text-xs text-white">
+                  {partner.activities.length}
+                </span>
+              </button>
+              <div className="pointer-events-none absolute bottom-full left-0 z-20 mb-3 w-72 translate-y-2 border border-cyan/30 bg-night/95 p-4 text-left opacity-0 shadow-neon backdrop-blur-md transition group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                <p className="mb-3 font-display text-xs uppercase tracking-[0.2em] text-cyan">
+                  Activities together
+                </p>
+                <div className="grid gap-2">
+                  {partner.activities.map((activity) => (
+                    <p key={activity} className="text-xs leading-5 text-slate-300">
+                      {activity}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="mt-6 border border-white/10 bg-white/[0.035] p-4">
+          <p className="text-sm leading-6 text-slate-300">
+            Partner names are ready to be shown here once you add them to the data files.
+          </p>
+        </div>
+      )}
+    </Panel>
   );
 }
 
@@ -394,6 +495,8 @@ export default function ProfilePage({ navigate }) {
           </div>
 
           <PortfolioStats />
+
+          <PartnerThanks />
         </div>
       }
     >

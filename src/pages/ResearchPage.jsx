@@ -1,6 +1,8 @@
 import { FileSearch, FlaskConical, Hourglass, RadioTower } from "lucide-react";
+import { researchRecords } from "../data/research.js";
 import PageShell from "../components/PageShell.jsx";
 import Panel from "../components/Panel.jsx";
+import PartnerList from "../components/PartnerList.jsx";
 
 export default function ResearchPage() {
   return (
@@ -53,6 +55,19 @@ export default function ResearchPage() {
           </div>
         </Panel>
       </div>
+
+      {researchRecords.length > 0 && (
+        <div className="mt-6 grid gap-4">
+          {researchRecords.map((research) => (
+            <Panel key={research.title} className="p-6">
+              <h2 className="font-display text-2xl font-bold text-white">{research.title}</h2>
+              <p className="mt-2 text-sm text-cyan">{research.field}</p>
+              <p className="mt-4 text-sm leading-7 text-slate-300">{research.abstract}</p>
+              <PartnerList partners={research.partners} />
+            </Panel>
+          ))}
+        </div>
+      )}
     </PageShell>
   );
 }

@@ -18,7 +18,7 @@
 //     doi: "",
 //     url: "",
 //   },
-//   collaborators: ["Collaborator Name", "Supervisor Name"],
+//   partners: ["Partner Name", "Supervisor Name"],
 //   links: {
 //     paper: "",
 //     presentation: "",
