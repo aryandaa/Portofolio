@@ -132,8 +132,8 @@ export default function CertificationsPage() {
     setZoom(1);
   };
 
-  const zoomOut = () => setZoom((current) => Math.max(0.75, Number((current - 0.25).toFixed(2))));
-  const zoomIn = () => setZoom((current) => Math.min(2.5, Number((current + 0.25).toFixed(2))));
+  const zoomOut = () => setZoom((current) => Math.max(0.5, Number((current - 0.25).toFixed(2))));
+  const zoomIn = () => setZoom((current) => Math.min(3, Number((current + 0.25).toFixed(2))));
   const resetZoom = () => setZoom(1);
 
   return (
@@ -198,14 +198,14 @@ export default function CertificationsPage() {
       </PageShell>
 
       {viewer && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-void/88 px-4 py-6 backdrop-blur-lg">
-          <div className="neon-border clip-corner flex max-h-[90vh] w-full max-w-7xl flex-col bg-night/95 p-5 shadow-neon">
-            <div className="mb-4 flex flex-wrap items-start justify-between gap-4 border-b border-white/10 pb-4">
-              <div>
+        <div className="fixed inset-0 z-50 grid place-items-center bg-void/88 p-2 backdrop-blur-lg sm:p-4 lg:p-6">
+          <div className="neon-border clip-corner flex h-[calc(100dvh-1rem)] w-full max-w-7xl flex-col bg-night/95 p-3 shadow-neon sm:h-[calc(100dvh-2rem)] sm:p-5 lg:max-h-[90vh]">
+            <div className="mb-3 grid gap-3 border-b border-white/10 pb-3 sm:mb-4 sm:flex sm:items-start sm:justify-between sm:gap-4 sm:pb-4">
+              <div className="min-w-0">
                 <p className="font-display text-xs uppercase tracking-[0.28em] text-cyan">
                   Certificate Viewer
                 </p>
-                <h2 className="mt-2 font-display text-2xl font-bold text-white">
+                <h2 className="mt-2 line-clamp-2 font-display text-lg font-bold text-white sm:text-2xl">
                   {viewer.certificate.name}
                 </h2>
                 <p className="mt-2 text-sm text-slate-300">
@@ -214,7 +214,7 @@ export default function CertificationsPage() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 sm:justify-end">
                 <button
                   type="button"
                   onClick={zoomOut}
@@ -244,7 +244,7 @@ export default function CertificationsPage() {
                   download
                   className="interactive-link inline-flex h-10 items-center gap-2 border border-cyan/60 bg-cyan/10 px-3 text-sm font-semibold text-cyan"
                 >
-                  <span>Download</span>
+                  <span className="hidden sm:inline">Download</span>
                   <Download className="h-4 w-4" aria-hidden="true" />
                 </a>
                 <button
@@ -258,34 +258,40 @@ export default function CertificationsPage() {
               </div>
             </div>
 
-            <div className="relative min-h-0 flex-1 overflow-auto border border-cyan/20 bg-void/80 p-4">
+            <div className="relative min-h-0 flex-1 overflow-auto border border-cyan/20 bg-void/80 p-2 sm:p-4">
               {viewer.certificate.images.length > 1 && (
-                <div className="sticky top-1/2 z-10 flex -translate-y-1/2 justify-between">
+                <div className="pointer-events-none sticky top-1/2 z-10 flex -translate-y-1/2 justify-between">
                   <button
                     type="button"
                     onClick={showPreviousImage}
-                    className="interactive-chip grid h-11 w-11 place-items-center border border-cyan/50 bg-void/85 text-cyan"
+                    className="interactive-chip pointer-events-auto grid h-10 w-10 place-items-center border border-cyan/50 bg-void/85 text-cyan sm:h-11 sm:w-11"
                     aria-label="Previous certificate image"
                   >
-                    <ChevronLeft className="h-6 w-6" aria-hidden="true" />
+                    <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
                   </button>
                   <button
                     type="button"
                     onClick={showNextImage}
-                    className="interactive-chip grid h-11 w-11 place-items-center border border-cyan/50 bg-void/85 text-cyan"
+                    className="interactive-chip pointer-events-auto grid h-10 w-10 place-items-center border border-cyan/50 bg-void/85 text-cyan sm:h-11 sm:w-11"
                     aria-label="Next certificate image"
                   >
-                    <ChevronRight className="h-6 w-6" aria-hidden="true" />
+                    <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
                   </button>
                 </div>
               )}
 
-              <div className="flex min-h-full items-center justify-center">
+              <div className="flex min-h-full min-w-full items-center justify-center">
                 <img
                   src={viewer.certificate.images[viewer.imageIndex]}
                   alt={`${viewer.certificate.name} certificate enlarged`}
-                  className="max-h-none max-w-none origin-center object-contain transition-transform"
-                  style={{ width: `${Math.round(900 * zoom)}px` }}
+                  className={`origin-center object-contain transition-[width] ${
+                    zoom > 1
+                      ? "max-h-none max-w-none"
+                      : "max-h-[72dvh] max-w-full sm:max-h-[70dvh]"
+                  }`}
+                  style={{
+                    width: zoom > 1 ? `${Math.round(900 * zoom)}px` : "min(100%, 900px)",
+                  }}
                 />
               </div>
             </div>

@@ -2,9 +2,9 @@ export const profile = {
   name: "M. Aryanda Sanggadiennata",
   title: "Information Systems Student | Full-Stack Web Developer | Cybersecurity Researcher",
   photos: [
-    "/assets/profile/foto 1.jpeg",
+    // "/assets/profile/foto 1.jpeg",
     "/assets/profile/foto 2.jpeg",
-    "/assets/profile/foto 3.jpeg",
+    // "/assets/profile/foto 3.jpeg",
   ],
   location: "Banjarmasin, South Kalimantan, Indonesia",
   phone: "+62 896-9277-8102",

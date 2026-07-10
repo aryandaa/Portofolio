@@ -3,6 +3,7 @@ import {
   Award,
   BadgeCheck,
   BriefcaseBusiness,
+  BookOpen,
   ChevronLeft,
   ChevronRight,
   FolderKanban,
@@ -20,6 +21,7 @@ import { experiences } from "../data/experiences.js";
 import { technicalProjects } from "../data/projects.js";
 import { certifications } from "../data/certifications.js";
 import { awards } from "../data/awards.js";
+import { booksRead } from "../data/books.js";
 import ExternalLink from "../components/ExternalLink.jsx";
 import PageShell from "../components/PageShell.jsx";
 import Panel from "../components/Panel.jsx";
@@ -176,6 +178,12 @@ function PortfolioStats() {
       icon: Award,
       tone: "green",
     },
+    {
+      label: "Books Read",
+      value: booksRead.length,
+      icon: BookOpen,
+      tone: "violet",
+    },
   ];
 
   const toneStyles = {
@@ -183,10 +191,11 @@ function PortfolioStats() {
     pink: "border-danger/30 bg-danger/10 text-rose-300",
     yellow: "border-yellow-400/30 bg-yellow-400/10 text-yellow-300",
     green: "border-emerald-400/30 bg-emerald-400/10 text-emerald-300",
+    violet: "border-plasma/30 bg-plasma/10 text-violet-200",
   };
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
+    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
       {stats.map(({ label, value, detail, icon: Icon, tone }) => (
         <div
           key={label}
