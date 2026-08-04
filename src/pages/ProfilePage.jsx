@@ -24,6 +24,7 @@ import { certifications } from "../data/certifications.js";
 import { awards } from "../data/awards.js";
 import { booksRead } from "../data/books.js";
 import { researchRecords } from "../data/research.js";
+import AssetPreview from "../components/AssetPreview.jsx";
 import ExternalLink from "../components/ExternalLink.jsx";
 import PageShell from "../components/PageShell.jsx";
 import Panel from "../components/Panel.jsx";
@@ -438,10 +439,11 @@ function ProfilePhotoCarousel() {
     <div className="relative mb-5 aspect-[4/5] overflow-hidden border border-cyan/30 bg-gradient-to-br from-plasma/30 via-cyan/10 to-danger/20">
       {photos.length > 0 ? (
         <>
-          <img
+          <AssetPreview
             src={photos[activeIndex]}
             alt={`${profile.name} profile ${activeIndex + 1}`}
-            className="h-full w-full object-cover transition-opacity"
+            className="h-full w-full transition-opacity"
+            imageClassName="object-cover"
           />
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_58%,rgba(7,9,20,.62))]" />
 

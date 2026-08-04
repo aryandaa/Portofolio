@@ -3,13 +3,16 @@ import {
   BriefcaseBusiness,
   CheckCircle2,
   Download,
+  ExternalLink,
   FileImage,
+  FileText,
   FolderOpen,
   Sparkles,
   Wrench,
   X,
 } from "lucide-react";
 import { experiences } from "../data/experiences.js";
+import AssetPreview, { isPdfAsset } from "../components/AssetPreview.jsx";
 import PageShell from "../components/PageShell.jsx";
 import Panel from "../components/Panel.jsx";
 import PartnerList from "../components/PartnerList.jsx";
@@ -135,29 +138,9 @@ export default function ExperiencePage() {
             </div>
 
             {selectedExperience.evidence.length > 0 ? (
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4">
                 {selectedExperience.evidence.map((item) => (
-                  <div key={item.url} className="interactive-row border border-white/10 bg-white/[0.035] p-4">
-                    <div className="mb-4 aspect-video overflow-hidden border border-cyan/20 bg-void/80">
-                      {item.type === "image" ? (
-                        <img src={item.url} alt={item.title} className="h-full w-full object-cover" />
-                      ) : (
-                        <div className="grid h-full place-items-center text-cyan">
-                          <FileImage className="h-12 w-12" aria-hidden="true" />
-                        </div>
-                      )}
-                    </div>
-                    <h3 className="font-display text-lg font-bold text-white">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-300">{item.description}</p>
-                    <a
-                      href={item.url}
-                      download
-                      className="interactive-link mt-4 inline-flex items-center gap-2 border border-cyan/60 bg-cyan/10 px-4 py-2 text-sm font-semibold text-cyan"
-                    >
-                      <span>Download Evidence</span>
-                      <Download className="h-4 w-4" aria-hidden="true" />
-                    </a>
-                  </div>
+                  <EvidenceCard key={item.url} item={item} />
                 ))}
               </div>
             ) : (
@@ -165,10 +148,10 @@ export default function ExperiencePage() {
                 <FileImage className="mb-4 h-8 w-8 text-cyan" aria-hidden="true" />
                 <h3 className="font-display text-xl font-bold text-white">Evidence is ready to be added</h3>
                 <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-300">
-                  Add photos, certificates, screenshots, or documents to{" "}
+                  Add photos, certificates, screenshots, or PDF documents to{" "}
                   <span className="text-cyan">public/assets/evidence/</span>, then register them in the
                   experience evidence list inside <span className="text-cyan">src/data/experiences.js</span>.
-                  Each registered file will appear here with a download button.
+                  PDF evidence will be previewed directly here and can also be opened or downloaded.
                 </p>
               </div>
             )}
@@ -176,5 +159,55 @@ export default function ExperiencePage() {
         </div>
       )}
     </>
+  );
+}
+
+function EvidenceCard({ item }) {
+  const isPdf = item.type === "pdf" || isPdfAsset(item.url);
+
+  return (
+    <div className="interactive-row border border-white/10 bg-white/[0.035] p-4">
+      <div
+        className={`mb-4 overflow-hidden border border-cyan/20 bg-void/80 ${
+          isPdf ? "h-[min(62vh,720px)]" : "aspect-video"
+        }`}
+      >
+        {item.type === "image" || isPdf ? (
+          <AssetPreview
+            src={item.url}
+            alt={item.title}
+            className="h-full w-full"
+            imageClassName="object-cover"
+          />
+        ) : (
+          <div className="grid h-full place-items-center text-cyan">
+            <FileText className="h-12 w-12" aria-hidden="true" />
+          </div>
+        )}
+      </div>
+      <h3 className="font-display text-lg font-bold text-white">{item.title}</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-300">{item.description}</p>
+      <div className="mt-4 flex flex-wrap gap-3">
+        {isPdf && (
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noreferrer"
+            className="interactive-link inline-flex items-center gap-2 border border-cyan/60 bg-cyan/10 px-4 py-2 text-sm font-semibold text-cyan"
+          >
+            <span>Open PDF</span>
+            <ExternalLink className="h-4 w-4" aria-hidden="true" />
+          </a>
+        )}
+        <a
+          href={item.url}
+          download
+          className="interactive-link inline-flex items-center gap-2 border border-cyan/60 bg-cyan/10 px-4 py-2 text-sm font-semibold text-cyan"
+        >
+          <span>Download Evidence</span>
+          <Download className="h-4 w-4" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
   );
 }

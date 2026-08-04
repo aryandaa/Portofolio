@@ -1,5 +1,15 @@
 export const certifications = [
   {
+    name: "Certificate Of Completion CodingCamp 2026",
+    type: "Certificate",
+    date: "July 2026",
+    issuer: "Dicoding Indonesia",
+    category: "Full Stack",
+    images: [
+      "/assets/certificates/[Coding Camp 2026] Certificate - CFCC524D6Y0161.pdf"
+    ],
+  },
+  {
     name: "Belajar Fundamental Back-End Dengan Javascript",
     type: "Certificate",
     date: "May 2026 - May 2029",

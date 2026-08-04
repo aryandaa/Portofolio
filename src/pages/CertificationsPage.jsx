@@ -4,6 +4,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Download,
+  ExternalLink,
   FileImage,
   Minus,
   Plus,
@@ -11,6 +12,7 @@ import {
   X,
 } from "lucide-react";
 import { certifications } from "../data/certifications.js";
+import AssetPreview, { isPdfAsset } from "../components/AssetPreview.jsx";
 import PageShell from "../components/PageShell.jsx";
 import Panel from "../components/Panel.jsx";
 
@@ -18,7 +20,7 @@ function CertificateImageCarousel({ certificate, onOpen }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const images = certificate.images;
   const hasMultipleImages = images.length > 1;
-  const activeImage = images[activeIndex];
+  const activeAsset = images[activeIndex];
 
   const showPrevious = () => {
     setActiveIndex((current) => (current === 0 ? images.length - 1 : current - 1));
@@ -31,27 +33,36 @@ function CertificateImageCarousel({ certificate, onOpen }) {
   return (
     <div className="mb-5 overflow-hidden border border-cyan/20 bg-void/75">
       <div className="relative aspect-[16/10]">
-        {activeImage ? (
-          <button
-            type="button"
-            onClick={() => onOpen(certificate, activeIndex)}
-            className="block h-full w-full"
-          >
-            <img
-              src={activeImage}
+        {activeAsset ? (
+          isPdfAsset(activeAsset) ? (
+            <AssetPreview
+              src={activeAsset}
               alt={`${certificate.name} certificate ${activeIndex + 1}`}
-              className="h-full w-full object-cover"
+              className="h-full w-full"
             />
-          </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => onOpen(certificate, activeIndex)}
+              className="block h-full w-full"
+            >
+              <AssetPreview
+                src={activeAsset}
+                alt={`${certificate.name} certificate ${activeIndex + 1}`}
+                className="h-full w-full"
+                imageClassName="object-cover"
+              />
+            </button>
+          )
         ) : (
           <div className="grid h-full place-items-center bg-[linear-gradient(135deg,rgba(34,211,238,.08),rgba(139,92,246,.1),rgba(255,46,99,.08))] p-5 text-center">
             <div>
               <FileImage className="mx-auto mb-3 h-9 w-9 text-cyan" aria-hidden="true" />
               <p className="font-display text-xs uppercase tracking-[0.24em] text-cyan">
-                Certificate Image
+                Certificate Asset
               </p>
               <p className="mt-2 text-xs leading-5 text-slate-400">
-                Add image files to public/assets/certificates
+                Add image or PDF files to public/assets/certificates
               </p>
             </div>
           </div>
@@ -135,6 +146,8 @@ export default function CertificationsPage() {
   const zoomOut = () => setZoom((current) => Math.max(0.5, Number((current - 0.25).toFixed(2))));
   const zoomIn = () => setZoom((current) => Math.min(3, Number((current + 0.25).toFixed(2))));
   const resetZoom = () => setZoom(1);
+  const viewerAsset = viewer?.certificate.images[viewer?.imageIndex];
+  const viewerIsPdf = isPdfAsset(viewerAsset);
 
   return (
     <>
@@ -209,38 +222,53 @@ export default function CertificationsPage() {
                   {viewer.certificate.name}
                 </h2>
                 <p className="mt-2 text-sm text-slate-300">
-                  {viewer.certificate.issuer} | Image {viewer.imageIndex + 1} of{" "}
+                  {viewer.certificate.issuer} | {viewerIsPdf ? "PDF" : "Image"} {viewer.imageIndex + 1} of{" "}
                   {viewer.certificate.images.length}
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-2 sm:justify-end">
-                <button
-                  type="button"
-                  onClick={zoomOut}
-                  className="interactive-chip grid h-10 w-10 place-items-center border border-cyan/50 bg-cyan/10 text-cyan"
-                  aria-label="Zoom out"
-                >
-                  <Minus className="h-4 w-4" aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  onClick={resetZoom}
-                  className="interactive-chip inline-flex h-10 items-center gap-2 border border-cyan/50 bg-cyan/10 px-3 text-sm font-semibold text-cyan"
-                >
-                  <RotateCcw className="h-4 w-4" aria-hidden="true" />
-                  <span>{Math.round(zoom * 100)}%</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={zoomIn}
-                  className="interactive-chip grid h-10 w-10 place-items-center border border-cyan/50 bg-cyan/10 text-cyan"
-                  aria-label="Zoom in"
-                >
-                  <Plus className="h-4 w-4" aria-hidden="true" />
-                </button>
+                {!viewerIsPdf && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={zoomOut}
+                      className="interactive-chip grid h-10 w-10 place-items-center border border-cyan/50 bg-cyan/10 text-cyan"
+                      aria-label="Zoom out"
+                    >
+                      <Minus className="h-4 w-4" aria-hidden="true" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={resetZoom}
+                      className="interactive-chip inline-flex h-10 items-center gap-2 border border-cyan/50 bg-cyan/10 px-3 text-sm font-semibold text-cyan"
+                    >
+                      <RotateCcw className="h-4 w-4" aria-hidden="true" />
+                      <span>{Math.round(zoom * 100)}%</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={zoomIn}
+                      className="interactive-chip grid h-10 w-10 place-items-center border border-cyan/50 bg-cyan/10 text-cyan"
+                      aria-label="Zoom in"
+                    >
+                      <Plus className="h-4 w-4" aria-hidden="true" />
+                    </button>
+                  </>
+                )}
+                {viewerIsPdf && (
+                  <a
+                    href={viewerAsset}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="interactive-link inline-flex h-10 items-center gap-2 border border-cyan/60 bg-cyan/10 px-3 text-sm font-semibold text-cyan"
+                  >
+                    <span className="hidden sm:inline">Open PDF</span>
+                    <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                  </a>
+                )}
                 <a
-                  href={viewer.certificate.images[viewer.imageIndex]}
+                  href={viewerAsset}
                   download
                   className="interactive-link inline-flex h-10 items-center gap-2 border border-cyan/60 bg-cyan/10 px-3 text-sm font-semibold text-cyan"
                 >
@@ -281,18 +309,26 @@ export default function CertificationsPage() {
               )}
 
               <div className="flex min-h-full min-w-full items-center justify-center">
-                <img
-                  src={viewer.certificate.images[viewer.imageIndex]}
-                  alt={`${viewer.certificate.name} certificate enlarged`}
-                  className={`origin-center object-contain transition-[width] ${
-                    zoom > 1
-                      ? "max-h-none max-w-none"
-                      : "max-h-[72dvh] max-w-full sm:max-h-[70dvh]"
-                  }`}
-                  style={{
-                    width: zoom > 1 ? `${Math.round(900 * zoom)}px` : "min(100%, 900px)",
-                  }}
-                />
+                {viewerIsPdf ? (
+                  <AssetPreview
+                    src={viewerAsset}
+                    alt={`${viewer.certificate.name} certificate`}
+                    className="h-full min-h-[60dvh] w-full"
+                  />
+                ) : (
+                  <AssetPreview
+                    src={viewerAsset}
+                    alt={`${viewer.certificate.name} certificate enlarged`}
+                    className={`origin-center object-contain transition-[width] ${
+                      zoom > 1
+                        ? "max-h-none max-w-none"
+                        : "max-h-[72dvh] max-w-full sm:max-h-[70dvh]"
+                    }`}
+                    style={{
+                      width: zoom > 1 ? `${Math.round(900 * zoom)}px` : "min(100%, 900px)",
+                    }}
+                  />
+                )}
               </div>
             </div>
           </div>

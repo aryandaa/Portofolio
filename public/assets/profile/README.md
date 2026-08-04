@@ -1,4 +1,4 @@
-Place profile photos here.
+Place profile photos here. Image formats are recommended; PDF files are also supported for preview when needed.
 
 After adding photos, register them in `src/data/profile.js`:
 

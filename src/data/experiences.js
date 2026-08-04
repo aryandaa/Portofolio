@@ -1,6 +1,31 @@
 export const experiences = [
   {
     role: "Full Stack Engineer",
+    place: "PT Inovasi Informatik Sinergi (Open Synergic) - Internship (On-Site)",
+    period: "Juli 2026 - Present",
+    description:
+      "Configured development environments, integrated administrative panels using Laravel Filament, learned codebase architectures for system management projects, and engaged in technical competitive preparation.",
+    overview:
+      "Participated in an on-site engineering internship focused on PHP/Laravel ecosystem development, system maintenance for management platforms (OJT & OJS), and routing/UI enhancements.",
+    responsibilities: [
+      "Configured local Linux Debian development environments and installed required project dependencies following Workpath specifications.",
+      "Studied Filament framework architecture and integrated admin panel interfaces into OJT and OJS management systems.",
+      "Populated initial mock/test data to evaluate data visualization and UI components within management modules.",
+      "Implemented routing logic, URL redirections, and target-blank navigation behavior for external resources.",
+      "Analyzed existing Laravel codebase to understand project structure, module integrations, and full-stack application workflow.",
+    ],
+    technologies: ["Linux Debian", "PHP", "Laravel", "Filament", "Git"],
+    highlights: [
+      "Successfully established a stable Linux Debian work station tailored for company development workflows.",
+      "Integrated Filament admin panels into existing OJT and OJS web management systems.",
+    ],
+    partners: ["Aditya Rahman", "Linggar Anugerah Wijaya"],
+    // Put files in public/assets/evidence, then register proof of work here.
+    // Use type: "pdf" for PDF evidence; it will be previewed in the evidence modal.
+    evidence: [],
+  },
+  {
+    role: "Full Stack Engineer",
     place: "CodingCamp 2026 by Dicoding & DBS Foundation - Apprenticeship (Remote)",
     period: "February 2026 - July 2026",
     description:
@@ -22,17 +47,25 @@ export const experiences = [
     // Example: partners: ["Partner Name", "Another Partner"],
     partners: [],
     // Put files in public/assets/evidence, then register proof of work here.
-    // Supported types: "image" for photos/screenshots, or "document" for PDF/DOCX/etc.
+    // Supported types: "image" for photos/screenshots, "pdf" for previewable PDFs,
+    // or "document" for other downloadable files such as DOCX.
     // Example:
     // evidence: [
     //   {
     //     title: "Capstone project presentation",
-    //     type: "image",
-    //     url: "/assets/evidence/codingcamp-presentation.jpg",
-    //     description: "Presentation documentation from the final capstone project.",
+    //     type: "pdf",
+    //     url: "/assets/evidence/codingcamp-certificate.pdf",
+    //     description: "Certificate from the CodingCamp apprenticeship.",
     //   },
     // ],
-    evidence: [],
+    evidence: [
+      {
+        title: "Graduation Letter",
+        type: "pdf",
+        url: "/assets/evidence/[Coding Camp 2026] Graduation Letter - CFCC524D6Y0161.pdf",
+        description: "Graduation Letter from the CodingCamp apprenticeship.",
+      }
+    ],
   },
   {
     role: "Founder & Cryptography Security Researcher",
