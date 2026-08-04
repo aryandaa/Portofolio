@@ -6,6 +6,7 @@ import {
   BriefcaseBusiness,
   ChevronUp,
   FileSearch,
+  Images,
   Home,
   IdCard,
   Menu,
@@ -19,6 +20,7 @@ import AwardsPage from "./pages/AwardsPage.jsx";
 import BooksPage from "./pages/BooksPage.jsx";
 import ExperiencePage from "./pages/ExperiencePage.jsx";
 import ResearchPage from "./pages/ResearchPage.jsx";
+import GalleryPage from "./pages/GalleryPage.jsx";
 import CyberCursor from "./components/CyberCursor.jsx";
 import CodeRain from "./components/CodeRain.jsx";
 
@@ -28,6 +30,7 @@ const pages = [
   { id: "projects", label: "Technical Project", icon: Cpu, component: ProjectsPage },
   { id: "certifications", label: "Certifications", icon: IdCard, component: CertificationsPage },
   { id: "awards", label: "Awards", icon: Award, component: AwardsPage },
+  { id: "gallery", label: "Gallery", icon: Images, component: GalleryPage },
   { id: "research", label: "Research", icon: FileSearch, component: ResearchPage },
   { id: "books", label: "Books Read", icon: BookOpen, component: BooksPage },
 ];
@@ -170,14 +173,14 @@ export default function App() {
 
           <button
             type="button"
-            className="interactive-chip grid h-11 w-11 place-items-center border border-plasma/40 bg-plasma/10 text-plasma lg:hidden"
+            className="interactive-chip grid h-11 w-11 place-items-center border border-plasma/40 bg-plasma/10 text-plasma xl:hidden"
             onClick={() => setIsMenuOpen((value) => !value)}
             aria-label="Toggle navigation"
           >
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
 
-          <div className="hidden items-center gap-2 lg:flex">
+          <div className="hidden items-center gap-2 xl:flex">
             {pages.map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
@@ -197,7 +200,7 @@ export default function App() {
         </nav>
 
         {isMenuOpen && (
-          <div className="border-t border-white/10 bg-night/95 px-4 py-4 lg:hidden">
+          <div className="border-t border-white/10 bg-night/95 px-4 py-4 xl:hidden">
             <div className="grid gap-2">
               {pages.map(({ id, label, icon: Icon }) => (
                 <button

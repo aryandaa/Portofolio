@@ -1,5 +1,15 @@
 export const certifications = [
   {
+    name: "English For Business Communication",
+    type: "Certificate",
+    date: "July 2026",
+    issuer: "Dicoding Indonesia",
+    category: "English",
+    images: [
+      "/assets/certificates/47_.Dicoding7.pdf"
+    ],
+  },
+  {
     name: "Certificate Of Completion CodingCamp 2026",
     type: "Certificate",
     date: "July 2026",

@@ -35,6 +35,7 @@ const pageButtons = [
   ["experience", "Experience Details"],
   ["certifications", "Certifications & Licenses"],
   ["awards", "Honorary and Awards"],
+  ["gallery", "Gallery"],
   ["research", "Research"],
   ["books", "Books Read"],
 ];
