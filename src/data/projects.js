@@ -7,14 +7,14 @@ export const technicalProjects = [
     description:
       `CodeLearn (learning-web-aryanda) is a personal learning platform that I developed end-to-end as both the full-stack developer and the author of all its content. Every learning material is written by me as Markdown notes in an Obsidian Vault, which acts as the single source of truth. A modular 8-stage Node.js parser pipeline (SCAN, VALIDATE, INDEX, RESOLVE, RENDER, COPY ASSETS, WRITE, PUBLISH) then transforms that vault into a fully static React website, turning my study notes into an interactive learning platform with no backend and no database.
 
-      In general, the system functions as a complete personal learning hub. It contains 441 notes across 4 fields (CyberSecurity, DevOps, Jaringan, Pemrograman), 30 branching learning roadmaps, a knowledge graph connecting 441 notes with 396 links, fuzzy search across all material, an interactive code editor that runs 7 languages (JavaScript, TypeScript, HTML, CSS, PHP, Python, SQL) fully in the browser, and a cybersecurity workstation with 108 CySec and OSINT tools that also run 100% client-side.
+      In general, the system functions as a complete personal learning hub. It contains 500+ notes across 4 fields (CyberSecurity, DevOps, Jaringan, Pemrograman), 30+ branching learning roadmaps, a knowledge graph connecting 500+ notes with hundreds of links, fuzzy search across all material, an interactive code editor that runs 7 languages (JavaScript, TypeScript, HTML, CSS, PHP, Python, SQL) fully in the browser, and a cybersecurity workstation with 108 CySec and OSINT tools that also run 100% client-side.
 
       This project entry presents a comprehensive technical analysis of the system I built, written as a technical portfolio piece covering architecture, features, code quality, security, performance, findings, and recommendations. The entire analysis was performed read-only, without modifying a single line of the system's code.`,
     stack: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "Node.js", "Obsidian", "System Architecture Analysis", "Security Analysis", "Performance Analysis"],
     features: [
       "Personal learning platform built end-to-end (frontend, parser pipeline, deployment).",
-      "441 notes across 4 fields with 30 branching learning roadmaps.",
-      "Knowledge graph with 441 nodes and 396 links between notes.",
+      "500+ notes across 4 fields with 30+ branching learning roadmaps.",
+      "Knowledge graph with 500+ nodes and hundreds of links between notes.",
       "Interactive code editor running 7 languages (JS, TS, HTML, CSS, PHP, Python, SQL) fully client-side.",
       "Cybersecurity workstation with 108 CySec and OSINT tools running 100% in the browser.",
       "Fuzzy search, dark/light theme, and fully static hosting without backend or database.",
