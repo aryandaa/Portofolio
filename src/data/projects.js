@@ -1,34 +1,34 @@
 export const technicalProjects = [
   {
-    name: "Analisis Sistem CodeLearn",
-    role: "System Analyst & Technical Writer",
+    name: "CodeLearn",
+    role: "Full-Stack Developer & Content Author",
     institution: "Personal Portfolio Project",
     period: "August 2026",
     description:
-      `CodeLearn (learning-web-aryanda) is a personal learning platform that turns an Obsidian Markdown vault into a complete static learning website. This project is a comprehensive technical analysis report of the CodeLearn system, written as a technical portfolio piece covering architecture, features, code quality, security, performance, findings, and recommendations. The entire analysis was performed read-only, without modifying a single line of the system's code.
+      `CodeLearn (learning-web-aryanda) is a personal learning platform that I developed end-to-end as both the full-stack developer and the author of all its content. Every learning material is written by me as Markdown notes in an Obsidian Vault, which acts as the single source of truth. A modular 8-stage Node.js parser pipeline (SCAN, VALIDATE, INDEX, RESOLVE, RENDER, COPY ASSETS, WRITE, PUBLISH) then transforms that vault into a fully static React website, turning my study notes into an interactive learning platform with no backend and no database.
 
-      The analyzed system follows a Content-as-Code pattern: all learning material is written as Markdown in an Obsidian Vault (source of truth), and a modular 8-stage Node.js parser pipeline (SCAN → VALIDATE → INDEX → RESOLVE → RENDER → COPY ASSETS → WRITE → PUBLISH) transforms it into a fully static React website — 441 notes across 4 fields, 30 learning roadmaps, a knowledge graph with 441 nodes and 396 links, an interactive code editor supporting 7 languages running 100% client-side (Pyodide, php-wasm, sql.js), and a cybersecurity workstation with 108 tools running entirely in the browser without a backend or database.
+      In general, the system functions as a complete personal learning hub. It contains 441 notes across 4 fields (CyberSecurity, DevOps, Jaringan, Pemrograman), 30 branching learning roadmaps, a knowledge graph connecting 441 notes with 396 links, fuzzy search across all material, an interactive code editor that runs 7 languages (JavaScript, TypeScript, HTML, CSS, PHP, Python, SQL) fully in the browser, and a cybersecurity workstation with 108 CySec and OSINT tools that also run 100% client-side.
 
-      The report documents the automated sync flow across three connected repositories (Obsidian Vault → GitHub Actions → Vercel), the parser plugin ecosystem, functional analysis of every core feature, codebase statistics, health checks (0 typecheck errors, 44/44 crypto selfchecks, 48/48 OSINT selfchecks), a layered security posture review, performance and bundle analysis, 15 prioritized findings (including a subpath deployment bug and 58 unnoticed vault content issues), and prioritized recommendations (P1–P4).`,
-    stack: ["System Architecture Analysis", "Code Review", "Security Analysis", "Performance Analysis", "React 18", "TypeScript", "Vite", "Tailwind CSS", "Node.js", "Obsidian"],
+      This project entry presents a comprehensive technical analysis of the system I built, written as a technical portfolio piece covering architecture, features, code quality, security, performance, findings, and recommendations. The entire analysis was performed read-only, without modifying a single line of the system's code.`,
+    stack: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "Node.js", "Obsidian", "System Architecture Analysis", "Security Analysis", "Performance Analysis"],
     features: [
-      "Full read-only technical analysis of the CodeLearn learning platform.",
-      "Documented end-to-end architecture, data flow, and 8-stage parser pipeline.",
-      "Functional analysis of docs explorer, fuzzy search, knowledge graph, roadmaps, 7-language code editor, and 108 CySec/OSINT tools.",
-      "Health checks: typecheck 0 errors, crypto selfcheck 44/44, OSINT selfcheck 48/48.",
-      "Security posture review covering sanitization, iframe sandboxing, and CI safety checks.",
-      "Performance analysis of bundles, lazy-loading strategy, and 48 MB dist output.",
-      "15 prioritized findings with 8 prioritized recommendations (P1–P4).",
+      "Personal learning platform built end-to-end (frontend, parser pipeline, deployment).",
+      "441 notes across 4 fields with 30 branching learning roadmaps.",
+      "Knowledge graph with 441 nodes and 396 links between notes.",
+      "Interactive code editor running 7 languages (JS, TS, HTML, CSS, PHP, Python, SQL) fully client-side.",
+      "Cybersecurity workstation with 108 CySec and OSINT tools running 100% in the browser.",
+      "Fuzzy search, dark/light theme, and fully static hosting without backend or database.",
+      "Comprehensive read-only analysis report: 0 typecheck errors, crypto selfcheck 44/44, OSINT selfcheck 48/48, 15 findings, and prioritized recommendations (P1 to P4).",
     ],
     responsibilities: [
-      "Performed a read-only (no code modified) system analysis of CodeLearn.",
-      "Mapped the Obsidian vault → parser pipeline → React static site data flow.",
-      "Audited code quality, security model, performance, and vault data health.",
-      "Compiled findings and prioritized recommendations into a structured report.",
+      "Designed and developed the full platform: React frontend, 8-stage parser pipeline, and automated sync from Obsidian Vault to Vercel.",
+      "Wrote all learning material as Markdown in the Obsidian Vault across 4 fields.",
+      "Implemented the browser code editor runtimes (Pyodide, php-wasm, sql.js) and the 108 security tools.",
+      "Performed a read-only technical analysis and compiled findings with prioritized recommendations.",
     ],
-    outcome: "Delivered a comprehensive technical portfolio report on CodeLearn's architecture, quality, security, and performance, with clear prioritized improvement recommendations.",
+    outcome: "Delivered a production-quality personal learning platform, plus a comprehensive technical portfolio report documenting its architecture, quality, security, and performance with prioritized improvement recommendations.",
     partners: [],
-    projectUrl: "",
+    projectUrl: "https://learning-web-aryanda.vercel.app/",
     githubUrl: "https://github.com/aryandaa/Learning-Web-Aryanda",
   },
 
