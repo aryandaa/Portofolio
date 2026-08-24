@@ -1,5 +1,38 @@
 export const technicalProjects = [
   {
+    name: "Analisis Sistem CodeLearn",
+    role: "System Analyst & Technical Writer",
+    institution: "Personal Portfolio Project",
+    period: "August 2026",
+    description:
+      `CodeLearn (learning-web-aryanda) is a personal learning platform that turns an Obsidian Markdown vault into a complete static learning website. This project is a comprehensive technical analysis report of the CodeLearn system, written as a technical portfolio piece covering architecture, features, code quality, security, performance, findings, and recommendations. The entire analysis was performed read-only, without modifying a single line of the system's code.
+
+      The analyzed system follows a Content-as-Code pattern: all learning material is written as Markdown in an Obsidian Vault (source of truth), and a modular 8-stage Node.js parser pipeline (SCAN → VALIDATE → INDEX → RESOLVE → RENDER → COPY ASSETS → WRITE → PUBLISH) transforms it into a fully static React website — 441 notes across 4 fields, 30 learning roadmaps, a knowledge graph with 441 nodes and 396 links, an interactive code editor supporting 7 languages running 100% client-side (Pyodide, php-wasm, sql.js), and a cybersecurity workstation with 108 tools running entirely in the browser without a backend or database.
+
+      The report documents the automated sync flow across three connected repositories (Obsidian Vault → GitHub Actions → Vercel), the parser plugin ecosystem, functional analysis of every core feature, codebase statistics, health checks (0 typecheck errors, 44/44 crypto selfchecks, 48/48 OSINT selfchecks), a layered security posture review, performance and bundle analysis, 15 prioritized findings (including a subpath deployment bug and 58 unnoticed vault content issues), and prioritized recommendations (P1–P4).`,
+    stack: ["System Architecture Analysis", "Code Review", "Security Analysis", "Performance Analysis", "React 18", "TypeScript", "Vite", "Tailwind CSS", "Node.js", "Obsidian"],
+    features: [
+      "Full read-only technical analysis of the CodeLearn learning platform.",
+      "Documented end-to-end architecture, data flow, and 8-stage parser pipeline.",
+      "Functional analysis of docs explorer, fuzzy search, knowledge graph, roadmaps, 7-language code editor, and 108 CySec/OSINT tools.",
+      "Health checks: typecheck 0 errors, crypto selfcheck 44/44, OSINT selfcheck 48/48.",
+      "Security posture review covering sanitization, iframe sandboxing, and CI safety checks.",
+      "Performance analysis of bundles, lazy-loading strategy, and 48 MB dist output.",
+      "15 prioritized findings with 8 prioritized recommendations (P1–P4).",
+    ],
+    responsibilities: [
+      "Performed a read-only (no code modified) system analysis of CodeLearn.",
+      "Mapped the Obsidian vault → parser pipeline → React static site data flow.",
+      "Audited code quality, security model, performance, and vault data health.",
+      "Compiled findings and prioritized recommendations into a structured report.",
+    ],
+    outcome: "Delivered a comprehensive technical portfolio report on CodeLearn's architecture, quality, security, and performance, with clear prioritized improvement recommendations.",
+    partners: [],
+    projectUrl: "",
+    githubUrl: "https://github.com/aryandaa/Learning-Web-Aryanda",
+  },
+
+  {
     name: "Faculty of Social and Political Sciences Website Redesign",
     role: "UI/UX & Frontend Developer",
     institution: "Universitas Lambung Mangkurat",
