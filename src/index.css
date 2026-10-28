@@ -173,3 +173,12 @@
   background: #fde047;
   border: 2px solid #ffffff;
 }
+
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}

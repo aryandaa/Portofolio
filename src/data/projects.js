@@ -100,7 +100,7 @@ export const technicalProjects = [
     institution: "iTech Poliban",
     period: "October 2025 - November 2025",
     description:
-      `EduQuestify is an integrated educational information system that combines digital learning with elements of gamification. This project was developed by Team Syntara – Politeknik Negeri Banjarmasin, with the goal of creating a more interactive, engaging, and enjoyable learning experience for both students and lecturers.
+      `EduQuestify is an integrated educational information system that combines digital learning with elements of gamification. This project was developed by Team Syntara (Politeknik Negeri Banjarmasin), with the goal of creating a more interactive, engaging, and enjoyable learning experience for both students and lecturers.
 
       Through a level-based learning concept, every activity such as reading materials, completing tasks, or joining events grants experience points (EXP) that increase the user’s level. This approach turns the learning process into a game-like experience, encouraging students to continuously grow while remaining academically productive.
 

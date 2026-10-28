@@ -11,7 +11,7 @@ export default function ThemeToggle({ className = "" }) {
       onClick={toggleTheme}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className={`neo-btn rounded-xl px-3.5 py-1.5 text-xs uppercase tracking-wider ${
+      className={`neo-btn rounded-xl p-2 sm:px-3 sm:py-1.5 text-xs font-black uppercase tracking-wider flex items-center gap-1.5 ${
         isDark
           ? "bg-neo-yellow text-black hover:bg-amber-300 dark:bg-neo-yellow dark:text-black"
           : "bg-neo-yellow text-black hover:bg-amber-300"
@@ -24,7 +24,7 @@ export default function ThemeToggle({ className = "" }) {
           <Sun className="h-3.5 w-3.5 stroke-[2.5]" aria-hidden="true" />
         )}
       </span>
-      <span>{isDark ? "DARK MODE" : "LIGHT MODE"}</span>
+      <span className="hidden md:inline">{isDark ? "DARK" : "LIGHT"}</span>
     </button>
   );
 }

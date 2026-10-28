@@ -12,11 +12,9 @@ import {
   Instagram,
   Linkedin,
   Mail,
-  Menu,
   ShieldCheck,
   Sparkles,
   User,
-  X,
 } from "lucide-react";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import ProjectsPage from "./pages/ProjectsPage.jsx";
@@ -35,9 +33,9 @@ const pages = [
   { id: "profile", label: "Profile", keyNum: "1", icon: User, component: ProfilePage },
   { id: "projects", label: "Projects", keyNum: "2", icon: Code2, component: ProjectsPage },
   { id: "experience", label: "Experience", keyNum: "3", icon: BriefcaseBusiness, component: ExperiencePage },
-  { id: "certifications", label: "Certifications", keyNum: "4", icon: ShieldCheck, component: CertificationsPage },
+  { id: "certifications", label: "Certs", keyNum: "4", icon: ShieldCheck, component: CertificationsPage },
   { id: "awards", label: "Awards", keyNum: "5", icon: Award, component: AwardsPage },
-  { id: "books", label: "Books Read", keyNum: "6", icon: BookOpen, component: BooksPage },
+  { id: "books", label: "Books", keyNum: "6", icon: BookOpen, component: BooksPage },
   { id: "gallery", label: "Gallery", keyNum: "7", icon: Images, component: GalleryPage },
   { id: "research", label: "Research", keyNum: "8", icon: FileSearch, component: ResearchPage },
 ];
@@ -49,7 +47,6 @@ function getInitialPage() {
 
 function PortfolioContent() {
   const [activePage, setActivePage] = useState(getInitialPage);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const { showToast } = useToast();
 
@@ -88,13 +85,9 @@ function PortfolioContent() {
   );
 
   const navigate = (pageId) => {
-    if (pageId === activePage) {
-      setIsMenuOpen(false);
-      return;
-    }
+    if (pageId === activePage) return;
     window.location.hash = pageId;
     setActivePage(pageId);
-    setIsMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -134,28 +127,9 @@ function PortfolioContent() {
 
       {/* Main Neobrutalist Header */}
       <header className="sticky top-0 z-40 border-b-[3px] border-black bg-white dark:border-white dark:bg-neo-darkcard">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          {/* Logo Brand Stamp */}
-          <button
-            type="button"
-            onClick={() => navigate("profile")}
-            className="group flex shrink-0 items-center gap-2.5 text-left transition-transform active:translate-y-0.5"
-          >
-            <div className="neo-btn h-10 w-10 shrink-0 rounded-xl bg-neo-green text-sm font-black text-black group-hover:bg-emerald-300 dark:bg-neo-sky dark:text-black p-0 flex items-center justify-center">
-              AS
-            </div>
-            <div className="flex items-center gap-2 whitespace-nowrap">
-              <span className="font-display text-base sm:text-lg font-black uppercase tracking-tight text-black dark:text-white whitespace-nowrap">
-                Aryanda S.
-              </span>
-              <span className="neo-badge rounded-md bg-neo-yellow px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-black border border-black dark:border-white whitespace-nowrap">
-                Dev // CyberSec
-              </span>
-            </div>
-          </button>
-
-          {/* Desktop Navigation with Keypress Badges */}
-          <nav className="hidden items-center gap-2 xl:flex" aria-label="Main Navigation">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 sm:gap-3 px-2 sm:px-4 lg:px-6">
+          {/* Main Navigation Menu Buttons */}
+          <nav className="flex flex-1 items-center justify-start gap-1 sm:gap-1.5 xl:gap-2 overflow-x-auto py-1 scrollbar-none" aria-label="Main Navigation">
             {pages.map(({ id, label, keyNum, icon: Icon }) => {
               const isActive = activePage === id;
               return (
@@ -164,7 +138,7 @@ function PortfolioContent() {
                   type="button"
                   onClick={() => navigate(id)}
                   title={`Press ${keyNum} to jump to ${label}`}
-                  className={`neo-btn flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-black uppercase tracking-wider transition-all duration-150 ${
+                  className={`neo-btn shrink-0 flex items-center gap-1.5 rounded-xl px-2 sm:px-2.5 xl:px-3 py-1.5 text-[11px] font-black uppercase tracking-wider transition-all duration-150 ${
                     isActive
                       ? "bg-neo-yellow text-black shadow-brutal-sm dark:bg-neo-yellow dark:text-black dark:border-white"
                       : "bg-white text-black hover:bg-neo-palegreen dark:bg-[#1f2430] dark:text-white dark:hover:bg-[#2c3444]"
@@ -180,56 +154,11 @@ function PortfolioContent() {
             })}
           </nav>
 
-          {/* Right Controls: Theme Toggle & Mobile Menu */}
-          <div className="flex items-center gap-3">
+          {/* Right Controls: Theme Toggle */}
+          <div className="flex shrink-0 items-center pl-1 sm:pl-2">
             <ThemeToggle />
-
-            {/* Mobile menu button */}
-            <button
-              type="button"
-              className="neo-btn h-10 w-10 rounded-xl bg-neo-yellow text-black xl:hidden dark:bg-neo-rose dark:text-black"
-              onClick={() => setIsMenuOpen((prev) => !prev)}
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            >
-              {isMenuOpen ? (
-                <X className="h-5 w-5 stroke-[2.5]" />
-              ) : (
-                <Menu className="h-5 w-5 stroke-[2.5]" />
-              )}
-            </button>
           </div>
         </div>
-
-        {/* Mobile Dropdown Navigation */}
-        {isMenuOpen && (
-          <div className="border-t-[3px] border-black bg-neo-cream p-4 xl:hidden dark:border-white dark:bg-neo-darkcard">
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-              {pages.map(({ id, label, keyNum, icon: Icon }) => {
-                const isActive = activePage === id;
-                return (
-                  <button
-                    key={id}
-                    type="button"
-                    onClick={() => navigate(id)}
-                    className={`neo-btn flex items-center justify-between rounded-xl p-3 text-xs font-black uppercase tracking-wider ${
-                      isActive
-                        ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black"
-                        : "bg-white text-black hover:bg-neo-palegreen dark:bg-[#1f2430] dark:text-white"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 truncate">
-                      <Icon className="h-4 w-4 stroke-[2.5] shrink-0" aria-hidden="true" />
-                      <span className="truncate">{label}</span>
-                    </div>
-                    <span className="text-[10px] font-mono px-1 rounded bg-black/10 dark:bg-white/10">
-                      {keyNum}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
       </header>
 
       {/* Main Dynamic View Content */}

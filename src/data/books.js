@@ -3,19 +3,19 @@ export const booksRead = [
     title: "Bicara Itu Ada Seninya: Rahasia Komunikasi yang Efektif - Su Oh Hyang",
     category: "Self Improvement",
     rating: 8,
-    comment: `The prose flows smoothly like an engaging novel, avoiding repetitive self-help filler. Packed with real substance—not only presentation delivery, but also negotiation tactics, active listening, and social persuasion dynamics. My favorite section covers effective socializing by opening conversations thoughtfully with unfamiliar acquaintances. A truly worthwhile read.`
+    comment: `The prose flows smoothly like an engaging novel, avoiding repetitive self-help filler. Packed with real substance: not only presentation delivery, but also negotiation tactics, active listening, and social persuasion dynamics. My favorite section covers effective socializing by opening conversations thoughtfully with unfamiliar acquaintances. A truly worthwhile read.`
   },
   {
     title: "Funiculi Funicula: Before the Coffee Gets Cold - Toshikazu Kawaguchi",
     category: "Novel",
     rating: 9,
-    comment: `I love time-travel narratives across literature, film, and anime, and this novel stands out. It centers on a Tokyo cafe where guests can travel back in time under strict rules—crucially, that returning to the past cannot alter the present. Despite sounding futile, this constraint amplifies the emotional weight of farewells, unresolved guilt, and unspoken love. The concluding chapter between a fragile mother and her future child is deeply moving.`
+    comment: `I love time-travel narratives across literature, film, and anime, and this novel stands out. It centers on a Tokyo cafe where guests can travel back in time under strict rules: crucially, that returning to the past cannot alter the present. Despite sounding futile, this constraint amplifies the emotional weight of farewells, unresolved guilt, and unspoken love. The concluding chapter between a fragile mother and her future child is deeply moving.`
   },
   {
     title: "Filosofi Teras - Henry Manampiring",
     category: "Self Improvement",
     rating: 6,
-    comment: `An accessible Indonesian introduction to Stoic philosophy focusing on the dichotomy of control: distinguishing what lies within our power from what is outside our influence. Chapters 2 through 5 provide the core conceptual meat—rationality, cognitive reframing, and resilience against external anxiety. A practical starting point for emotional regulation.`
+    comment: `An accessible Indonesian introduction to Stoic philosophy focusing on the dichotomy of control: distinguishing what lies within our power from what is outside our influence. Chapters 2 through 5 provide the core conceptual meat: rationality, cognitive reframing, and resilience against external anxiety. A practical starting point for emotional regulation.`
   },
   {
     title: "Seporsi Mie Ayam Sebelum Mati - Brian Khrisna",
@@ -27,7 +27,7 @@ export const booksRead = [
     title: "Animal Farm - George Orwell",
     category: "Political Satire",
     rating: 8,
-    comment: `A razor-sharp political allegory satirizing authoritarian power dynamics, systemic corruption, and rhetoric manipulation. Orwell brilliantly wraps dark political truths—censorship, institutional hypocrisy, and betrayal—in a farmyard fable. The concluding scene remains a chilling, thought-provoking examination of unchecked authority.`
+    comment: `A razor-sharp political allegory satirizing authoritarian power dynamics, systemic corruption, and rhetoric manipulation. Orwell brilliantly wraps dark political truths (censorship, institutional hypocrisy, and betrayal) in a farmyard fable. The concluding scene remains a chilling, thought-provoking examination of unchecked authority.`
   },
   {
     title: "Madilog - Tan Malaka",
@@ -39,7 +39,7 @@ export const booksRead = [
     title: "Biografi Ki Hajar Dewantara",
     category: "Biography",
     rating: 7,
-    comment: `A biography of Indonesia's father of education. His pedagogical vision remains startlingly forward-thinking: emphasizing life skills, emotional intelligence, and artistic expression for children before formal abstract academics. His 3-step mastery model—memorize, comprehend, and teach—is an enduring principle of genuine learning.`
+    comment: `A biography of Indonesia's father of education. His pedagogical vision remains startlingly forward-thinking: emphasizing life skills, emotional intelligence, and artistic expression for children before formal abstract academics. His 3-step mastery model (memorize, comprehend, and teach) is an enduring principle of genuine learning.`
   },
   {
     title: "Hush Little Baby - Anggun Prameswari",
@@ -81,7 +81,7 @@ export const booksRead = [
     title: "Laut Bercerita - Leila S. Chudori",
     category: "Novel",
     rating: 10,
-    comment: `One of the most profound and emotionally devastating novels I have ever read. Captures the harrowing struggles of 1998 Indonesian student activists and enforced disappearances across three intertwined timelines. The transition to the perspective of Asmara Jati—depicting the relentless grief and perseverance of the families seeking truth and justice—is deeply unforgettable.`
+    comment: `One of the most profound and emotionally devastating novels I have ever read. Captures the harrowing struggles of 1998 Indonesian student activists and enforced disappearances across three intertwined timelines. The transition to the perspective of Asmara Jati (depicting the relentless grief and perseverance of the families seeking truth and justice) is deeply unforgettable.`
   },
   {
     title: "Sisi Tergelap Surga - Brian Khrisna",

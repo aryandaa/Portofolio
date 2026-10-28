@@ -2,7 +2,7 @@
 ### Platform Belajar Personal · Obsidian Vault → Static Learning Website
 
 > **Konteks dokumen:** Laporan analisis teknis menyeluruh terhadap sistem **CodeLearn**
-> (`learning-web-aryanda`) — platform belajar pribadi berbasis web yang mengubah Markdown
+> (`learning-web-aryanda`) - platform belajar pribadi berbasis web yang mengubah Markdown
 > vault Obsidian menjadi website pembelajaran statis lengkap. Dokumen ini disusun sebagai
 > portofolio teknik: berisi arsitektur, fitur, kualitas kode, keamanan, performa, temuan,
 > dan rekomendasi. **Seluruh analisis dilakukan tanpa mengubah kode sistem sedikit pun.**
@@ -18,8 +18,8 @@
 5. [Komposisi Codebase](#5-komposisi-codebase)
 6. [Analisis Fungsional Fitur Inti](#6-analisis-fungsional-fitur-inti)
 7. [Code Editor Interaktif (7 Bahasa)](#7-code-editor-interaktif-7-bahasa)
-8. [CySec Tools — 108 Tool Keamanan](#8-cysec-tools--108-tool-keamanan)
-9. [OSINT Tools — Workstation Intel Publik](#9-osint-tools--workstation-intel-publik)
+8. [CySec Tools - 108 Tool Keamanan](#8-cysec-tools--108-tool-keamanan)
+9. [OSINT Tools - Workstation Intel Publik](#9-osint-tools--workstation-intel-publik)
 10. [Kualitas Data Vault](#10-kualitas-data-vault)
 11. [Hasil Pemeriksaan Kesehatan](#11-hasil-pemeriksaan-kesehatan)
 12. [Analisis Keamanan](#12-analisis-keamanan)
@@ -34,7 +34,7 @@
 
 **CodeLearn** adalah *personal learning platform* berbasis web yang dirancang dengan pola
 **Content-as-Code**: seluruh materi ditulis sebagai Markdown biasa di Obsidian Vault, lalu
-sebuah pipeline parser Node.js mengubahnya menjadi website React statis yang lengkap —
+sebuah pipeline parser Node.js mengubahnya menjadi website React statis yang lengkap -
 dokumentasi bertingkat, pencarian fuzzy, graph antar-catatan, roadmap belajar bercabang,
 code editor interaktif 7 bahasa, hingga workstation keamanan siber (CySec Tools) dengan
 **108 tool yang berjalan 100% di browser** (tanpa backend, tanpa database).
@@ -61,13 +61,13 @@ rusak) yang tidak disadari pengguna, serta beberapa item performa/ukuran bundle.
 | Atribut | Nilai |
 |---|---|
 | Nama proyek | CodeLearn |
-| Tipe | Web app statis (SPA) — *personal learning platform* |
+| Tipe | Web app statis (SPA) - *personal learning platform* |
 | Repo | `aryandaa/Learning-Web-Aryanda` (open source) |
 | Versi | 0.2.0 |
 | Author | M. Aryanda Sanggadiennata (penyedia materi + developer) |
 | Hosting | Vercel (static), GitHub Actions untuk sync otomatis |
 | Model data | Obsidian Vault (Markdown) sebagai *source of truth*; hasil parsing di-commit |
-| Prinsip | **Tanpa backend, tanpa database, tanpa API write** — 100% static |
+| Prinsip | **Tanpa backend, tanpa database, tanpa API write** - 100% static |
 
 ---
 
@@ -105,7 +105,7 @@ rusak) yang tidak disadari pengguna, serta beberapa item performa/ukuran bundle.
    `WEBSITE_DISPATCH_TOKEN` di repo vault. Token hanya dipakai dalam run script,
    tidak pernah di-echo (double-masking oleh GitHub Actions).
 
-### 3.2 Pipeline Parser — 8 Tahap Modular
+### 3.2 Pipeline Parser - 8 Tahap Modular
 
 Parser (`scripts/parser/`) memproses vault dalam tahapan berurutan dengan
 *plugin lifecycle* di setiap tahap:
@@ -116,7 +116,7 @@ SCAN → VALIDATE → INDEX → RESOLVE → RENDER → COPY ASSETS → WRITE →
 
 | Tahap | Modul | Fungsi |
 |---|---|---|
-| 1. Scan | `scanner.ts` | Snapshot vault sekali saja (markdown, folder, aset) — deterministik, terurut |
+| 1. Scan | `scanner.ts` | Snapshot vault sekali saja (markdown, folder, aset) - deterministik, terurut |
 | 2. Validate | `validator.ts` | Duplicate document id / path aset = **FATAL** (berhenti) |
 | 3. Index | `indexer.ts` | Frontmatter (gray-matter), judul, tag, alias, heading, reading time, excerpt |
 | 4. Resolve | `link-resolver.ts` | Lookup wiki-link `[[Note]]`, `[[Note#Section]]`, embed `![[gambar]]`; urutan prev/next (DFS) |
@@ -149,7 +149,7 @@ depan (flashcards, quiz, statistik, AI summary). Saat ini 5 plugin remark/rehype
 | `remark-callout` | Callout `> [!note]`, `[!tip]`, `[!warning]`, `[!danger]`, dll. |
 | `remark-inline-tags` | Ekstrak tag inline `#tag` (lewati code), hapus dari teks render |
 | `rehype-fix-links` | Rewrite link/gambar markdown relatif → URL publik + lacak aset tereferensi |
-| `rehype-heading-ids` | ID slug stabil di h1–h6 untuk TOC & anchor `[[Note#Section]]` |
+| `rehype-heading-ids` | ID slug stabil di h1-h6 untuk TOC & anchor `[[Note#Section]]` |
 
 ---
 
@@ -233,7 +233,7 @@ depan (flashcards, quiz, statistik, AI summary). Saat ini 5 plugin remark/rehype
 
 ### 6.1 Dokumentasi Explorer (100% Data-Driven)
 
-- Tree folder **recursive langsung dari struktur vault** — tidak ada hardcode folder.
+- Tree folder **recursive langsung dari struktur vault** - tidak ada hardcode folder.
 - Setiap folder otomatis ter-create dari `relativePath` catatan; file `#roadmap` selalu
   diurutkan paling atas (penanda urutan belajar).
 - Sidebar desktop collapsible (state di localStorage) + drawer mobile dengan animasi,
@@ -269,7 +269,7 @@ depan (flashcards, quiz, statistik, AI summary). Saat ini 5 plugin remark/rehype
 
 - Default **light** (identitas: putih + hijau muda); dark sebagai alternatif.
 - Tema diterapkan via kelas `light`/`dark` di `<html>` + CSS variables untuk seluruh
-  palet slate & accent — komponen tidak perlu kelas Tailwind khusus.
+  palet slate & accent - komponen tidak perlu kelas Tailwind khusus.
 - Anti-flash: script inline di `index.html` menerapkan tema sebelum paint.
 - Tersimpan di `localStorage` (`lw-theme-v2`), `meta theme-color` ikut berubah.
 
@@ -295,7 +295,7 @@ Semua eksekusi terjadi di sandbox; output ditangkap dan dirender di panel termin
 ### 7.2 Detail Teknis Menarik
 
 **PHP self-hosted (solusi MIME):** runtime php-wasm di `public/php-wasm/` di-fetch lalu
-di-patch saat runtime — konstanta URL `.wasm` dan import loader diganti ke Blob URL
+di-patch saat runtime - konstanta URL `.wasm` dan import loader diganti ke Blob URL
 agar berjalan di dev (`vite` melarang ESM dari `/public`) maupun produksi subpath.
 Di-cache (`phpWasmPromise`) agar hanya dimuat sekali per sesi.
 
@@ -304,7 +304,7 @@ halaman induk, cookie, maupun localStorage. Timeout **10 detik** untuk mendeteks
 infinite loop.
 
 **Editor UX:**
-- Syntax highlighting live via highlight.js core (7 bahasa, register manual — bundle kecil).
+- Syntax highlighting live via highlight.js core (7 bahasa, register manual - bundle kecil).
 - Gutter nomor baris yang sinkron scroll dengan textarea overlay transparan.
 - Tombol **Tab** menyisipkan 2 spasi, **Ctrl/Cmd+Enter** untuk Run, **Copy**, **Clear**.
 - Status runtime (memuat Pyodide/php-wasm/sql.js), waktu eksekusi dalam ms, jumlah baris output.
@@ -312,16 +312,16 @@ infinite loop.
 
 ### 7.3 Evaluasi
 
-- ✅ **Murni frontend** — tidak ada backend; ideal untuk hosting statis gratis.
+- ✅ **Murni frontend** - tidak ada backend; ideal untuk hosting statis gratis.
 - ✅ Sandboxing JS benar (isolasi penuh, timeout, capture error).
 - ✅ PHP/self-host lebih andal daripada CDN (MIME terkontrol, offline-capable).
 - ⚠️ Python & SQL butuh internet saat run pertama (CDN); PHP self-host bebas CDN.
-- ⚠️ Chunk TypeScript besar (3,45 MB raw) — satu-satunya kelemahan berat.
+- ⚠️ Chunk TypeScript besar (3,45 MB raw) - satu-satunya kelemahan berat.
 - ⚠️ `postMessage(..., '*')` tanpa verifikasi `ev.source` (minor; tidak ada iframe lain di halaman).
 
 ---
 
-## 8. CySec Tools — 108 Tool Keamanan
+## 8. CySec Tools - 108 Tool Keamanan
 
 **Cybersecurity Workstation** terisolasi di `src/features/cysec-tools/`: dashboard katalog
 + search global + recently-used/favorites (localStorage) + halaman tool dengan
@@ -356,7 +356,7 @@ Number · MIME Type Detector · File Hex Viewer · Strings Extractor (ASCII/UTF-
 
 ### 8.3 🌐 PCAP & Network Analysis (1 tool)
 
-**PCAP Analyzer** — parsing `.pcap`/`.pcapng` **penuh di browser**:
+**PCAP Analyzer** - parsing `.pcap`/`.pcapng` **penuh di browser**:
 summary, packet list, protocol distribution, conversations, DNS queries, HTTP, TLS,
 TCP flags, hosts, timeline, deteksi suspicious. Parser ditulis manual dan diuji
 dengan pcap sintetik (PCAP klasik 3 paket + PCAPNG 1 paket, byte-per-byte).
@@ -389,26 +389,26 @@ ASCII Table · Unicode Table · **CVE Reference** (parser CVE: CVSS, severity, C
 
 ### 8.7 📋 Log Analysis (1 tool)
 
-**Log Analyzer** — Apache/Nginx access log + auth.log + log generik: ekstraksi IP/status,
+**Log Analyzer** - Apache/Nginx access log + auth.log + log generik: ekstraksi IP/status,
 deteksi **brute-force**, **404 flood**, timeline, top host, pola mencurigakan.
 
 ### 8.8 Evaluasi CySec Tools
 
-- ✅ **108 tool tanpa satu dependency baru** — kriptografi inti (MD5, SHA-3, ChaCha20,
+- ✅ **108 tool tanpa satu dependency baru** - kriptografi inti (MD5, SHA-3, ChaCha20,
   PBKDF2) ditulis manual dan diverifikasi test vector.
-- ✅ Code-split per kategori — bundle utama tetap ramping.
+- ✅ Code-split per kategori - bundle utama tetap ramping.
 - ✅ Selfcheck regression (44 kasus) menjamin parser file (PCAP/PE/ELF/EXIF) tidak rusak.
 - ✅ Disclaimer edukasi & PrivacyBadge di setiap tool yang sensitif.
-- ⚠️ Tool `status: 'partial'`/`'unavailable'` masih ada (mis. Mach-O) — ditandai jujur di UI.
-- ⚠️ Implementasi RSA/ChaCha20 edukasional — ada disclaimer tegas (bukan untuk produksi).
+- ⚠️ Tool `status: 'partial'`/`'unavailable'` masih ada (mis. Mach-O) - ditandai jujur di UI.
+- ⚠️ Implementasi RSA/ChaCha20 edukasional - ada disclaimer tegas (bukan untuk produksi).
 
 ---
 
-## 9. OSINT Tools — Workstation Intel Publik
+## 9. OSINT Tools - Workstation Intel Publik
 
 Modul OSINT terintegrasi sebagai kategori di dalam CySec Tools (`/cysec-tools/category/osint`,
 route legacy `/osint/:toolId` dialihkan). **16 tool**, semua client-side; integrasi
-eksternal hanya ke API publik CORS-friendly (DoH, ipwho.is, crt.sh) — tanpa secret/key.
+eksternal hanya ke API publik CORS-friendly (DoH, ipwho.is, crt.sh) - tanpa secret/key.
 
 | Kategori | Tool | Privasi |
 |---|---|---|
@@ -418,8 +418,8 @@ eksternal hanya ke API publik CORS-friendly (DoH, ipwho.is, crt.sh) — tanpa se
 | 🔗 URL Intelligence | URL Analyzer (parse, decode bertingkat, deteksi phishing/shortener) | local |
 | 👤 Username OSINT | Username Analyzer (presence platform publik, template manual) | local |
 | ✉️ Email Intelligence | Email Analyzer (validasi, disposable-domain lokal, role-based) | local |
-| 📄 Metadata Analysis | Metadata Analyzer (EXIF/GPS, PDF author, Office, ZIP, hash — 100% lokal) | local |
-| 🩸 IOC Extraction | IOC Extractor (IP, domain, URL, email, hash, CVE, ATT&CK, MAC — dedup + confidence) | local |
+| 📄 Metadata Analysis | Metadata Analyzer (EXIF/GPS, PDF author, Office, ZIP, hash - 100% lokal) | local |
+| 🩸 IOC Extraction | IOC Extractor (IP, domain, URL, email, hash, CVE, ATT&CK, MAC - dedup + confidence) | local |
 | ☠️ Threat Intelligence | Threat Intel Hub (lookup VT, AbuseIPDB, URLScan, OTX, MalwareBazaar) | local |
 | #️⃣ Hash Intelligence | Hash Analyzer (deteksi MD5/SHA-1/256/512/NTLM/scrypt/SHA3-384) | local |
 | 📝 Text Intelligence | Text Analyzer (stats, ekstraksi entitas, regex, normalize, dedup) | local |
@@ -429,7 +429,7 @@ eksternal hanya ke API publik CORS-friendly (DoH, ipwho.is, crt.sh) — tanpa se
 | 📁 OSINT Case | Case investigasi lokal (IOC, notes, sources, timeline; export/import JSON) | local |
 | 🔍 Google Dork Search | Query builder visual (site, inurl, intitle, filetype, before/after, OR, exclude) | local |
 
-**Etika & legalitas:** disclaimer tegas di seluruh tool — modul untuk pembelajaran, CTF,
+**Etika & legalitas:** disclaimer tegas di seluruh tool - modul untuk pembelajaran, CTF,
 forensik, dan analisis defensif; melarang doxxing/credential attack. Tidak ada
 scraping otomatis; username presence selalu *manual verification*.
 
@@ -465,13 +465,13 @@ scraping otomatis; username presence selalu *manual verification*.
 
 | Kategori | Jumlah | Contoh |
 |---|---|---|
-| Duplicate paths | 0 | — |
+| Duplicate paths | 0 | - |
 | Broken wiki links | **40** | `Cryptography.md → 1. Pengenalan.md` (file tak ada) |
 | Missing images | **18** | `Praktek Environment Variabel.md → imf/Pasted image...png` |
-| Malformed frontmatter | 0 | — |
-| Unsupported embeds | 0 | — |
+| Malformed frontmatter | 0 | - |
+| Unsupported embeds | 0 | - |
 
-> ⚠️ `warnings.json` dihasilkan & di-commit, namun **belum ditampilkan di UI** —
+> ⚠️ `warnings.json` dihasilkan & di-commit, namun **belum ditampilkan di UI** -
 > masalah konten ini tidak terlihat pengguna (link dirender `href="#"`, gambar jadi ikon rusak).
 
 ---
@@ -490,17 +490,17 @@ Semua pemeriksaan dijalankan **read-only** (tanpa mengubah kode):
 
 ### Detail selfcheck kriptografi (44 kasus)
 
-- **MD5** — vektor standar (`""`, `"abc"`, quick brown fox) ✅
-- **SHA-3 Keccak** — NIST vectors 224/256/512 ✅
-- **ChaCha20** — RFC 8439 §2.4.2 (64-byte message) + round-trip ✅
-- **Encoding** — base32, URL, HTML entity, ROT13/47, Atbash, Morse, Bacon, Rail Fence, Vigenère ✅
-- **Analysis** — entropy, strings extraction, magic number PDF ✅
-- **PCAP & PCAPNG** — sintetik byte-per-byte: format, packet count, DNS, DHCP, linktype ✅
-- **PE / ELF / Mach-O** — valid/invalid cases; PE penuh (machine, magic, section, entry) ✅
-- **EXIF** — sintetik JPEG: Make, Model, DateTime ✅
-- **Log analyzer** — apache/auth detection, brute-force, 404 flood ✅
-- **JWT** — parse, claim exp, invalid format ✅
-- **Fitur baru** — subnet IPv4/IPv6, split /24→/26, hex inspector, ReDoS regex risk, entropy blok, pipeline encoding ✅
+- **MD5** - vektor standar (`""`, `"abc"`, quick brown fox) ✅
+- **SHA-3 Keccak** - NIST vectors 224/256/512 ✅
+- **ChaCha20** - RFC 8439 §2.4.2 (64-byte message) + round-trip ✅
+- **Encoding** - base32, URL, HTML entity, ROT13/47, Atbash, Morse, Bacon, Rail Fence, Vigenère ✅
+- **Analysis** - entropy, strings extraction, magic number PDF ✅
+- **PCAP & PCAPNG** - sintetik byte-per-byte: format, packet count, DNS, DHCP, linktype ✅
+- **PE / ELF / Mach-O** - valid/invalid cases; PE penuh (machine, magic, section, entry) ✅
+- **EXIF** - sintetik JPEG: Make, Model, DateTime ✅
+- **Log analyzer** - apache/auth detection, brute-force, 404 flood ✅
+- **JWT** - parse, claim exp, invalid format ✅
+- **Fitur baru** - subnet IPv4/IPv6, split /24→/26, hex inspector, ReDoS regex risk, entropy blok, pipeline encoding ✅
 
 ### Detail selfcheck OSINT (48 kasus)
 
@@ -519,7 +519,7 @@ Timeline ISO · URL intel (userinfo, open redirect, shortener) · Username platf
 | Lapisan | Mekanisme |
 |---|---|
 | **XSS konten** | Semua HTML hasil parse disanitasi `rehype-sanitize` (allowlist tags/attrs/protocols) sebelum dirender via `dangerouslySetInnerHTML` |
-| **Eksekusi kode** | Sandbox iframe (`allow-scripts`, tanpa allow-same-origin) — kode user tidak bisa akses halaman induk/cookie/localStorage |
+| **Eksekusi kode** | Sandbox iframe (`allow-scripts`, tanpa allow-same-origin) - kode user tidak bisa akses halaman induk/cookie/localStorage |
 | **Integritas output** | Safety check CI: 0 markdown boleh bocor ke `public/`; duplicate id = fatal di parser |
 | **Publish terisolasi** | Publisher hanya menyentuh 2 direktori; sync mirror tidak menghapus direktori target |
 | **Secrets** | Fine-grained PAT read-only; token tidak pernah di-echo; GitHub Actions mask |
@@ -528,9 +528,9 @@ Timeline ISO · URL intel (userinfo, open redirect, shortener) · Username platf
 
 ### 12.2 Catatan
 
-- Sanitize schema mengizinkan `style` pada span/div dan `clobberPrefix: ''` —
+- Sanitize schema mengizinkan `style` pada span/div dan `clobberPrefix: ''` -
   aman untuk vault pribadi, namun tidak untuk vault publik yang tidak tepercaya.
-- `postMessage(..., '*')` tanpa cek `ev.source` (minor — tidak ada iframe pihak ketiga).
+- `postMessage(..., '*')` tanpa cek `ev.source` (minor - tidak ada iframe pihak ketiga).
 - Tool kriptografi edukasional (RSA, ChaCha20) punya disclaimer tegas; AES/HMAC/PBKDF2
   memakai **Web Crypto API** (implementasi browser yang di-audit).
 
@@ -543,10 +543,10 @@ Timeline ISO · URL intel (userinfo, open redirect, shortener) · Username platf
 | Item | Ukuran | Catatan |
 |---|---|---|
 | Bundle utama `index-*.js` | **441 KB** (raw) | gzip ±120 KB |
-| CSS `index-*.css` | 106 KB | — |
+| CSS `index-*.css` | 106 KB | - |
 | Chunk **TypeScript** (editor) | **3,45 MB** (raw) | Lazy-load hanya saat Run TS; satu-satunya chunk besar |
-| Chunk per kategori CySec | 33–57 KB | 7 chunk terpisah (crypto, forensics, pcap, re, web, ctf, log) |
-| KaTeX fonts | 30–64 KB × 10 | Font dirender dari bundle |
+| Chunk per kategori CySec | 33-57 KB | 7 chunk terpisah (crypto, forensics, pcap, re, web, ctf, log) |
+| KaTeX fonts | 30-64 KB × 10 | Font dirender dari bundle |
 | **Total `dist/`** | **48 MB** | Termasuk full docs JSON (4,5 MB), 226 aset, php-wasm (~5 MB) |
 
 ### 13.2 Strategi Loading
@@ -554,7 +554,7 @@ Timeline ISO · URL intel (userinfo, open redirect, shortener) · Username platf
 | Data | Strategi |
 |---|---|
 | `tree.json` + `metadata.json` | Dimuat sekali di awal (SiteProvider) |
-| `search-index.json` (1,4 MB) | **Lazy** — hanya saat halaman Search |
+| `search-index.json` (1,4 MB) | **Lazy** - hanya saat halaman Search |
 | `graph.json`, `roadmaps.json` | **Lazy** per halaman |
 | Dokumen individual | **On-demand** per dokumen (4,5 MB total, dibagi 441 file) |
 | Runtime Python/PHP/SQL | **Lazy** + cache sekali per sesi |
@@ -565,35 +565,35 @@ Timeline ISO · URL intel (userinfo, open redirect, shortener) · Username platf
 - Scanner membaca seluruh file non-markdown ke memori untuk hashing (2× baca untuk
   aset tereferensi: scan + copy). Aman untuk vault tipikal, bisa lambat jika vault
   berisi video/ISO besar.
-- Output parser deterministik (sorted, reproducible) — `generatedAt` satu-satunya
+- Output parser deterministik (sorted, reproducible) - `generatedAt` satu-satunya
   nilai non-deterministik (wajar).
 - Estimasi baca di beranda (`totalNotes / 200 jam`) menghasilkan **2 jam**, padahal
-  reading time aktual **±20 jam** — formula menyesatkan (temuan).
+  reading time aktual **±20 jam** - formula menyesatkan (temuan).
 
 ---
 
 ## 14. Temuan & Risiko
 
-### 🔴 Tinggi — berdampak nyata
+### 🔴 Tinggi - berdampak nyata
 
 | # | Temuan | Dampak |
 |---|---|---|
-| 1 | **Klaim subpath deployment tidak sepenuhnya benar** — URL aset hasil parse di-bake absolut (`/assets/vault/...`); tag `<base>` tidak menyelamatkan URL path-absolute | Di GitHub Pages (`user.github.io/repo/`) semua gambar 404; wiki-link & deep-link juga pecah. Berfungsi penuh hanya di Vercel root |
+| 1 | **Klaim subpath deployment tidak sepenuhnya benar** - URL aset hasil parse di-bake absolut (`/assets/vault/...`); tag `<base>` tidak menyelamatkan URL path-absolute | Di GitHub Pages (`user.github.io/repo/`) semua gambar 404; wiki-link & deep-link juga pecah. Berfungsi penuh hanya di Vercel root |
 | 2 | **Tidak ada `public/404.html`** | Deep-link SPA di host tanpa rewrite (GitHub Pages) = 404 |
 | 3 | **58 masalah konten vault** (40 broken links + 18 gambar hilang) tidak tampil di UI | Pengguna melihat link `href="#"` & ikon gambar rusak tanpa penjelasan |
 
-### 🟡 Sedang — kualitas & konsistensi
+### 🟡 Sedang - kualitas & konsistensi
 
 | # | Temuan |
 |---|---|
 | 4 | Estimasi baca beranda menyesatkan (2 jam vs aktual ±20 jam) |
 | 5 | `warnings.json` di-commit tapi tidak pernah dibaca frontend (fitur mati) |
-| 6 | Chunk TypeScript 3,45 MB — berat untuk sekali fitur Run TS |
-| 7 | `dist/` 48 MB — boros untuk hosting statis (docs JSON + aset + php-wasm) |
+| 6 | Chunk TypeScript 3,45 MB - berat untuk sekali fitur Run TS |
+| 7 | `dist/` 48 MB - boros untuk hosting statis (docs JSON + aset + php-wasm) |
 | 8 | Dokumen internal stale: `LaporanUpdate.md` masih menyebut konsep `alsoIn` (sudah diganti 1 tool = 1 kategori); komentar `base.ts` & README daftar route 7 (aktual 9) |
-| 9 | Data `generatedAt: 2026-08-16` lebih tua dari commit kode terakhir — sinkronisasi data vs kode tidak sinkron sempurna |
+| 9 | Data `generatedAt: 2026-08-16` lebih tua dari commit kode terakhir - sinkronisasi data vs kode tidak sinkron sempurna |
 
-### 🟢 Rendah — minor
+### 🟢 Rendah - minor
 
 | # | Temuan |
 |---|---|
@@ -626,25 +626,25 @@ Timeline ISO · URL intel (userinfo, open redirect, shortener) · Username platf
 **CodeLearn adalah sistem pembelajaran personal kelas produksi dengan kualitas arsitektur
 di atas rata-rata proyek personal:**
 
-1. **Arsitektur yang bersih & aman** — parser 8 tahap modular dengan plugin lifecycle,
+1. **Arsitektur yang bersih & aman** - parser 8 tahap modular dengan plugin lifecycle,
    deterministik, data-driven penuh, dan safety guarantee di setiap lapisan
    (sanitasi HTML, sandbox eksekusi, anti-bocor markdown, validasi fatal).
-2. **Ruang lingkup yang luas** — dari dokumentasi statis biasa, berkembang menjadi
+2. **Ruang lingkup yang luas** - dari dokumentasi statis biasa, berkembang menjadi
    ekosistem lengkap: graph pengetahuan, roadmap bercabang, code editor multi-bahasa
    tanpa backend, dan workstation keamanan 108 tool yang semuanya berjalan di browser.
-3. **Diuji, bukan sekadar jalan** — kriptografi diverifikasi terhadap test vector resmi
+3. **Diuji, bukan sekadar jalan** - kriptografi diverifikasi terhadap test vector resmi
    (RFC 8439, NIST, MD5), parser biner (PCAP/PE/ELF/EXIF) diuji dengan data sintetik
    byte-per-byte, dan registry dijamin konsisten oleh validator khusus.
 4. **Temuan utama** berpusat pada kesenjangan antara klaim dokumentasi (subpath
    deployment) dan implementasi, plus kebersihan konten vault yang belum disadari
-   pengguna — bukan pada cacat arsitektur fundamental.
+   pengguna - bukan pada cacat arsitektur fundamental.
 
 Secara keseluruhan: **sistem stabil, teruji, dan siap dipakai serta dikembangkan
-lebih lanjut** — dengan rekomendasi perbaikan yang jelas, kecil, dan terprioritas.
+lebih lanjut** - dengan rekomendasi perbaikan yang jelas, kecil, dan terprioritas.
 
 ---
 
 *Dokumen ini dibuat sebagai portofolio teknis. Seluruh analisis dilakukan dengan
 pemeriksaan read-only (tidak ada kode sistem yang diubah).*
 
-— **M. Aryanda Sanggadiennata** · CodeLearn
+- **M. Aryanda Sanggadiennata** · CodeLearn

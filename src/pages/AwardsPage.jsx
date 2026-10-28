@@ -33,7 +33,7 @@ export default function AwardsPage() {
   }, [selectedTrack]);
 
   const copyAwardRecord = (award) => {
-    navigator.clipboard.writeText(`${award.rank} — ${award.name} (${award.publisher}, ${award.date})`);
+    navigator.clipboard.writeText(`${award.rank} | ${award.name} (${award.publisher}, ${award.date})`);
     showToast(`Copied award record!`);
   };
 

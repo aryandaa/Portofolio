@@ -196,7 +196,7 @@ export default function CertificationsPage() {
   }, [viewer]);
 
   const copyCertInfo = (cert) => {
-    navigator.clipboard.writeText(`${cert.name} — ${cert.issuer} (${cert.date})`);
+    navigator.clipboard.writeText(`${cert.name} | ${cert.issuer} (${cert.date})`);
     showToast(`Copied "${cert.name}" info!`);
   };
 
