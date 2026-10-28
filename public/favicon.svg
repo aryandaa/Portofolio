@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Hard Shadow -->
+  <path d="M30 20 L82 20 L110 48 L110 118 L20 118 L20 30 Z" fill="#000000"/>
+  
+  <!-- Main Paper Body (Warm Cream / Yellow Paper Note) -->
+  <path d="M22 12 L74 12 L102 40 L102 110 L12 110 L12 22 Z" fill="#FEF08A" stroke="#000000" stroke-width="6" stroke-linejoin="round"/>
+  
+  <!-- Grid Paper Pattern -->
+  <g stroke="#CA8A04" stroke-width="1.5" opacity="0.4">
+    <line x1="14" y1="32" x2="100" y2="32"/>
+    <line x1="14" y1="52" x2="100" y2="52"/>
+    <line x1="14" y1="72" x2="100" y2="72"/>
+    <line x1="14" y1="92" x2="100" y2="92"/>
+    <line x1="32" y1="14" x2="32" y2="108"/>
+    <line x1="52" y1="14" x2="52" y2="108"/>
+    <line x1="72" y1="14" x2="72" y2="108"/>
+    <line x1="92" y1="42" x2="92" y2="108"/>
+  </g>
+  
+  <!-- Dog-ear Corner Fold -->
+  <path d="M74 12 L74 40 L102 40 Z" fill="#FDE047" stroke="#000000" stroke-width="6" stroke-linejoin="round"/>
+  
+  <!-- Washi Tape at Top -->
+  <rect x="34" y="4" width="36" height="16" rx="2" fill="#86EFAC" stroke="#000000" stroke-width="5" transform="rotate(-4 52 12)"/>
+  
+  <!-- Brutalist Stamp Badge: AS -->
+  <rect x="24" y="46" width="54" height="46" rx="6" fill="#000000"/>
+  <text x="51" y="80" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="30" font-weight="900" fill="#FFE600" text-anchor="middle" letter-spacing="-1">AS</text>
+  
+  <!-- Pink Star Accent -->
+  <path d="M88 66 L90 73 L97 75 L91 79 L92 86 L86 82 L80 85 L83 79 L78 74 L85 73 Z" fill="#FF6B6B" stroke="#000000" stroke-width="3" stroke-linejoin="round"/>
+</svg>
