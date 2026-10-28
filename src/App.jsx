@@ -139,16 +139,16 @@ function PortfolioContent() {
           <button
             type="button"
             onClick={() => navigate("profile")}
-            className="group flex items-center gap-3 text-left transition-transform active:translate-y-0.5"
+            className="group flex shrink-0 items-center gap-2.5 text-left transition-transform active:translate-y-0.5"
           >
-            <div className="neo-btn rounded-xl bg-neo-green px-3 py-2 text-base font-black text-black group-hover:bg-emerald-300 dark:bg-neo-sky dark:text-black">
+            <div className="neo-btn h-10 w-10 shrink-0 rounded-xl bg-neo-green text-sm font-black text-black group-hover:bg-emerald-300 dark:bg-neo-sky dark:text-black p-0 flex items-center justify-center">
               AS
             </div>
-            <div>
-              <span className="block font-display text-lg font-black uppercase tracking-tight text-black sm:text-xl dark:text-white">
+            <div className="flex items-center gap-2 whitespace-nowrap">
+              <span className="font-display text-base sm:text-lg font-black uppercase tracking-tight text-black dark:text-white whitespace-nowrap">
                 Aryanda S.
               </span>
-              <span className="block text-[11px] font-black uppercase tracking-wider text-neo-forest dark:text-neo-yellow">
+              <span className="neo-badge rounded-md bg-neo-yellow px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-black border border-black dark:border-white whitespace-nowrap">
                 Dev // CyberSec
               </span>
             </div>
