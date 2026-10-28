@@ -2,7 +2,7 @@ export const experiences = [
   {
     role: "Full Stack Engineer",
     place: "PT Inovasi Informatik Sinergi (Open Synergic) - Internship (On-Site)",
-    period: "Juli 2026 - Present",
+    period: "July 2026 - Present",
     description:
       "Configured development environments, integrated administrative panels using Laravel Filament, learned codebase architectures for system management projects, and engaged in technical competitive preparation.",
     overview:

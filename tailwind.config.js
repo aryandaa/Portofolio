@@ -1,29 +1,47 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
-        display: ["Orbitron", "Inter", "ui-sans-serif", "system-ui"],
-        body: ["Inter", "ui-sans-serif", "system-ui"],
+        sans: ["'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
+        display: ["'Plus Jakarta Sans'", "Impact", "system-ui", "sans-serif"],
+        mono: ["'JetBrains Mono'", "ui-monospace", "monospace"],
       },
       colors: {
-        void: "#070914",
-        night: "#101426",
-        plasma: "#8b5cf6",
-        cyan: "#22d3ee",
-        danger: "#ff2e63",
-        ink: "#dbeafe",
+        neo: {
+          bg: "#f3fbf4",
+          green: "#86efac", // Dominant Light Green (Neo Mint)
+          lightgreen: "#bbf7d0",
+          palegreen: "#dcfce7",
+          forest: "#166534",
+          deep: "#052e16",
+          yellow: "#fef08a",
+          amber: "#fde047",
+          cream: "#fefce8",
+          sky: "#bae6fd",
+          lavender: "#e9d5ff",
+          rose: "#fecdd3",
+          orange: "#fed7aa",
+          border: "#000000",
+          darkbg: "#0f1117",
+          darkcard: "#181b22",
+          darkborder: "#ffffff",
+        },
       },
       boxShadow: {
-        neon: "0 0 24px rgba(34, 211, 238, 0.28), 0 0 48px rgba(139, 92, 246, 0.18)",
-        redglow: "0 0 22px rgba(255, 46, 99, 0.26)",
+        brutal: "4px 4px 0px 0px #000000",
+        "brutal-sm": "2px 2px 0px 0px #000000",
+        "brutal-lg": "6px 6px 0px 0px #000000",
+        "brutal-xl": "8px 8px 0px 0px #000000",
+        "brutal-dark": "4px 4px 0px 0px #ffffff",
+        "brutal-dark-sm": "2px 2px 0px 0px #ffffff",
+        "brutal-dark-lg": "6px 6px 0px 0px #ffffff",
+        "brutal-dark-xl": "8px 8px 0px 0px #ffffff",
       },
-      backgroundImage: {
-        scanline:
-          "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px)",
-        grid:
-          "linear-gradient(rgba(34,211,238,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,.12) 1px, transparent 1px)",
+      borderWidth: {
+        3: "3px",
       },
     },
   },

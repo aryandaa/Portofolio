@@ -1,213 +1,420 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   BriefcaseBusiness,
+  Building2,
+  Calendar,
   CheckCircle2,
+  Clock,
   Download,
-  ExternalLink,
-  FileImage,
-  FileText,
+  FileCheck2,
   FolderOpen,
+  Layers,
   Sparkles,
+  Users,
   Wrench,
   X,
 } from "lucide-react";
 import { experiences } from "../data/experiences.js";
-import AssetPreview, { isPdfAsset } from "../components/AssetPreview.jsx";
+import AssetPreview from "../components/AssetPreview.jsx";
 import PageShell from "../components/PageShell.jsx";
-import Panel from "../components/Panel.jsx";
 import PartnerList from "../components/PartnerList.jsx";
-
-function DetailList({ icon: Icon, title, items }) {
-  return (
-    <div>
-      <div className="mb-3 flex items-center gap-3">
-        <Icon className="h-5 w-5 text-cyan" aria-hidden="true" />
-        <h3 className="font-display text-sm font-bold uppercase tracking-[0.18em] text-white">
-          {title}
-        </h3>
-      </div>
-      <div className="grid gap-3">
-        {items.map((item) => (
-          <div key={item} className="interactive-row border border-white/10 bg-white/[0.035] p-3">
-            <p className="text-sm leading-6 text-slate-300">{item}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+import { useToast } from "../context/ToastContext.jsx";
 
 export default function ExperiencePage() {
   const [selectedExperience, setSelectedExperience] = useState(null);
+  const [activeTabByRole, setActiveTabByRole] = useState({}); // { [roleKey]: 'responsibilities' | 'highlights' | 'overview' }
+  const [selectedFilter, setSelectedFilter] = useState("All");
+  const { showToast } = useToast();
+
+  // Close modal on Escape
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setSelectedExperience(null);
+    };
+    if (selectedExperience) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedExperience]);
+
+  const getRoleCategory = (item) => {
+    const p = item.place.toLowerCase();
+    if (p.includes("founder")) return "Leadership";
+    if (p.includes("internship") || p.includes("apprenticeship")) return "Internships & Engineering";
+    return "Projects & Contracts";
+  };
+
+  const categories = ["All", "Internships & Engineering", "Leadership", "Projects & Contracts"];
+
+  const filteredExperiences = useMemo(() => {
+    if (selectedFilter === "All") return experiences;
+    return experiences.filter((e) => getRoleCategory(e) === selectedFilter);
+  }, [selectedFilter]);
+
+  const setRoleTab = (key, tab) => {
+    setActiveTabByRole((prev) => ({ ...prev, [key]: tab }));
+  };
 
   return (
     <>
       <PageShell
-        eyebrow="Field log"
-        title="Experience Details"
-        below={
-          <div className="grid gap-6">
-            {experiences.map((item, index) => (
-              <Panel key={`${item.role}-${item.period}`} className="p-6">
-                <div className="grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
-                  <div className="border border-cyan/25 bg-cyan/10 p-5">
-                    <div className="mb-4 flex items-center gap-3">
-                      <div className="grid h-11 w-11 place-items-center border border-cyan/40 bg-void/70 font-display text-sm font-bold text-cyan shadow-neon">
-                        {String(index + 1).padStart(2, "0")}
-                      </div>
-                      <BriefcaseBusiness className="h-6 w-6 text-danger" aria-hidden="true" />
+        eyebrow="Industry & Roles"
+        title="Work & Internship Experience"
+        description="Chronological record of software engineering internships, system integrations with Laravel Filament, and technical apprenticeships."
+      >
+        {/* Interactive Career Timeline Scrubber Bar */}
+        <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
+          <div className="flex items-center justify-between border-b-2 border-black/10 pb-3 dark:border-white/20">
+            <span className="font-display text-xs font-black uppercase text-black dark:text-neo-yellow">
+              Career Timeline Navigator
+            </span>
+            <span className="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400">
+              {experiences.length} Milestones Recorded
+            </span>
+          </div>
+
+          {/* Interactive Stepper Nodes */}
+          <div className="mt-4 flex gap-3 overflow-x-auto pb-2 scrollbar-none">
+            {experiences.map((exp, idx) => {
+              const key = `${exp.role}-${exp.period}`;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById(`exp-${idx}`);
+                    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+                    showToast(`Scrolled to milestone #${idx + 1}`);
+                  }}
+                  className="neo-btn shrink-0 rounded-2xl bg-white p-3 text-left transition-all hover:bg-neo-yellow dark:bg-[#181b24] dark:hover:bg-[#202533] min-w-[190px]"
+                >
+                  <div className="flex items-center justify-between text-[10px] font-mono font-black text-neo-forest dark:text-neo-yellow mb-1">
+                    <span>MILESTONE #{idx + 1}</span>
+                    <span>{exp.period.split(" - ")[0]}</span>
+                  </div>
+                  <div className="font-display text-xs font-black uppercase text-black dark:text-white truncate">
+                    {exp.role}
+                  </div>
+                  <div className="text-[11px] font-bold text-slate-600 dark:text-slate-400 truncate">
+                    {exp.place.split(" - ")[0]}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Filter Pills */}
+          <div className="mt-4 flex flex-wrap items-center gap-2 border-t-2 border-black/10 pt-4 dark:border-white/20">
+            {categories.map((cat) => {
+              const active = selectedFilter === cat;
+              const count =
+                cat === "All"
+                  ? experiences.length
+                  : experiences.filter((e) => getRoleCategory(e) === cat).length;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setSelectedFilter(cat)}
+                  className={`neo-btn rounded-xl px-3.5 py-1.5 text-xs font-black uppercase tracking-wider ${
+                    active
+                      ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black dark:border-white"
+                      : "bg-white text-black hover:bg-neo-palegreen dark:bg-[#181b24] dark:text-white"
+                  }`}
+                >
+                  <span>{cat}</span>
+                  <span className="ml-1.5 text-[10px] font-mono px-1 rounded bg-black/10 dark:bg-white/10">
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Experience Dossier Cards */}
+        <div className="space-y-8">
+          {filteredExperiences.map((item, idx) => {
+            const roleKey = `${item.role}-${item.period}`;
+            const currentTab = activeTabByRole[roleKey] || "responsibilities";
+            const isLatest = idx === 0 && selectedFilter === "All";
+
+            return (
+              <div
+                id={`exp-${idx}`}
+                key={roleKey}
+                className={`neo-box neo-box-hover rounded-3xl p-6 sm:p-8 transition-all ${
+                  isLatest
+                    ? "bg-neo-yellow/20 dark:bg-[#1a2233] border-[3px]"
+                    : "bg-white dark:bg-[#181b24]"
+                }`}
+              >
+                {/* Header Banner */}
+                <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start border-b-[2.5px] border-black pb-5 dark:border-white">
+                  <div className="flex items-start gap-4">
+                    <div
+                      className={`neo-btn h-14 w-14 shrink-0 rounded-2xl text-black p-0 ${
+                        idx % 3 === 0
+                          ? "bg-neo-yellow dark:bg-neo-yellow"
+                          : idx % 3 === 1
+                          ? "bg-neo-sky dark:bg-neo-sky"
+                          : "bg-neo-rose dark:bg-neo-rose"
+                      }`}
+                    >
+                      <Building2 className="h-7 w-7 stroke-[2.5]" />
                     </div>
-                    <h2 className="font-display text-xl font-bold text-white">{item.role}</h2>
-                    <p className="mt-3 text-sm leading-6 text-cyan">{item.place}</p>
-                    <PartnerList partners={item.partners} compact />
-                    <p className="mt-4 inline-flex border border-danger/40 bg-danger/10 px-3 py-2 text-xs font-semibold text-rose-100">
-                      {item.period}
-                    </p>
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2 mb-1">
+                        {isLatest && (
+                          <span className="neo-badge rounded-md bg-neo-green text-black font-black">
+                            ✦ PRESENT ROLE
+                          </span>
+                        )}
+                        <span className="neo-badge rounded-md bg-neo-yellow text-black">
+                          EXPERIENCE 0{idx + 1}
+                        </span>
+                        <span className="neo-badge rounded-md bg-white text-black dark:bg-[#202533] dark:text-white">
+                          <Calendar className="h-3 w-3 mr-1 inline" />
+                          {item.period}
+                        </span>
+                      </div>
+
+                      <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-black dark:text-white">
+                        {item.role}
+                      </h2>
+                      <p className="mt-0.5 text-xs sm:text-sm font-black uppercase text-neo-forest dark:text-neo-yellow">
+                        {item.place}
+                      </p>
+                    </div>
+                  </div>
+
+                  {item.evidence && item.evidence.length > 0 && (
                     <button
                       type="button"
                       onClick={() => setSelectedExperience(item)}
-                      className="interactive-link mt-4 inline-flex w-full items-center justify-center gap-2 border border-cyan/60 bg-cyan/10 px-4 py-2 text-sm font-semibold text-cyan transition hover:bg-cyan/20"
+                      className="neo-btn flex items-center gap-2 rounded-xl bg-neo-sky px-4 py-2 text-xs font-black uppercase text-black hover:bg-sky-300 dark:bg-neo-sky dark:text-black self-start"
                     >
-                      <FolderOpen className="h-4 w-4" aria-hidden="true" />
-                      <span>View Evidence</span>
+                      <FileCheck2 className="h-4 w-4 stroke-[2.5]" />
+                      <span>View Proof & Document ({item.evidence.length})</span>
                     </button>
+                  )}
+                </div>
+
+                {/* Split Layout: Left Info & Tech, Right In-Card Interactive Tabs */}
+                <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_1.3fr]">
+                  {/* Left Column: Summary & Technologies */}
+                  <div className="space-y-4">
+                    <p className="text-xs sm:text-sm font-bold leading-relaxed text-black dark:text-slate-200">
+                      {item.description}
+                    </p>
+
+                    {item.technologies && item.technologies.length > 0 && (
+                      <div>
+                        <span className="block text-[11px] font-black uppercase text-slate-500 dark:text-slate-400 mb-2">
+                          Tools & Environment:
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {item.technologies.map((tech) => (
+                            <span
+                              key={tech}
+                              className="neo-badge rounded-md bg-neo-cream text-[11px] font-black text-black dark:bg-[#202533] dark:text-white dark:border-white/30"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    <PartnerList partners={item.partners} compact />
                   </div>
 
-                  <div className="min-w-0 space-y-6">
+                  {/* Right Column: In-Card Interactive Tabs */}
+                  <div className="neo-box rounded-2xl bg-neo-bg p-5 dark:bg-[#121620] dark:border-white flex flex-col justify-between">
                     <div>
-                      <p className="text-sm leading-7 text-slate-300">{item.overview}</p>
-                    </div>
-
-                    <div className="grid gap-6 2xl:grid-cols-2">
-                      <DetailList
-                        icon={CheckCircle2}
-                        title="What I Worked On"
-                        items={item.responsibilities}
-                      />
-                      <DetailList icon={Sparkles} title="Key Impact" items={item.highlights} />
-                    </div>
-
-                    <div>
-                      <div className="mb-3 flex items-center gap-3">
-                        <Wrench className="h-5 w-5 text-cyan" aria-hidden="true" />
-                        <h3 className="font-display text-sm font-bold uppercase tracking-[0.18em] text-white">
-                          Tools & Focus
-                        </h3>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {item.technologies.map((technology) => (
-                          <span
-                            key={`${item.role}-${technology}`}
-                            className="interactive-chip border border-cyan/30 bg-cyan/10 px-3 py-2 text-sm text-cyan"
+                      {/* Tab buttons */}
+                      <div className="flex items-center gap-2 border-b-2 border-black/10 pb-3 dark:border-white/20">
+                        <button
+                          type="button"
+                          onClick={() => setRoleTab(roleKey, "responsibilities")}
+                          className={`rounded-lg px-3 py-1 text-xs font-black uppercase border border-black dark:border-white transition-all ${
+                            currentTab === "responsibilities"
+                              ? "bg-neo-yellow text-black"
+                              : "bg-white text-black dark:bg-[#202533] dark:text-white"
+                          }`}
+                        >
+                          Responsibilities ({item.responsibilities?.length || 0})
+                        </button>
+                        {item.highlights && item.highlights.length > 0 && (
+                          <button
+                            type="button"
+                            onClick={() => setRoleTab(roleKey, "highlights")}
+                            className={`rounded-lg px-3 py-1 text-xs font-black uppercase border border-black dark:border-white transition-all ${
+                              currentTab === "highlights"
+                                ? "bg-neo-sky text-black"
+                                : "bg-white text-black dark:bg-[#202533] dark:text-white"
+                            }`}
                           >
-                            {technology}
-                          </span>
-                        ))}
+                            Key Highlights
+                          </button>
+                        )}
+                        {item.overview && (
+                          <button
+                            type="button"
+                            onClick={() => setRoleTab(roleKey, "overview")}
+                            className={`rounded-lg px-3 py-1 text-xs font-black uppercase border border-black dark:border-white transition-all ${
+                              currentTab === "overview"
+                                ? "bg-neo-rose text-black"
+                                : "bg-white text-black dark:bg-[#202533] dark:text-white"
+                            }`}
+                          >
+                            Scope
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Content Panels */}
+                      <div className="mt-4">
+                        {currentTab === "responsibilities" && (
+                          <ul className="space-y-2 text-xs font-bold text-slate-800 dark:text-slate-200">
+                            {item.responsibilities?.map((resp, i) => (
+                              <li key={i} className="flex items-start gap-2">
+                                <span className="mt-1 h-2 w-2 rounded-sm bg-neo-forest dark:bg-neo-yellow shrink-0" />
+                                <span>{resp}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+
+                        {currentTab === "highlights" && (
+                          <ul className="space-y-2 text-xs font-bold text-slate-800 dark:text-slate-200">
+                            {item.highlights?.map((high, i) => (
+                              <li key={i} className="flex items-start gap-2">
+                                <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 text-neo-forest dark:text-neo-yellow shrink-0" />
+                                <span>{high}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+
+                        {currentTab === "overview" && (
+                          <p className="text-xs font-bold leading-relaxed text-slate-800 dark:text-slate-200">
+                            {item.overview}
+                          </p>
+                        )}
                       </div>
                     </div>
+
+                    {item.evidence && item.evidence.length > 0 && (
+                      <div className="mt-4 border-t border-black/10 pt-3 dark:border-white/20">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedExperience(item)}
+                          className="text-xs font-black uppercase text-neo-forest hover:underline dark:text-neo-yellow flex items-center gap-1"
+                        >
+                          <span>✦ Official verification document attached ({item.evidence[0].title})</span>
+                          <span>→</span>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </Panel>
-            ))}
-          </div>
-        }
-      />
+              </div>
+            );
+          })}
+        </div>
+      </PageShell>
 
+      {/* EVIDENCE / CREDENTIAL MODAL */}
       {selectedExperience && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-void/82 px-4 py-6 backdrop-blur-lg">
-          <div className="neon-border clip-corner max-h-[88vh] w-full max-w-5xl overflow-y-auto bg-night/95 p-5 shadow-neon">
-            <div className="mb-5 flex items-start justify-between gap-4 border-b border-white/10 pb-4">
-              <div>
-                <p className="font-display text-xs uppercase tracking-[0.28em] text-cyan">
-                  Work Evidence
-                </p>
-                <h2 className="mt-2 font-display text-2xl font-bold text-white">
+        <div
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setSelectedExperience(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 sm:p-6 backdrop-blur-sm animate-in fade-in duration-150"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="neo-box max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl bg-white p-0 shadow-brutal-lg dark:bg-[#181b24] dark:border-white"
+          >
+            {/* Modal Header */}
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b-[3px] border-black bg-neo-yellow px-6 py-4 text-black dark:border-white dark:bg-neo-yellow dark:text-black">
+              <div className="flex items-center gap-3">
+                <span className="rounded-lg border-2 border-black bg-white px-2.5 py-1 text-xs font-black uppercase text-black">
+                  OFFICIAL PROOF
+                </span>
+                <span className="font-display text-sm font-black uppercase tracking-wider truncate max-w-[280px] sm:max-w-md">
                   {selectedExperience.role}
-                </h2>
-                <p className="mt-2 text-sm text-slate-300">{selectedExperience.place}</p>
-                <PartnerList partners={selectedExperience.partners} compact />
+                </span>
               </div>
               <button
                 type="button"
                 onClick={() => setSelectedExperience(null)}
-                className="interactive-chip grid h-11 w-11 shrink-0 place-items-center border border-danger/50 bg-danger/10 text-rose-100"
-                aria-label="Close evidence"
+                className="neo-btn flex h-9 w-9 items-center justify-center rounded-xl bg-neo-rose text-black hover:bg-rose-400 p-0"
+                aria-label="Close modal"
               >
-                <X className="h-5 w-5" aria-hidden="true" />
+                <X className="h-5 w-5 stroke-[3]" />
               </button>
             </div>
 
-            {selectedExperience.evidence.length > 0 ? (
-              <div className="grid gap-4">
-                {selectedExperience.evidence.map((item) => (
-                  <EvidenceCard key={item.url} item={item} />
-                ))}
-              </div>
-            ) : (
-              <div className="border border-cyan/25 bg-cyan/10 p-6">
-                <FileImage className="mb-4 h-8 w-8 text-cyan" aria-hidden="true" />
-                <h3 className="font-display text-xl font-bold text-white">Evidence is ready to be added</h3>
-                <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-300">
-                  Add photos, certificates, screenshots, or PDF documents to{" "}
-                  <span className="text-cyan">public/assets/evidence/</span>, then register them in the
-                  experience evidence list inside <span className="text-cyan">src/data/experiences.js</span>.
-                  PDF evidence will be previewed directly here and can also be opened or downloaded.
+            {/* Modal Body */}
+            <div className="p-6 sm:p-8 space-y-6">
+              <div>
+                <h3 className="font-display text-2xl font-black uppercase text-black dark:text-white">
+                  {selectedExperience.place}
+                </h3>
+                <p className="mt-1 text-xs font-black uppercase text-neo-forest dark:text-neo-yellow">
+                  {selectedExperience.period}
                 </p>
               </div>
-            )}
+
+              {selectedExperience.evidence && selectedExperience.evidence.length > 0 && (
+                <div className="space-y-4">
+                  {selectedExperience.evidence.map((doc, idx) => (
+                    <div
+                      key={idx}
+                      className="rounded-2xl border-2 border-black bg-neo-cream p-4 dark:border-white dark:bg-[#121620]"
+                    >
+                      <div className="flex items-center justify-between gap-4 mb-3">
+                        <div>
+                          <h4 className="font-display text-sm font-black uppercase text-black dark:text-white">
+                            {doc.title}
+                          </h4>
+                          <p className="text-xs font-bold text-slate-600 dark:text-slate-300">
+                            {doc.description}
+                          </p>
+                        </div>
+                        <a
+                          href={doc.url}
+                          download
+                          className="neo-btn rounded-xl bg-neo-green px-3 py-1.5 text-xs font-black uppercase text-black hover:bg-emerald-300 dark:bg-neo-sky dark:text-black"
+                        >
+                          <Download className="h-3.5 w-3.5 inline mr-1" />
+                          Download
+                        </a>
+                      </div>
+
+                      <div className="aspect-[16/10] overflow-hidden rounded-xl border-2 border-black bg-white dark:border-white dark:bg-black">
+                        <AssetPreview
+                          src={doc.url}
+                          alt={doc.title}
+                          className="h-full w-full object-contain"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
     </>
-  );
-}
-
-function EvidenceCard({ item }) {
-  const isPdf = item.type === "pdf" || isPdfAsset(item.url);
-
-  return (
-    <div className="interactive-row border border-white/10 bg-white/[0.035] p-4">
-      <div
-        className={`mb-4 overflow-hidden border border-cyan/20 bg-void/80 ${
-          isPdf ? "h-[min(62vh,720px)]" : "aspect-video"
-        }`}
-      >
-        {item.type === "image" || isPdf ? (
-          <AssetPreview
-            src={item.url}
-            alt={item.title}
-            className="h-full w-full"
-            imageClassName="object-cover"
-          />
-        ) : (
-          <div className="grid h-full place-items-center text-cyan">
-            <FileText className="h-12 w-12" aria-hidden="true" />
-          </div>
-        )}
-      </div>
-      <h3 className="font-display text-lg font-bold text-white">{item.title}</h3>
-      <p className="mt-2 text-sm leading-6 text-slate-300">{item.description}</p>
-      <div className="mt-4 flex flex-wrap gap-3">
-        {isPdf && (
-          <a
-            href={item.url}
-            target="_blank"
-            rel="noreferrer"
-            className="interactive-link inline-flex items-center gap-2 border border-cyan/60 bg-cyan/10 px-4 py-2 text-sm font-semibold text-cyan"
-          >
-            <span>Open PDF</span>
-            <ExternalLink className="h-4 w-4" aria-hidden="true" />
-          </a>
-        )}
-        <a
-          href={item.url}
-          download
-          className="interactive-link inline-flex items-center gap-2 border border-cyan/60 bg-cyan/10 px-4 py-2 text-sm font-semibold text-cyan"
-        >
-          <span>Download Evidence</span>
-          <Download className="h-4 w-4" aria-hidden="true" />
-        </a>
-      </div>
-    </div>
   );
 }

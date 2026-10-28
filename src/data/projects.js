@@ -220,7 +220,7 @@ export const technicalProjects = [
     institution: "Kominfo",
     period: "August 2023 - November 2023",
     description:
-      "During my internship at Kominfo, I worked on a project using Laravel PHP and PHP DomPDF. This project was designed to streamline the process of generating official duty assignment letters for employees. Instead of manually typing documents, employees can simply access the web application, fill out a form with travel details, and generate the required letter instantly. This solution enhances efficiency and reduces administrative workload.",
+      "During my internship at Kominfo, I worked on a project using Laravel PHP and PHP DomPDF. This project was designed to automate the process of generating official duty assignment letters for employees. Instead of manually typing documents, employees can simply access the web application, fill out a form with travel details, and generate the required letter instantly. This solution enhances efficiency and reduces administrative workload.",
     stack: ["Laravel", "PHP", "PHP DomPDF", "MySQL", "Internal System"],
     features: [
       "Official duty assignment letter generation.",

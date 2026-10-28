@@ -1,120 +1,161 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   BadgeCheck,
   ChevronLeft,
   ChevronRight,
+  Copy,
   Download,
-  ExternalLink,
+  Eye,
   FileImage,
+  FileText,
+  Filter,
+  Grid,
+  List,
   Minus,
   Plus,
   RotateCcw,
+  Search,
+  Sparkles,
   X,
 } from "lucide-react";
 import { certifications } from "../data/certifications.js";
 import AssetPreview, { isPdfAsset } from "../components/AssetPreview.jsx";
 import PageShell from "../components/PageShell.jsx";
-import Panel from "../components/Panel.jsx";
+import { useToast } from "../context/ToastContext.jsx";
 
 function CertificateImageCarousel({ certificate, onOpen }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const images = certificate.images;
+  const images = certificate.images || [];
   const hasMultipleImages = images.length > 1;
   const activeAsset = images[activeIndex];
 
-  const showPrevious = () => {
+  const showPrevious = (e) => {
+    e.stopPropagation();
     setActiveIndex((current) => (current === 0 ? images.length - 1 : current - 1));
   };
 
-  const showNext = () => {
+  const showNext = (e) => {
+    e.stopPropagation();
     setActiveIndex((current) => (current === images.length - 1 ? 0 : current + 1));
   };
 
   return (
-    <div className="mb-5 overflow-hidden border border-cyan/20 bg-void/75">
-      <div className="relative aspect-[16/10]">
-        {activeAsset ? (
-          isPdfAsset(activeAsset) ? (
+    <div className="relative mb-4 aspect-[16/10] overflow-hidden rounded-xl border-2 border-black bg-neo-bg dark:border-white dark:bg-[#181b24]">
+      {activeAsset ? (
+        isPdfAsset(activeAsset) ? (
+          <button
+            type="button"
+            onClick={() => onOpen(certificate, activeIndex)}
+            className="group flex h-full w-full flex-col items-center justify-center p-4 bg-neo-green/30 text-center cursor-pointer transition-colors hover:bg-neo-green/50 dark:bg-[#202533]"
+            title="Click to open official PDF document"
+          >
+            <div className="neo-btn flex h-12 w-12 items-center justify-center rounded-2xl bg-neo-yellow text-black mb-2 p-0 dark:bg-neo-yellow dark:text-black">
+              <FileText className="h-6 w-6 stroke-[2.5]" />
+            </div>
+            <span className="text-xs font-black uppercase text-black dark:text-white">
+              OFFICIAL PDF DOCUMENT
+            </span>
+            <span className="text-[11px] font-bold text-neo-forest dark:text-neo-yellow mt-0.5">
+              ✦ CLICK TO PREVIEW
+            </span>
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => onOpen(certificate, activeIndex)}
+            className="group block h-full w-full cursor-zoom-in"
+            title="Click to inspect certificate"
+          >
             <AssetPreview
               src={activeAsset}
               alt={`${certificate.name} certificate ${activeIndex + 1}`}
-              className="h-full w-full"
+              className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
             />
-          ) : (
-            <button
-              type="button"
-              onClick={() => onOpen(certificate, activeIndex)}
-              className="block h-full w-full"
-            >
-              <AssetPreview
-                src={activeAsset}
-                alt={`${certificate.name} certificate ${activeIndex + 1}`}
-                className="h-full w-full"
-                imageClassName="object-cover"
-              />
-            </button>
-          )
-        ) : (
-          <div className="grid h-full place-items-center bg-[linear-gradient(135deg,rgba(34,211,238,.08),rgba(139,92,246,.1),rgba(255,46,99,.08))] p-5 text-center">
-            <div>
-              <FileImage className="mx-auto mb-3 h-9 w-9 text-cyan" aria-hidden="true" />
-              <p className="font-display text-xs uppercase tracking-[0.24em] text-cyan">
-                Certificate Asset
-              </p>
-              <p className="mt-2 text-xs leading-5 text-slate-400">
-                Add image or PDF files to public/assets/certificates
-              </p>
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
+              <span className="neo-btn rounded-xl bg-neo-yellow px-3.5 py-1.5 text-xs font-black uppercase text-black">
+                <Eye className="h-3.5 w-3.5 stroke-[2.5]" /> INSPECT
+              </span>
             </div>
-          </div>
-        )}
+          </button>
+        )
+      ) : (
+        <div className="flex h-full flex-col items-center justify-center p-4 text-center">
+          <FileImage className="mb-2 h-8 w-8 text-black dark:text-white" />
+          <span className="text-xs font-bold text-black dark:text-white">Certificate asset offline</span>
+        </div>
+      )}
 
-        {hasMultipleImages && (
-          <>
-            <button
-              type="button"
-              onClick={showPrevious}
-              className="interactive-chip absolute left-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center border border-cyan/50 bg-void/80 text-cyan"
-              aria-label="Previous certificate image"
-            >
-              <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-            </button>
-            <button
-              type="button"
-              onClick={showNext}
-              className="interactive-chip absolute right-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center border border-cyan/50 bg-void/80 text-cyan"
-              aria-label="Next certificate image"
-            >
-              <ChevronRight className="h-5 w-5" aria-hidden="true" />
-            </button>
-            <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2">
-              {images.map((image, index) => (
-                <button
-                  key={image}
-                  type="button"
-                  onClick={() => setActiveIndex(index)}
-                  className={`h-2.5 w-2.5 border ${
-                    activeIndex === index
-                      ? "border-cyan bg-cyan shadow-neon"
-                      : "border-white/30 bg-white/20"
-                  }`}
-                  aria-label={`Show certificate image ${index + 1}`}
-                />
-              ))}
-            </div>
-          </>
-        )}
-      </div>
+      {hasMultipleImages && (
+        <>
+          <button
+            type="button"
+            onClick={showPrevious}
+            className="neo-btn absolute left-2 top-1/2 -translate-y-1/2 h-7 w-7 rounded-lg bg-white p-0 text-black hover:bg-neo-yellow dark:bg-[#202533] dark:text-white"
+            aria-label="Previous certificate"
+          >
+            <ChevronLeft className="h-4 w-4 stroke-[3]" />
+          </button>
+          <button
+            type="button"
+            onClick={showNext}
+            className="neo-btn absolute right-2 top-1/2 -translate-y-1/2 h-7 w-7 rounded-lg bg-white p-0 text-black hover:bg-neo-yellow dark:bg-[#202533] dark:text-white"
+            aria-label="Next certificate"
+          >
+            <ChevronRight className="h-4 w-4 stroke-[3]" />
+          </button>
+          <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1">
+            {images.map((_, index) => (
+              <span
+                key={index}
+                className={`h-1.5 border border-black dark:border-white transition-all ${
+                  activeIndex === index ? "w-4 bg-neo-yellow" : "w-1.5 bg-white"
+                }`}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }
 
 export default function CertificationsPage() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [viewMode, setViewMode] = useState("grid"); // 'grid' | 'ledger'
   const [viewer, setViewer] = useState(null);
   const [zoom, setZoom] = useState(1);
+  const { showToast } = useToast();
 
-  const openViewer = (certificate, imageIndex = 0) => {
-    if (certificate.images.length === 0) return;
-    setViewer({ certificate, imageIndex });
+  // Extract unique categories
+  const categories = useMemo(() => {
+    const set = new Set();
+    certifications.forEach((c) => {
+      if (c.category) set.add(c.category);
+    });
+    return ["All", ...Array.from(set)];
+  }, []);
+
+  // Filtered certificates
+  const filteredCertificates = useMemo(() => {
+    return certifications.filter((cert) => {
+      const matchCategory =
+        selectedCategory === "All" || cert.category === selectedCategory;
+      const matchSearch =
+        searchQuery === "" ||
+        cert.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        cert.issuer.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (cert.date && cert.date.toLowerCase().includes(searchQuery.toLowerCase()));
+      return matchCategory && matchSearch;
+    });
+  }, [selectedCategory, searchQuery]);
+
+  // Viewer controls
+  const openViewer = (certificate, initialIndex = 0) => {
+    setViewer({
+      certificate,
+      activeIndex: initialIndex,
+    });
     setZoom(1);
   };
 
@@ -123,212 +164,416 @@ export default function CertificationsPage() {
     setZoom(1);
   };
 
-  const showPreviousImage = () => {
-    setViewer((current) => {
-      const lastIndex = current.certificate.images.length - 1;
-      return {
-        ...current,
-        imageIndex: current.imageIndex === 0 ? lastIndex : current.imageIndex - 1,
-      };
-    });
-    setZoom(1);
-  };
-
-  const showNextImage = () => {
-    setViewer((current) => ({
-      ...current,
-      imageIndex:
-        current.imageIndex === current.certificate.images.length - 1 ? 0 : current.imageIndex + 1,
+  const nextImage = () => {
+    if (!viewer) return;
+    const images = viewer.certificate.images || [];
+    setViewer((prev) => ({
+      ...prev,
+      activeIndex: (prev.activeIndex + 1) % images.length,
     }));
     setZoom(1);
   };
 
-  const zoomOut = () => setZoom((current) => Math.max(0.5, Number((current - 0.25).toFixed(2))));
-  const zoomIn = () => setZoom((current) => Math.min(3, Number((current + 0.25).toFixed(2))));
-  const resetZoom = () => setZoom(1);
-  const viewerAsset = viewer?.certificate.images[viewer?.imageIndex];
-  const viewerIsPdf = isPdfAsset(viewerAsset);
+  const prevImage = () => {
+    if (!viewer) return;
+    const images = viewer.certificate.images || [];
+    setViewer((prev) => ({
+      ...prev,
+      activeIndex: (prev.activeIndex - 1 + images.length) % images.length,
+    }));
+    setZoom(1);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!viewer) return;
+      if (e.key === "Escape") closeViewer();
+      if (e.key === "ArrowRight") nextImage();
+      if (e.key === "ArrowLeft") prevImage();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [viewer]);
+
+  const copyCertInfo = (cert) => {
+    navigator.clipboard.writeText(`${cert.name} — ${cert.issuer} (${cert.date})`);
+    showToast(`Copied "${cert.name}" info!`);
+  };
 
   return (
     <>
-      <PageShell eyebrow="Credential matrix" title="Certifications & Licenses">
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {certifications.map((certificate) => (
-            <Panel key={`${certificate.name}-${certificate.date}`} className="min-h-[300px] p-6">
-              <CertificateImageCarousel certificate={certificate} onOpen={openViewer} />
+      <PageShell
+        eyebrow="Credentials & Validation"
+        title="Licenses & Certifications"
+        description={`Collection of ${certifications.length} verified technical credentials from Dicoding Indonesia, Cisco, Fortinet, and accredited industry authorities.`}
+      >
+        {/* Interactive Control Deck */}
+        <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            {/* Search Input */}
+            <div className="relative flex-1">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 stroke-[2.5] text-black dark:text-neo-yellow" />
+              <input
+                type="text"
+                placeholder="Search certificate by name, issuer, or keyword..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full rounded-2xl border-2 border-black bg-neo-bg py-3 pl-12 pr-4 text-sm font-bold text-black placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-black dark:border-white dark:bg-[#121620] dark:text-white dark:placeholder:text-slate-400"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 rounded-lg bg-black p-1 text-white hover:bg-slate-800 dark:bg-white dark:text-black"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              )}
+            </div>
+
+            {/* View Mode Switcher */}
+            <div className="flex items-center gap-2 shrink-0">
               <button
                 type="button"
-                onClick={() => openViewer(certificate, 0)}
-                className="block w-full text-left"
+                onClick={() => setViewMode("grid")}
+                className={`neo-btn flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black uppercase ${
+                  viewMode === "grid"
+                    ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black dark:border-white"
+                    : "bg-white text-black dark:bg-[#181b24] dark:text-white"
+                }`}
               >
-                <div className="mb-5 flex items-start justify-between gap-4">
-                  <BadgeCheck className="h-7 w-7 shrink-0 text-cyan" aria-hidden="true" />
-                  <span className="interactive-chip border border-plasma/50 bg-plasma/10 px-3 py-1 text-xs text-violet-100">
-                    {certificate.category}
-                  </span>
-                </div>
-                <h2 className="font-display text-xl font-bold text-white">{certificate.name}</h2>
-                <dl className="mt-5 grid gap-3 text-sm">
-                  <div className="flex justify-between gap-4 border-b border-white/10 pb-2">
-                    <dt className="text-slate-500">Type</dt>
-                    <dd className="text-right text-slate-200">{certificate.type}</dd>
-                  </div>
-                  <div className="flex justify-between gap-4 border-b border-white/10 pb-2">
-                    <dt className="text-slate-500">Issued</dt>
-                    <dd className="text-right text-slate-200">{certificate.date}</dd>
-                  </div>
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-slate-500">Issuer</dt>
-                    <dd className="text-right text-slate-200">{certificate.issuer}</dd>
-                  </div>
-                </dl>
-                {certificate.images.length > 0 && (
-                  <p className="mt-4 text-xs uppercase tracking-[0.22em] text-cyan">
-                    Click card to inspect certificate
-                  </p>
-                )}
+                <Grid className="h-4 w-4" />
+                <span>Gallery</span>
               </button>
-              {certificate.images.length > 0 && (
-                <div className="mt-5 flex flex-wrap gap-3">
-                  {certificate.images.map((image, index) => (
-                    <a
-                      key={image}
-                      href={image}
-                      download
-                      className="interactive-link inline-flex items-center gap-2 border border-cyan/60 bg-cyan/10 px-4 py-2 text-sm font-semibold text-cyan"
-                    >
-                      <span>
-                        Download {certificate.images.length > 1 ? `#${index + 1}` : "Certificate"}
-                      </span>
-                      <Download className="h-4 w-4" aria-hidden="true" />
-                    </a>
-                  ))}
-                </div>
-              )}
-            </Panel>
-          ))}
+              <button
+                type="button"
+                onClick={() => setViewMode("ledger")}
+                className={`neo-btn flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black uppercase ${
+                  viewMode === "ledger"
+                    ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black dark:border-white"
+                    : "bg-white text-black dark:bg-[#181b24] dark:text-white"
+                }`}
+              >
+                <List className="h-4 w-4" />
+                <span>Ledger</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Category Filter Chips */}
+          <div className="mt-4 flex flex-wrap items-center gap-2 border-t-2 border-black/10 pt-4 dark:border-white/20">
+            {categories.map((cat) => {
+              const active = selectedCategory === cat;
+              const count =
+                cat === "All"
+                  ? certifications.length
+                  : certifications.filter((c) => c.category === cat).length;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`neo-btn flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-black uppercase tracking-wider ${
+                    active
+                      ? "bg-neo-green text-black dark:bg-neo-yellow dark:text-black dark:border-white"
+                      : "bg-white text-black hover:bg-neo-palegreen dark:bg-[#181b24] dark:text-white"
+                  }`}
+                >
+                  <span>{cat}</span>
+                  <span className="rounded px-1.5 py-0.2 text-[10px] font-mono bg-black/10 dark:bg-white/10">
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
+
+        {/* View Mode 1: Bento & Grid */}
+        {viewMode === "grid" && (
+          <div className="space-y-8">
+            {/* Featured Master Spotlight for CodingCamp when matching */}
+            {selectedCategory === "All" && !searchQuery && (
+              <div className="neo-box rounded-3xl border-[3px] border-black bg-neo-yellow/20 p-6 sm:p-8 dark:border-white dark:bg-[#1e2538] shadow-brutal">
+                <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="neo-badge rounded-md bg-neo-yellow text-black font-black">
+                        ★ FLAGSHIP CREDENTIAL
+                      </span>
+                      <span className="neo-badge rounded-md bg-neo-green text-black font-black">
+                        COMPLETED WITH DISTINCTION
+                      </span>
+                    </div>
+                    <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-black dark:text-white">
+                      Certificate Of Completion CodingCamp 2026
+                    </h2>
+                    <p className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
+                      Issued by <span className="text-black font-black dark:text-neo-yellow">Dicoding Indonesia & DBS Foundation</span> • July 2026
+                    </p>
+                    <p className="text-xs font-bold leading-relaxed text-black dark:text-slate-200 max-w-2xl">
+                      Intensive full-stack web engineering apprenticeship encompassing frontend systems, React runtimes, RESTful API design, and capstone project deployment.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-3 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => openViewer(certifications[1], 0)}
+                      className="neo-btn rounded-xl bg-neo-yellow px-5 py-3 font-display text-xs font-black uppercase text-black hover:bg-yellow-300 dark:bg-neo-yellow dark:text-black"
+                    >
+                      <Eye className="h-4 w-4 inline mr-1.5" />
+                      Inspect Master PDF
+                    </button>
+                    <a
+                      href={certifications[1].images[0]}
+                      download
+                      className="neo-btn rounded-xl bg-white px-4 py-3 text-xs font-black uppercase text-black hover:bg-slate-100 dark:bg-[#202533] dark:text-white"
+                    >
+                      <Download className="h-4 w-4 inline mr-1.5" />
+                      Download
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Grid of all matching certificates */}
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {filteredCertificates.map((cert) => (
+                <div
+                  key={`${cert.name}-${cert.date}`}
+                  className="neo-box neo-box-hover rounded-2xl bg-white p-5 flex flex-col justify-between dark:bg-[#181b24] dark:border-white"
+                >
+                  <div>
+                    <CertificateImageCarousel certificate={cert} onOpen={openViewer} />
+
+                    <div className="mb-2 flex items-center justify-between gap-2">
+                      <span className="neo-badge rounded-md bg-neo-yellow text-[10px] text-black">
+                        {cert.category}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => copyCertInfo(cert)}
+                        className="rounded p-1 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300"
+                        title="Copy Certificate Info"
+                      >
+                        <Copy className="h-3 w-3" />
+                      </button>
+                    </div>
+
+                    <h3 className="font-display text-base font-black uppercase text-black dark:text-white line-clamp-2 mt-1 leading-snug">
+                      {cert.name}
+                    </h3>
+
+                    <p className="mt-2 text-xs font-black uppercase text-neo-forest dark:text-neo-yellow">
+                      {cert.issuer}
+                    </p>
+                    <p className="mt-0.5 font-mono text-[11px] font-bold text-slate-600 dark:text-slate-400">
+                      ISSUED: {cert.date}
+                    </p>
+                  </div>
+
+                  {cert.images && cert.images.length > 0 && (
+                    <div className="mt-5 flex items-center justify-between border-t-2 border-black pt-3 dark:border-white">
+                      <button
+                        type="button"
+                        onClick={() => openViewer(cert, 0)}
+                        className="neo-btn rounded-lg bg-neo-palegreen px-3 py-1.5 text-xs font-black uppercase text-black hover:bg-neo-green dark:bg-neo-sky dark:text-black"
+                      >
+                        <Eye className="h-3.5 w-3.5 stroke-[2.5]" />
+                        <span>INSPECT</span>
+                      </button>
+
+                      <a
+                        href={cert.images[0]}
+                        download
+                        className="neo-btn rounded-lg bg-white px-3 py-1.5 text-xs font-black uppercase text-black hover:bg-slate-100 dark:bg-[#202533] dark:text-white"
+                        title="Download certificate file"
+                      >
+                        <Download className="h-3.5 w-3.5 stroke-[2.5]" />
+                        <span>DOWNLOAD</span>
+                      </a>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* View Mode 2: Security Audit Ledger */}
+        {viewMode === "ledger" && (
+          <div className="neo-box overflow-hidden rounded-3xl bg-white dark:bg-neo-darkcard dark:border-white">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs font-bold">
+                <thead className="border-b-[2.5px] border-black bg-neo-sky text-black uppercase font-black dark:border-white">
+                  <tr>
+                    <th className="px-5 py-4">#</th>
+                    <th className="px-5 py-4">Credential Name</th>
+                    <th className="px-5 py-4">Accredited Authority</th>
+                    <th className="px-5 py-4">Category</th>
+                    <th className="px-5 py-4">Timeline</th>
+                    <th className="px-5 py-4 text-right">Verification</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y-2 divide-black/10 dark:divide-white/10 text-black dark:text-white">
+                  {filteredCertificates.map((c, i) => (
+                    <tr
+                      key={`${c.name}-${i}`}
+                      onClick={() => openViewer(c, 0)}
+                      className="cursor-pointer transition-colors hover:bg-neo-yellow/20 dark:hover:bg-[#202533]"
+                    >
+                      <td className="px-5 py-4 font-mono font-black">{String(i + 1).padStart(2, "0")}</td>
+                      <td className="px-5 py-4 font-display font-black uppercase">
+                        {c.name}
+                      </td>
+                      <td className="px-5 py-4 text-neo-forest dark:text-neo-yellow">
+                        {c.issuer}
+                      </td>
+                      <td className="px-5 py-4">
+                        <span className="neo-badge rounded bg-neo-cream text-[10px] text-black dark:bg-[#202533] dark:text-white">
+                          {c.category}
+                        </span>
+                      </td>
+                      <td className="px-5 py-4 font-mono text-[11px]">{c.date}</td>
+                      <td className="px-5 py-4 text-right">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openViewer(c, 0);
+                          }}
+                          className="neo-btn rounded-lg bg-neo-yellow px-3 py-1 text-[11px] font-black uppercase text-black"
+                        >
+                          Verify ↗
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </PageShell>
 
+      {/* FULL CERTIFICATE LIGHTBOX / VIEWER MODAL */}
       {viewer && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-void/88 p-2 backdrop-blur-lg sm:p-4 lg:p-6">
-          <div className="neon-border clip-corner flex h-[calc(100dvh-1rem)] w-full max-w-7xl flex-col bg-night/95 p-3 shadow-neon sm:h-[calc(100dvh-2rem)] sm:p-5 lg:max-h-[90vh]">
-            <div className="mb-3 grid gap-3 border-b border-white/10 pb-3 sm:mb-4 sm:flex sm:items-start sm:justify-between sm:gap-4 sm:pb-4">
-              <div className="min-w-0">
-                <p className="font-display text-xs uppercase tracking-[0.28em] text-cyan">
-                  Certificate Viewer
-                </p>
-                <h2 className="mt-2 line-clamp-2 font-display text-lg font-bold text-white sm:text-2xl">
+        <div
+          role="dialog"
+          aria-modal="true"
+          onClick={closeViewer}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 sm:p-6 backdrop-blur-sm animate-in fade-in duration-150"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="neo-box flex h-full max-h-[95vh] w-full max-w-5xl flex-col overflow-hidden rounded-3xl bg-white p-0 shadow-brutal-lg dark:bg-[#181b24] dark:border-white"
+          >
+            {/* Modal Header Bar */}
+            <div className="flex items-center justify-between border-b-[3px] border-black bg-neo-yellow px-6 py-4 text-black dark:border-white dark:bg-neo-yellow dark:text-black">
+              <div className="flex items-center gap-3 truncate">
+                <span className="neo-badge rounded-md bg-white text-black font-black">
+                  VERIFIED CREDENTIAL
+                </span>
+                <span className="font-display text-sm font-black uppercase tracking-wider truncate">
                   {viewer.certificate.name}
-                </h2>
-                <p className="mt-2 text-sm text-slate-300">
-                  {viewer.certificate.issuer} | {viewerIsPdf ? "PDF" : "Image"} {viewer.imageIndex + 1} of{" "}
-                  {viewer.certificate.images.length}
-                </p>
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={closeViewer}
+                className="neo-btn flex h-9 w-9 items-center justify-center rounded-xl bg-neo-rose text-black hover:bg-rose-400 p-0"
+                aria-label="Close viewer"
+              >
+                <X className="h-5 w-5 stroke-[3]" />
+              </button>
+            </div>
+
+            {/* Inspector Canvas Area */}
+            <div className="relative flex flex-1 items-center justify-center overflow-auto bg-slate-900 p-4">
+              {isPdfAsset(viewer.certificate.images[viewer.activeIndex]) ? (
+                <iframe
+                  src={`${viewer.certificate.images[viewer.activeIndex]}#view=FitH`}
+                  title={viewer.certificate.name}
+                  className="h-full w-full rounded-xl border-2 border-white/20 bg-white"
+                />
+              ) : (
+                <img
+                  src={viewer.certificate.images[viewer.activeIndex]}
+                  alt={viewer.certificate.name}
+                  style={{ transform: `scale(${zoom})`, transition: "transform 0.15s ease-out" }}
+                  className="max-h-full max-w-full rounded-xl object-contain shadow-2xl"
+                />
+              )}
+
+              {/* Multiple Image Carousel Controls */}
+              {viewer.certificate.images.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={prevImage}
+                    className="neo-btn absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-xl bg-white p-0 text-black hover:bg-neo-yellow"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="h-6 w-6 stroke-[3]" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={nextImage}
+                    className="neo-btn absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-xl bg-white p-0 text-black hover:bg-neo-yellow"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="h-6 w-6 stroke-[3]" />
+                  </button>
+                </>
+              )}
+            </div>
+
+            {/* Modal Footer Controls */}
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t-[3px] border-black bg-white px-6 py-3 dark:border-white dark:bg-[#121620]">
+              <div className="text-xs font-black uppercase text-black dark:text-white">
+                {viewer.certificate.issuer} • {viewer.certificate.date}
               </div>
 
-              <div className="flex flex-wrap gap-2 sm:justify-end">
-                {!viewerIsPdf && (
+              <div className="flex items-center gap-2">
+                {!isPdfAsset(viewer.certificate.images[viewer.activeIndex]) && (
                   <>
                     <button
                       type="button"
-                      onClick={zoomOut}
-                      className="interactive-chip grid h-10 w-10 place-items-center border border-cyan/50 bg-cyan/10 text-cyan"
-                      aria-label="Zoom out"
+                      onClick={() => setZoom((z) => Math.max(0.5, z - 0.25))}
+                      className="neo-btn h-8 w-8 rounded-lg bg-slate-100 p-0 text-black hover:bg-slate-200 dark:bg-[#202533] dark:text-white"
+                      title="Zoom Out"
                     >
-                      <Minus className="h-4 w-4" aria-hidden="true" />
+                      <Minus className="h-4 w-4 stroke-[3]" />
                     </button>
                     <button
                       type="button"
-                      onClick={resetZoom}
-                      className="interactive-chip inline-flex h-10 items-center gap-2 border border-cyan/50 bg-cyan/10 px-3 text-sm font-semibold text-cyan"
+                      onClick={() => setZoom(1)}
+                      className="neo-btn px-2.5 py-1 text-xs font-mono font-black rounded-lg bg-slate-100 text-black dark:bg-[#202533] dark:text-white"
+                      title="Reset Zoom"
                     >
-                      <RotateCcw className="h-4 w-4" aria-hidden="true" />
-                      <span>{Math.round(zoom * 100)}%</span>
+                      {Math.round(zoom * 100)}%
                     </button>
                     <button
                       type="button"
-                      onClick={zoomIn}
-                      className="interactive-chip grid h-10 w-10 place-items-center border border-cyan/50 bg-cyan/10 text-cyan"
-                      aria-label="Zoom in"
+                      onClick={() => setZoom((z) => Math.min(2.5, z + 0.25))}
+                      className="neo-btn h-8 w-8 rounded-lg bg-slate-100 p-0 text-black hover:bg-slate-200 dark:bg-[#202533] dark:text-white"
+                      title="Zoom In"
                     >
-                      <Plus className="h-4 w-4" aria-hidden="true" />
+                      <Plus className="h-4 w-4 stroke-[3]" />
                     </button>
                   </>
                 )}
-                {viewerIsPdf && (
-                  <a
-                    href={viewerAsset}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="interactive-link inline-flex h-10 items-center gap-2 border border-cyan/60 bg-cyan/10 px-3 text-sm font-semibold text-cyan"
-                  >
-                    <span className="hidden sm:inline">Open PDF</span>
-                    <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                  </a>
-                )}
+
                 <a
-                  href={viewerAsset}
+                  href={viewer.certificate.images[viewer.activeIndex]}
                   download
-                  className="interactive-link inline-flex h-10 items-center gap-2 border border-cyan/60 bg-cyan/10 px-3 text-sm font-semibold text-cyan"
+                  className="neo-btn rounded-xl bg-neo-green px-4 py-1.5 text-xs font-black uppercase text-black hover:bg-emerald-300 dark:bg-neo-sky dark:text-black"
                 >
-                  <span className="hidden sm:inline">Download</span>
-                  <Download className="h-4 w-4" aria-hidden="true" />
+                  <Download className="h-4 w-4 inline mr-1" />
+                  Download File
                 </a>
-                <button
-                  type="button"
-                  onClick={closeViewer}
-                  className="interactive-chip grid h-10 w-10 place-items-center border border-danger/50 bg-danger/10 text-rose-100"
-                  aria-label="Close certificate viewer"
-                >
-                  <X className="h-5 w-5" aria-hidden="true" />
-                </button>
-              </div>
-            </div>
-
-            <div className="relative min-h-0 flex-1 overflow-auto border border-cyan/20 bg-void/80 p-2 sm:p-4">
-              {viewer.certificate.images.length > 1 && (
-                <div className="pointer-events-none sticky top-1/2 z-10 flex -translate-y-1/2 justify-between">
-                  <button
-                    type="button"
-                    onClick={showPreviousImage}
-                    className="interactive-chip pointer-events-auto grid h-10 w-10 place-items-center border border-cyan/50 bg-void/85 text-cyan sm:h-11 sm:w-11"
-                    aria-label="Previous certificate image"
-                  >
-                    <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={showNextImage}
-                    className="interactive-chip pointer-events-auto grid h-10 w-10 place-items-center border border-cyan/50 bg-void/85 text-cyan sm:h-11 sm:w-11"
-                    aria-label="Next certificate image"
-                  >
-                    <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
-                  </button>
-                </div>
-              )}
-
-              <div className="flex min-h-full min-w-full items-center justify-center">
-                {viewerIsPdf ? (
-                  <AssetPreview
-                    src={viewerAsset}
-                    alt={`${viewer.certificate.name} certificate`}
-                    className="h-full min-h-[60dvh] w-full"
-                  />
-                ) : (
-                  <AssetPreview
-                    src={viewerAsset}
-                    alt={`${viewer.certificate.name} certificate enlarged`}
-                    className={`origin-center object-contain transition-[width] ${
-                      zoom > 1
-                        ? "max-h-none max-w-none"
-                        : "max-h-[72dvh] max-w-full sm:max-h-[70dvh]"
-                    }`}
-                    style={{
-                      width: zoom > 1 ? `${Math.round(900 * zoom)}px` : "min(100%, 900px)",
-                    }}
-                  />
-                )}
               </div>
             </div>
           </div>

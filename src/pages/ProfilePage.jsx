@@ -1,21 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Award,
-  BadgeCheck,
-  BriefcaseBusiness,
   BookOpen,
+  BriefcaseBusiness,
+  CheckCircle2,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
+  Code2,
+  Copy,
+  Cpu,
+  Download,
+  ExternalLink as ExternalLinkIcon,
+  FileCheck,
   FolderKanban,
   Github,
+  Globe,
   GraduationCap,
   Instagram,
   Linkedin,
   Mail,
   MapPin,
   Phone,
+  Search,
+  ShieldAlert,
   ShieldCheck,
+  Sparkles,
+  Terminal,
+  Trophy,
   Users,
+  Zap,
 } from "lucide-react";
 import { profile } from "../data/profile.js";
 import { experiences } from "../data/experiences.js";
@@ -26,116 +41,54 @@ import { booksRead } from "../data/books.js";
 import { researchRecords } from "../data/research.js";
 import AssetPreview from "../components/AssetPreview.jsx";
 import ExternalLink from "../components/ExternalLink.jsx";
-import PageShell from "../components/PageShell.jsx";
-import Panel from "../components/Panel.jsx";
-import SectionTitle from "../components/SectionTitle.jsx";
-
-const pageButtons = [
-  ["projects", "Technical Projects"],
-  ["experience", "Experience Details"],
-  ["certifications", "Certifications & Licenses"],
-  ["awards", "Honorary and Awards"],
-  ["gallery", "Gallery"],
-  ["research", "Research"],
-  ["books", "Books Read"],
-];
+import { useToast } from "../context/ToastContext.jsx";
 
 const techLogos = [
-  { name: "HTML5", slug: "html5", mark: "HTML", color: "from-orange-400/20 to-danger/15" },
-  { name: "CSS", slug: "css", mark: "CSS", color: "from-cyan/20 to-blue-500/15" },
-  { name: "JavaScript", slug: "javascript", mark: "JS", color: "from-yellow-300/20 to-cyan/10" },
-  { name: "PHP", slug: "php", mark: "PHP", color: "from-violet-400/20 to-cyan/10" },
-  { name: "Laravel", slug: "laravel", mark: "L", color: "from-danger/20 to-rose-500/10" },
-  { name: "React.js", slug: "react", mark: "React", color: "from-cyan/20 to-plasma/10" },
-  { name: "Tailwind CSS", slug: "tailwindcss", mark: "TW", color: "from-cyan/20 to-emerald-400/10" },
-  { name: "Bootstrap", slug: "bootstrap", mark: "BS", color: "from-plasma/20 to-violet-400/10" },
-  { name: "MySQL", slug: "mysql", mark: "SQL", color: "from-blue-400/20 to-cyan/10" },
-  { name: "WordPress", slug: "wordpress", mark: "WP", color: "from-sky-400/20 to-white/5" },
-  { name: "Express.js", slug: "express", mark: "EX", color: "from-slate-300/15 to-cyan/10" },
-  { name: "Python", slug: "python", mark: "PY", color: "from-yellow-300/20 to-blue-500/15" },
-  { name: "Git", slug: "git", mark: "Git", color: "from-orange-500/20 to-danger/10" },
-  { name: "GitHub", slug: "github", mark: "GH", color: "from-white/15 to-cyan/10" },
-  { name: "GNU Bash", slug: "gnubash", mark: "Bash", color: "from-emerald-400/20 to-cyan/10" },
-  { name: "Vercel", slug: "vercel", mark: "VC", color: "from-white/15 to-plasma/10" },
-  { name: "Figma", slug: "figma", mark: "FIG", color: "from-plasma/20 to-cyan/10" },
-  { name: "Microsoft Word", slug: "microsoftword", mark: "DOC", color: "from-blue-400/20 to-cyan/10" },
-  { name: "Microsoft Excel", slug: "microsoftexcel", mark: "XLS", color: "from-emerald-400/20 to-cyan/10" },
-  { name: "Microsoft PowerPoint", slug: "microsoftpowerpoint", mark: "PPT", color: "from-orange-400/20 to-danger/10" },
+  { name: "React.js", slug: "react", mark: "React" },
+  { name: "Laravel", slug: "laravel", mark: "Laravel" },
+  { name: "PHP", slug: "php", mark: "PHP" },
+  { name: "JavaScript", slug: "javascript", mark: "JS" },
+  { name: "Tailwind CSS", slug: "tailwindcss", mark: "Tailwind" },
+  { name: "HTML5", slug: "html5", mark: "HTML5" },
+  { name: "CSS3", slug: "css3", mark: "CSS3" },
+  { name: "Bootstrap", slug: "bootstrap", mark: "Bootstrap" },
+  { name: "MySQL", slug: "mysql", mark: "MySQL" },
+  { name: "Python", slug: "python", mark: "Python" },
+  { name: "Express.js", slug: "express", mark: "Express" },
+  { name: "WordPress", slug: "wordpress", mark: "WordPress" },
+  { name: "Git", slug: "git", mark: "Git" },
+  { name: "GitHub", slug: "github", mark: "GitHub" },
+  { name: "GNU Bash", slug: "gnubash", mark: "Bash" },
+  { name: "Linux", slug: "linux", mark: "Linux" },
+  { name: "Vercel", slug: "vercel", mark: "Vercel" },
+  { name: "Figma", slug: "figma", mark: "Figma" },
 ];
-
-const monthMap = {
-  january: 0,
-  february: 1,
-  march: 2,
-  april: 3,
-  may: 4,
-  june: 5,
-  july: 6,
-  august: 7,
-  september: 8,
-  october: 9,
-  november: 10,
-  december: 11,
-};
-
-const monthYearPattern =
-  /(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{4})/gi;
-
-function createMonthIndex(year, month) {
-  return year * 12 + month;
-}
-
-function parseMonthYear(match) {
-  const month = monthMap[match[1].toLowerCase()];
-  const year = Number(match[2]);
-
-  return createMonthIndex(year, month);
-}
-
-function getCurrentMonthIndex() {
-  const now = new Date();
-
-  return createMonthIndex(now.getFullYear(), now.getMonth());
-}
 
 function normalizeSkill(skill) {
   return typeof skill === "string" ? { name: skill } : skill;
 }
 
-function getSkillLevelClass(level) {
-  const normalizedLevel = level?.toLowerCase();
-
-  if (normalizedLevel === "advanced") {
-    return "border-emerald-400/50 bg-emerald-400/10 text-emerald-200 shadow-[0_0_18px_rgba(52,211,153,0.18)]";
+function getSkillLevelBadge(level) {
+  const norm = level?.toLowerCase();
+  if (norm === "advanced") {
+    return "bg-neo-green text-black border-black dark:border-white";
   }
-
-  if (normalizedLevel === "intermediate") {
-    return "border-cyan/50 bg-cyan/10 text-cyan shadow-[0_0_18px_rgba(34,211,238,0.16)]";
+  if (norm === "intermediate") {
+    return "bg-neo-yellow text-black border-black dark:border-white";
   }
-
-  if (normalizedLevel === "basic") {
-    return "border-plasma/50 bg-plasma/10 text-rose-100 shadow-[0_0_18px_rgba(255,46,109,0.16)]";
-  }
-
-  return "border-white/20 bg-white/10 text-slate-200";
+  return "bg-neo-sky text-black border-black dark:border-white";
 }
 
 function TechLogoIcon({ tech }) {
   const [hasError, setHasError] = useState(false);
-
   if (hasError) {
-    return (
-      <span className="font-display text-xs font-black uppercase tracking-[0.08em] text-cyan">
-        {tech.mark}
-      </span>
-    );
+    return <span className="font-black text-xs uppercase">{tech.mark}</span>;
   }
-
   return (
     <img
-      src={`https://cdn.simpleicons.org/${tech.slug}/22D3EE?viewbox=auto`}
+      src={`https://cdn.simpleicons.org/${tech.slug}/000000`}
       alt={`${tech.name} logo`}
-      className="h-full w-full object-contain drop-shadow-[0_0_8px_rgba(34,211,238,0.55)]"
+      className="h-5 w-5 object-contain dark:invert"
       draggable="false"
       loading="lazy"
       onError={() => setHasError(true)}
@@ -143,121 +96,11 @@ function TechLogoIcon({ tech }) {
   );
 }
 
-function TechLogoMarquee() {
-  const marqueeItems = [...techLogos, ...techLogos];
-
-  return (
-    <Panel className="overflow-hidden p-0">
-      <div className="border-b border-cyan/15 px-5 py-4 sm:px-6">
-        <SectionTitle title="Tech Stack Used" />
-      </div>
-      <div className="relative overflow-hidden py-5">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-night to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-night to-transparent" />
-        <div className="tech-marquee-track flex w-max gap-3 px-3">
-          {marqueeItems.map((tech, index) => (
-            <div
-              key={`${tech.name}-${index}`}
-              className={`interactive-chip flex min-w-36 items-center gap-3 border border-cyan/25 bg-gradient-to-br ${tech.color} px-4 py-3 shadow-[0_0_20px_rgba(34,211,238,0.08)]`}
-            >
-              <span className="grid h-10 w-10 shrink-0 place-items-center border border-cyan/40 bg-night/90 p-2 shadow-neon">
-                <TechLogoIcon tech={tech} />
-              </span>
-              <span className="whitespace-nowrap text-sm font-semibold text-slate-100">{tech.name}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Panel>
-  );
-}
-
-function getExperienceMonthRange(period) {
-  const matches = [...period.matchAll(monthYearPattern)];
-
-  if (matches.length === 0) return null;
-
-  const start = parseMonthYear(matches[0]);
-  const end = /present/i.test(period) ? getCurrentMonthIndex() : parseMonthYear(matches[1] ?? matches[0]);
-
-  if (end < start) return null;
-
-  return { start, end };
-}
-
-function formatExperienceDuration(totalMonths) {
-  const years = Math.floor(totalMonths / 12);
-  const months = totalMonths % 12;
-  const parts = [];
-
-  if (years > 0) parts.push(`${years} ${years === 1 ? "year" : "years"}`);
-  if (months > 0) parts.push(`${months} ${months === 1 ? "month" : "months"}`);
-
-  return parts.length > 0 ? parts.join(" ") : "0 months";
-}
-
-function getExperienceDuration() {
-  const activeMonths = new Set();
-
-  experiences.forEach((item) => {
-    const range = getExperienceMonthRange(item.period);
-
-    if (!range) return;
-
-    for (let month = range.start; month <= range.end; month += 1) {
-      activeMonths.add(month);
-    }
-  });
-
-  return formatExperienceDuration(activeMonths.size);
-}
-
-function formatProjectDuration(totalMonths, totalDays) {
-  const monthsFromDays = Math.floor(totalDays / 30);
-  const remainingDays = totalDays % 30;
-  const months = totalMonths + monthsFromDays;
-  const years = Math.floor(months / 12);
-  const remainingMonths = months % 12;
-  const parts = [];
-
-  if (years > 0) parts.push(`${years} ${years === 1 ? "year" : "years"}`);
-  if (remainingMonths > 0) {
-    parts.push(`${remainingMonths} ${remainingMonths === 1 ? "month" : "months"}`);
-  }
-  if (remainingDays > 0) parts.push(`${remainingDays} ${remainingDays === 1 ? "day" : "days"}`);
-
-  return parts.length > 0 ? parts.join(" ") : "0 days";
-}
-
-function getProjectDuration() {
-  const activeMonths = new Set();
-  let activeDays = 0;
-
-  technicalProjects.forEach((project) => {
-    if (project.durationDays) {
-      activeDays += project.durationDays;
-      return;
-    }
-
-    const range = getExperienceMonthRange(project.period);
-
-    if (!range) return;
-
-    for (let month = range.start; month <= range.end; month += 1) {
-      activeMonths.add(month);
-    }
-  });
-
-  return formatProjectDuration(activeMonths.size, activeDays);
-}
-
 function addPartnerActivities(partnerMap, partners = [], activity) {
   partners.forEach((partner) => {
     const name = String(partner).trim();
     const key = name.toLowerCase();
-
     if (!name || key === "solo") return;
-
     const current = partnerMap.get(key) ?? { name, activities: new Set() };
     current.activities.add(activity);
     partnerMap.set(key, current);
@@ -266,19 +109,15 @@ function addPartnerActivities(partnerMap, partners = [], activity) {
 
 function getPartnerThanks() {
   const partnerMap = new Map();
-
   experiences.forEach((item) => {
     addPartnerActivities(partnerMap, item.partners, `Experience: ${item.place}`);
   });
-
   technicalProjects.forEach((item) => {
     addPartnerActivities(partnerMap, item.partners, `Project: ${item.name}`);
   });
-
   awards.forEach((item) => {
     addPartnerActivities(partnerMap, item.partners, `Award: ${item.name}`);
   });
-
   researchRecords.forEach((item) => {
     addPartnerActivities(partnerMap, item.partners, `Research: ${item.title}`);
   });
@@ -291,392 +130,856 @@ function getPartnerThanks() {
     .sort((a, b) => b.activities.length - a.activities.length || a.name.localeCompare(b.name));
 }
 
-function PortfolioStats() {
-  const partnerCount = getPartnerThanks().length;
-  const stats = [
-    {
-      label: "Experience Records",
-      value: experiences.length,
-      detail: `${getExperienceDuration()} active time`,
-      icon: BriefcaseBusiness,
-      tone: "cyan",
-    },
-    {
-      label: "Technical Projects",
-      value: technicalProjects.length,
-      detail: `${getProjectDuration()} active time`,
-      icon: FolderKanban,
-      tone: "pink",
-    },
-    {
-      label: "Certifications",
-      value: certifications.length,
-      icon: BadgeCheck,
-      tone: "yellow",
-    },
-    {
-      label: "Awards",
-      value: awards.length,
-      icon: Award,
-      tone: "green",
-    },
-    {
-      label: "Books Read",
-      value: booksRead.length,
-      icon: BookOpen,
-      tone: "violet",
-    },
-    {
-      label: "Partners",
-      value: partnerCount,
-      icon: Users,
-      tone: "blue",
-    },
-  ];
+export default function ProfilePage({ navigate = (id) => (window.location.hash = id) }) {
+  const [selectedPersona, setSelectedPersona] = useState("fullstack"); // 'fullstack' | 'cybersec' | 'uiux'
+  const [activePhotoIndex, setActivePhotoIndex] = useState(0);
+  const [skillSearch, setSkillSearch] = useState("");
+  const [selectedSkillCategory, setSelectedSkillCategory] = useState("All");
+  const [expandedPillar, setExpandedPillar] = useState(0);
+  const { showToast } = useToast();
 
-  const toneStyles = {
-    cyan: "border-cyan/30 bg-cyan/10 text-cyan",
-    pink: "border-danger/30 bg-danger/10 text-rose-300",
-    yellow: "border-yellow-400/30 bg-yellow-400/10 text-yellow-300",
-    green: "border-emerald-400/30 bg-emerald-400/10 text-emerald-300",
-    violet: "border-plasma/30 bg-plasma/10 text-violet-200",
-    blue: "border-blue-400/30 bg-blue-400/10 text-blue-200",
-  };
-
-  return (
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
-      {stats.map(({ label, value, detail, icon: Icon, tone }) => (
-        <div
-          key={label}
-          className={`interactive-card neon-border clip-corner p-6 text-center backdrop-blur-md ${toneStyles[tone]}`}
-        >
-          <Icon className="mx-auto mb-5 h-9 w-9" aria-hidden="true" />
-          <p className="font-display text-4xl font-extrabold text-white text-glow">{value}</p>
-          {detail && <p className="mt-2 text-sm font-semibold text-cyan">{detail}</p>}
-          <p className="mt-3 font-mono text-sm uppercase tracking-[0.18em] text-slate-300">{label}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function PartnerThanks() {
-  const partners = getPartnerThanks();
-
-  return (
-    <Panel>
-      <SectionTitle kicker="Collaboration signal" title="Thank You, Partners" />
-      <p className="max-w-3xl text-sm leading-7 text-slate-300">
-        Thank you for everyone who has worked, competed, built, or researched with me. Hover or focus
-        each name to see the activities we have worked on together.
-      </p>
-
-      {partners.length > 0 ? (
-        <div className="mt-6 flex flex-wrap gap-3">
-          {partners.map((partner) => (
-            <div key={partner.name} className="group relative">
-              <button
-                type="button"
-                className="interactive-chip inline-flex items-center gap-3 border border-cyan/40 bg-cyan/10 px-4 py-3 text-left text-sm font-semibold text-cyan"
-              >
-                <Users className="h-4 w-4 shrink-0" aria-hidden="true" />
-                <span>{partner.name}</span>
-                {partner.activities.length > 1 ? (
-                  <span className="border border-white/10 bg-white/10 px-2 py-0.5 text-xs text-white">
-                    {partner.activities.length}
-                  </span>
-                ) : null}
-              </button>
-              <div className="pointer-events-none absolute bottom-full left-0 z-20 mb-3 w-72 translate-y-2 border border-cyan/30 bg-night/95 p-4 text-left opacity-0 shadow-neon backdrop-blur-md transition group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                <p className="mb-3 font-display text-xs uppercase tracking-[0.2em] text-cyan">
-                  Activities together
-                </p>
-                <div className="grid gap-2">
-                  {partner.activities.map((activity) => (
-                    <p key={activity} className="text-xs leading-5 text-slate-300">
-                      {activity}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="mt-6 border border-white/10 bg-white/[0.035] p-4">
-          <p className="text-sm leading-6 text-slate-300">
-            Partner names are ready to be shown here once you add them to the data files.
-          </p>
-        </div>
-      )}
-    </Panel>
-  );
-}
-
-function ProfilePhotoCarousel() {
   const photos = profile.photos?.length > 0 ? profile.photos : profile.photo ? [profile.photo] : [];
-  const [activeIndex, setActiveIndex] = useState(0);
   const hasMultiplePhotos = photos.length > 1;
 
   useEffect(() => {
     if (!hasMultiplePhotos) return undefined;
-
     const intervalId = window.setInterval(() => {
-      setActiveIndex((current) => (current === photos.length - 1 ? 0 : current + 1));
-    }, 4200);
-
+      setActivePhotoIndex((current) => (current === photos.length - 1 ? 0 : current + 1));
+    }, 4500);
     return () => window.clearInterval(intervalId);
   }, [hasMultiplePhotos, photos.length]);
 
-  const showPrevious = () => {
-    setActiveIndex((current) => (current === 0 ? photos.length - 1 : current - 1));
+  const personas = {
+    fullstack: {
+      title: "Full-Stack Architect",
+      stamp: "SYSTEMS & WEB",
+      badgeColor: "bg-neo-green text-black",
+      headline: "Scalable Web Engines & Client-Side Compilers",
+      description:
+        "Building production React systems, Laravel Filament management suites, and serverless zero-DB pipelines. Architect of CodeLearn (8-stage Markdown-to-static compiler with 500+ notes & 7 client-side runtimes).",
+      tags: ["React 18", "TypeScript", "Node.js", "Laravel Filament", "Tailwind CSS", "Vercel"],
+      stats: { primary: "11 Projects", secondary: "8-Stage Pipeline", callout: "0 Server Cost" },
+    },
+    cybersec: {
+      title: "CyberSecurity Researcher",
+      stamp: "THREAT & CTF",
+      badgeColor: "bg-neo-sky text-black",
+      headline: "Client-Side Sandboxing & Applied Cryptography",
+      description:
+        "Active collegiate CTF competitor and founder of Makat-Xploit. Researching web vulnerability mitigation, browser memory isolation in WASM/Pyodide, and cryptographic challenge engineering.",
+      tags: ["Cryptography", "Web Exploitation", "CTF Engineering", "Linux Hardening", "Pyodide Sandbox"],
+      stats: { primary: "Top 18 National", secondary: "108 CySec Tools", callout: "44/44 Crypto Tests" },
+    },
+    uiux: {
+      title: "UI/UX Craftsman",
+      stamp: "HUMAN EXPERIENCE",
+      badgeColor: "bg-neo-rose text-black",
+      headline: "Expressive Design Systems & Gamification",
+      description:
+        "Transforming complex technical platforms into delightful, tactile digital spaces. Winner of 2nd Place UI/UX Poliban Competition 2024 and creator of EduQuestify gamified education platform.",
+      tags: ["Figma Systems", "Neobrutalism", "Responsive Architecture", "Micro-Interactions"],
+      stats: { primary: "2nd Place Winner", secondary: "Design Systems", callout: "WCAG AAA Ready" },
+    },
   };
 
-  const showNext = () => {
-    setActiveIndex((current) => (current === photos.length - 1 ? 0 : current + 1));
+  const current = personas[selectedPersona];
+
+  const copyText = (val, label) => {
+    navigator.clipboard.writeText(val);
+    showToast(`Copied ${label} to clipboard!`);
   };
+
+  // Skill search & category filtering
+  const skillCategories = useMemo(() => {
+    return ["All", ...profile.skills.map((s) => s.category)];
+  }, []);
+
+  const filteredSkillGroups = useMemo(() => {
+    return profile.skills
+      .map((group) => {
+        const matchesCategory =
+          selectedSkillCategory === "All" || group.category === selectedSkillCategory;
+        if (!matchesCategory) return null;
+
+        const q = skillSearch.toLowerCase().trim();
+        const matchingItems = group.items.filter((skill) => {
+          if (!q) return true;
+          const item = normalizeSkill(skill);
+          return (
+            item.name.toLowerCase().includes(q) ||
+            (item.context && item.context.toLowerCase().includes(q))
+          );
+        });
+
+        if (matchingItems.length === 0) return null;
+        return {
+          ...group,
+          items: matchingItems,
+        };
+      })
+      .filter(Boolean);
+  }, [selectedSkillCategory, skillSearch]);
+
+  const codelearn = technicalProjects.find((p) => p.name === "CodeLearn") || technicalProjects[0];
 
   return (
-    <div className="relative mb-5 aspect-[4/5] overflow-hidden border border-cyan/30 bg-gradient-to-br from-plasma/30 via-cyan/10 to-danger/20">
-      {photos.length > 0 ? (
-        <>
-          <AssetPreview
-            src={photos[activeIndex]}
-            alt={`${profile.name} profile ${activeIndex + 1}`}
-            className="h-full w-full transition-opacity"
-            imageClassName="object-cover"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_58%,rgba(7,9,20,.62))]" />
-
-          {hasMultiplePhotos && (
-            <>
-              <button
-                type="button"
-                onClick={showPrevious}
-                className="interactive-chip absolute left-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center border border-cyan/50 bg-void/80 text-cyan"
-                aria-label="Previous profile photo"
-              >
-                <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={showNext}
-                className="interactive-chip absolute right-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center border border-cyan/50 bg-void/80 text-cyan"
-                aria-label="Next profile photo"
-              >
-                <ChevronRight className="h-5 w-5" aria-hidden="true" />
-              </button>
-              <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-                {photos.map((photo, index) => (
-                  <button
-                    key={photo}
-                    type="button"
-                    onClick={() => setActiveIndex(index)}
-                    className={`h-2.5 w-2.5 border ${
-                      activeIndex === index
-                        ? "border-cyan bg-cyan shadow-neon"
-                        : "border-white/30 bg-white/20"
-                    }`}
-                    aria-label={`Show profile photo ${index + 1}`}
-                  />
-                ))}
-              </div>
-            </>
-          )}
-        </>
-      ) : (
-        <div className="grid h-full place-items-center p-8 text-center">
-          <div>
-            <div className="mx-auto mb-5 grid h-28 w-28 place-items-center rounded-full border border-cyan/50 bg-void/70 font-display text-4xl font-bold text-cyan shadow-neon">
-              {profile.name
-                .split(" ")
-                .map((word) => word[0])
-                .join("")
-                .slice(0, 2)}
+    <div className="space-y-12 sm:space-y-16">
+      {/* =========================================================================
+          HERO MASTER: ASYMMETRIC CLEARANCE DOSSIER & COMMAND DECK
+          ========================================================================= */}
+      <section className="relative">
+        <div className="grid gap-8 lg:grid-cols-12 items-start">
+          {/* LEFT: EDITORIAL INTRO & INTERACTIVE CONSOLE (Cols 7) */}
+          <div className="lg:col-span-7 space-y-6">
+            {/* Top Identity Kicker Tape */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="neo-badge rounded-md bg-neo-yellow text-black font-black text-xs -rotate-1">
+                ★ POLIBAN STUDENT // D3 INFORMATION SYSTEMS
+              </span>
+              <span className="neo-badge rounded-md bg-neo-green text-black font-black text-xs rotate-1">
+                ⚡ GPA 3.91 / 4.00
+              </span>
+              <span className="neo-badge rounded-md bg-white text-black font-mono text-xs dark:bg-[#1f2430] dark:text-white">
+                📍 BANJARMASIN, ID
+              </span>
             </div>
-            <p className="font-display text-sm uppercase tracking-[0.28em] text-white">
-              Profile Photo
-            </p>
+
+            {/* Giant Punchy Display Typography */}
+            <div>
+              <h1 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-black dark:text-white leading-[0.95]">
+                M. Aryanda Sanggadiennata
+              </h1>
+              <p className="mt-3 text-sm sm:text-base font-bold text-slate-700 dark:text-slate-300">
+                {profile.tagline}
+              </p>
+            </div>
+
+            {/* Interactive Role Switcher Deck */}
+            <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 dark:bg-neo-darkcard dark:border-white shadow-brutal">
+              <div className="flex items-center justify-between border-b-2 border-black/10 pb-3 dark:border-white/20 mb-4">
+                <span className="text-xs font-black uppercase text-black dark:text-neo-yellow flex items-center gap-2">
+                  <Terminal className="h-4 w-4" />
+                  <span>Interactive Role Console</span>
+                </span>
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                  CLICK TO SWITCH FOCUS
+                </span>
+              </div>
+
+              {/* 3 Clickable Persona Tabs */}
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedPersona("fullstack");
+                    showToast("Switched to Full-Stack Architect view");
+                  }}
+                  className={`neo-btn rounded-xl py-2 px-1 text-center text-xs font-black uppercase transition-all ${
+                    selectedPersona === "fullstack"
+                      ? "bg-neo-green text-black shadow-brutal-sm"
+                      : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-[#1e2330] dark:text-slate-300"
+                  }`}
+                >
+                  ⚡ Full-Stack
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedPersona("cybersec");
+                    showToast("Switched to CyberSecurity Researcher view");
+                  }}
+                  className={`neo-btn rounded-xl py-2 px-1 text-center text-xs font-black uppercase transition-all ${
+                    selectedPersona === "cybersec"
+                      ? "bg-neo-sky text-black shadow-brutal-sm"
+                      : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-[#1e2330] dark:text-slate-300"
+                  }`}
+                >
+                  🛡️ CyberSec
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedPersona("uiux");
+                    showToast("Switched to UI/UX Craftsman view");
+                  }}
+                  className={`neo-btn rounded-xl py-2 px-1 text-center text-xs font-black uppercase transition-all ${
+                    selectedPersona === "uiux"
+                      ? "bg-neo-rose text-black shadow-brutal-sm"
+                      : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-[#1e2330] dark:text-slate-300"
+                  }`}
+                >
+                  🎨 UI/UX
+                </button>
+              </div>
+
+              {/* Dynamic Console Output */}
+              <div className="mt-4 rounded-2xl border-2 border-black bg-neo-bg p-4 dark:border-white/30 dark:bg-[#121620] space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className={`neo-badge rounded text-[10px] font-black ${current.badgeColor}`}>
+                    {current.stamp}
+                  </span>
+                  <span className="font-mono text-xs font-black text-neo-forest dark:text-neo-yellow">
+                    {current.stats.callout}
+                  </span>
+                </div>
+
+                <h3 className="font-display text-base sm:text-lg font-black uppercase text-black dark:text-white leading-snug">
+                  {current.headline}
+                </h3>
+
+                <p className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 leading-relaxed">
+                  {current.description}
+                </p>
+
+                {/* Stack Tags */}
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {current.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-md border border-black/30 bg-white px-2 py-0.5 text-[10px] font-black text-black dark:border-white/30 dark:bg-[#202533] dark:text-white"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons Row */}
+              <div className="mt-5 flex flex-wrap gap-3">
+                <ExternalLink href={profile.cvUrl} download variant="yellow">
+                  <Download className="h-4 w-4 stroke-[2.5]" />
+                  Download Full CV
+                </ExternalLink>
+                <button
+                  type="button"
+                  onClick={() => navigate("projects")}
+                  className="neo-btn rounded-xl bg-neo-green px-4 py-2 text-xs font-black uppercase text-black hover:bg-emerald-300 dark:bg-neo-sky dark:text-black"
+                >
+                  <Code2 className="h-4 w-4 stroke-[2.5]" />
+                  Explore Projects
+                </button>
+                <button
+                  type="button"
+                  onClick={() => copyText(profile.email, "Email")}
+                  className="neo-btn rounded-xl bg-white px-3 py-2 text-xs font-black uppercase text-black hover:bg-slate-100 dark:bg-[#202533] dark:text-white"
+                  title="Copy Email Address"
+                >
+                  <Copy className="h-4 w-4 inline mr-1" />
+                  Email
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT: PHYSICAL CYBER CLEARANCE BADGE (Cols 5) */}
+          <div className="lg:col-span-5">
+            <div className="relative neo-box rounded-3xl bg-neo-yellow p-6 dark:bg-[#181b24] dark:border-white shadow-brutal-lg">
+              {/* Lanyard Top Slot Graphic */}
+              <div className="mx-auto mb-4 h-2.5 w-16 rounded-full border-2 border-black bg-black/20 dark:border-white dark:bg-white/20" />
+
+              {/* Clearance Badge Header */}
+              <div className="flex items-center justify-between border-b-2 border-black pb-3 dark:border-white mb-4">
+                <div>
+                  <span className="font-mono text-[9px] font-black uppercase tracking-widest text-black/70 dark:text-slate-400 block">
+                    SECURITY CLEARANCE BADGE
+                  </span>
+                  <span className="font-display text-sm font-black uppercase text-black dark:text-white">
+                    POLIBAN // D3-SI // 2026
+                  </span>
+                </div>
+                <span className="neo-badge rounded-md bg-neo-rose text-black text-[10px] font-black animate-pulse">
+                  ● ACTIVE
+                </span>
+              </div>
+
+              {/* High-Contrast Photo Frame with Multiple Photos Toggle */}
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border-[3px] border-black bg-black dark:border-white">
+                {photos.length > 0 ? (
+                  <>
+                    <AssetPreview
+                      src={photos[activePhotoIndex]}
+                      alt={`${profile.name} clearance photo`}
+                      className="h-full w-full object-cover"
+                    />
+
+                    {/* Photo Switcher Overlay Controls */}
+                    {hasMultiplePhotos && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setActivePhotoIndex((c) => (c === 0 ? photos.length - 1 : c - 1))
+                          }
+                          className="neo-btn absolute left-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-lg bg-white p-0 text-black hover:bg-neo-yellow"
+                          aria-label="Previous photo"
+                        >
+                          <ChevronLeft className="h-4 w-4 stroke-[3]" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setActivePhotoIndex((c) => (c === photos.length - 1 ? 0 : c + 1))
+                          }
+                          className="neo-btn absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-lg bg-white p-0 text-black hover:bg-neo-yellow"
+                          aria-label="Next photo"
+                        >
+                          <ChevronRight className="h-4 w-4 stroke-[3]" />
+                        </button>
+
+                        <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
+                          {photos.map((_, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => setActivePhotoIndex(idx)}
+                              className={`h-2 border border-black transition-all ${
+                                activePhotoIndex === idx
+                                  ? "w-5 bg-neo-yellow"
+                                  : "w-2 bg-white"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <div className="flex h-full items-center justify-center text-white font-black">
+                    NO PHOTO
+                  </div>
+                )}
+              </div>
+
+              {/* Holographic Verification Seal */}
+              <div className="mt-4 flex items-center justify-between">
+                <div>
+                  <span className="font-mono text-[10px] font-black uppercase text-slate-700 dark:text-slate-400">
+                    ACADEMIC ACCREDITATION
+                  </span>
+                  <p className="font-display text-2xl font-black text-black dark:text-neo-yellow">
+                    GPA 3.91 <span className="text-xs font-mono font-bold">/ 4.00</span>
+                  </p>
+                </div>
+                <div className="rounded-xl border-2 border-black bg-white px-3 py-1.5 text-center dark:bg-black dark:border-white">
+                  <span className="block text-[8px] font-mono font-black uppercase text-slate-500">SEAL</span>
+                  <span className="text-[10px] font-black text-neo-forest dark:text-neo-yellow">VERIFIED ★</span>
+                </div>
+              </div>
+
+              {/* Direct Social Links */}
+              <div className="mt-4 grid grid-cols-2 gap-2 border-t-2 border-black/15 pt-3 dark:border-white/20">
+                <a
+                  href={profile.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="neo-btn rounded-xl bg-white py-1.5 text-center text-xs font-black uppercase text-black hover:bg-slate-100 dark:bg-[#202533] dark:text-white"
+                >
+                  <Github className="h-3.5 w-3.5 inline mr-1" /> GitHub
+                </a>
+                <a
+                  href={profile.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="neo-btn rounded-xl bg-white py-1.5 text-center text-xs font-black uppercase text-black hover:bg-slate-100 dark:bg-[#202533] dark:text-white"
+                >
+                  <Linkedin className="h-3.5 w-3.5 inline mr-1" /> LinkedIn
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-      )}
-    </div>
-  );
-}
+      </section>
 
-function ContactItem({ icon: Icon, label, value, href }) {
-  const content = (
-    <span className="min-w-0 break-words text-sm text-slate-200">{value}</span>
-  );
+      {/* =========================================================================
+          FEATURED CAPSTONE STAGE: CODELEARN (INTERACTIVE WORKSTATION)
+          ========================================================================= */}
+      <section className="relative">
+        <div className="neo-box rounded-3xl border-[3px] border-black bg-neo-green/30 p-6 sm:p-8 dark:border-white dark:bg-[#182030] shadow-brutal-lg">
+          {/* Workstation Window Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-black pb-4 dark:border-white">
+            <div className="flex items-center gap-2">
+              <span className="h-3.5 w-3.5 rounded-full border border-black bg-rose-500 dark:border-white" />
+              <span className="h-3.5 w-3.5 rounded-full border border-black bg-yellow-500 dark:border-white" />
+              <span className="h-3.5 w-3.5 rounded-full border border-black bg-emerald-500 dark:border-white" />
+              <span className="ml-3 font-mono text-xs font-black uppercase text-black dark:text-white">
+                codelearn.aryanda.dev // 100% Client-Side Engine
+              </span>
+            </div>
 
-  return (
-    <div className="interactive-row flex items-start gap-3 border border-white/10 bg-white/[0.04] p-3">
-      <Icon className="mt-0.5 h-4 w-4 shrink-0 text-cyan" aria-hidden="true" />
-      <div className="min-w-0">
-        <p className="mb-1 text-xs uppercase tracking-[0.2em] text-slate-500">{label}</p>
-        {href ? (
-          <a href={href} target="_blank" rel="noreferrer" className="hover:text-cyan">
-            {content}
-          </a>
-        ) : (
-          content
-        )}
-      </div>
-    </div>
-  );
-}
-
-export default function ProfilePage({ navigate }) {
-  return (
-    <PageShell
-      eyebrow="Technology Enthusiast"
-      title={profile.name}
-      aside={
-        <Panel>
-          <ProfilePhotoCarousel />
-          <div className="space-y-3">
-            <ContactItem icon={MapPin} label="Address" value={profile.location} />
-            <ContactItem icon={Phone} label="Phone" value={profile.phone} href={`tel:${profile.phone}`} />
-            <ContactItem icon={Mail} label="Email" value={profile.email} href={`mailto:${profile.email}`} />
-            <ContactItem icon={Instagram} label="Instagram" value={profile.instagram} href={profile.instagram} />
-            <ContactItem icon={Github} label="GitHub" value={profile.github} href={profile.github} />
-            <ContactItem icon={Linkedin} label="LinkedIn" value={profile.linkedin} href={profile.linkedin} />
+            <div className="flex items-center gap-2">
+              <span className="neo-badge rounded bg-neo-yellow text-black text-[10px] font-black">
+                ★ SIGNATURE SYSTEM
+              </span>
+              {codelearn.projectUrl && (
+                <a
+                  href={codelearn.projectUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="neo-btn rounded-xl bg-black px-3.5 py-1 text-xs font-black uppercase text-white hover:bg-slate-800 dark:bg-white dark:text-black"
+                >
+                  Launch App ↗
+                </a>
+              )}
+            </div>
           </div>
-        </Panel>
-      }
-      below={
-        <div className="grid gap-6">
-          <Panel>
-            <SectionTitle kicker="Capability stack" title="Skills" />
-            <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
-              {profile.skills.map((group) => (
-                <div key={group.category} className="interactive-row border border-white/10 bg-white/[0.035] p-4">
-                  <h3 className="mb-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-cyan">
-                    {group.category}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {group.items.map((skill) => {
-                      const skillItem = normalizeSkill(skill);
 
+          {/* Workstation Content Grid */}
+          <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr_1fr]">
+            <div className="space-y-4">
+              <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-black dark:text-white">
+                CodeLearn: Personal Knowledge & Security Lab
+              </h2>
+              <p className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 leading-relaxed">
+                Transforms an Obsidian Vault into an ultra-fast static React web platform using a custom 8-stage compiler pipeline. Zero backend server costs, 108 CySec & OSINT tools, and 7 client-side language runtimes (Pyodide, php-wasm, sql.js) running in browser memory.
+              </p>
+
+              {/* 4 Callout Meters */}
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <div className="rounded-xl border-2 border-black bg-white p-3 text-center dark:border-white/30 dark:bg-[#202533]">
+                  <span className="block font-display text-xl font-black text-black dark:text-neo-yellow">500+</span>
+                  <span className="text-[10px] font-black uppercase text-slate-600 dark:text-slate-400">Obsidian Notes</span>
+                </div>
+                <div className="rounded-xl border-2 border-black bg-white p-3 text-center dark:border-white/30 dark:bg-[#202533]">
+                  <span className="block font-display text-xl font-black text-black dark:text-neo-sky">108</span>
+                  <span className="text-[10px] font-black uppercase text-slate-600 dark:text-slate-400">CySec Tools</span>
+                </div>
+                <div className="rounded-xl border-2 border-black bg-white p-3 text-center dark:border-white/30 dark:bg-[#202533]">
+                  <span className="block font-display text-xl font-black text-black dark:text-neo-rose">7</span>
+                  <span className="text-[10px] font-black uppercase text-slate-600 dark:text-slate-400">Language Runtimes</span>
+                </div>
+                <div className="rounded-xl border-2 border-black bg-white p-3 text-center dark:border-white/30 dark:bg-[#202533]">
+                  <span className="block font-display text-xl font-black text-black dark:text-neo-green">$0</span>
+                  <span className="text-[10px] font-black uppercase text-slate-600 dark:text-slate-400">Database Cost</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Pipeline Stage Visualizer */}
+            <div className="rounded-2xl border-2 border-black bg-white p-5 dark:border-white dark:bg-[#121620] flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-xs font-black uppercase text-neo-forest dark:text-neo-yellow block mb-2">
+                  ✦ 8-STAGE COMPILER PIPELINE
+                </span>
+                <div className="space-y-1.5 text-xs font-mono font-bold text-slate-700 dark:text-slate-300">
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-neo-green" />
+                    <span>01. SCAN (Obsidian Vault traversal)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-neo-yellow" />
+                    <span>02. VALIDATE (Frontmatter & link checks)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-neo-sky" />
+                    <span>03. INDEX (Knowledge graph mapping)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-neo-rose" />
+                    <span>04. RENDER (Client-side interactive AST)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                    <span>05-08. PUBLISH (Automated Vercel deployment)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-black/10 dark:border-white/20">
+                <button
+                  type="button"
+                  onClick={() => navigate("projects")}
+                  className="neo-btn w-full rounded-xl bg-neo-yellow py-2 text-center text-xs font-black uppercase text-black hover:bg-yellow-300"
+                >
+                  View All Technical Projects (11) →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          ASYMMETRIC CONTROL BOARD: 4 DIVERSE TACTICAL BLOCKS
+          ========================================================================= */}
+      <section>
+        <div className="mb-4 flex items-center justify-between">
+          <span className="neo-badge rounded-md bg-neo-yellow text-black font-black">
+            ★ VERIFIED RECORD VAULTS
+          </span>
+          <span className="text-xs font-black uppercase tracking-wider text-black dark:text-white">
+            QUICK VAULT JUMP
+          </span>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {/* Card 1: Experience */}
+          <button
+            type="button"
+            onClick={() => navigate("experience")}
+            className="neo-box neo-box-hover rounded-3xl bg-neo-yellow/30 p-6 text-left dark:bg-[#252216] dark:border-white transition-all -rotate-1 hover:rotate-0"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <span className="font-mono text-xs font-black bg-white px-2 py-0.5 rounded border border-black dark:bg-black dark:text-white">
+                [01] CAREER
+              </span>
+              <BriefcaseBusiness className="h-5 w-5 text-black dark:text-neo-yellow" />
+            </div>
+            <p className="text-4xl font-black text-black dark:text-white">
+              6 Roles
+            </p>
+            <p className="mt-1 font-display text-sm font-black uppercase text-black dark:text-white">
+              Work & Apprenticeships
+            </p>
+            <p className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
+              Open Synergic Laravel internship & CodingCamp 2026.
+            </p>
+            <span className="mt-4 inline-block text-xs font-black text-neo-forest dark:text-neo-yellow uppercase">
+              View Timeline ↗
+            </span>
+          </button>
+
+          {/* Card 2: Certifications */}
+          <button
+            type="button"
+            onClick={() => navigate("certifications")}
+            className="neo-box neo-box-hover rounded-3xl bg-neo-sky/30 p-6 text-left dark:bg-[#14202c] dark:border-white transition-all rotate-1 hover:rotate-0"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <span className="font-mono text-xs font-black bg-white px-2 py-0.5 rounded border border-black dark:bg-black dark:text-white">
+                [02] CERTS
+              </span>
+              <ShieldCheck className="h-5 w-5 text-black dark:text-neo-sky" />
+            </div>
+            <p className="text-4xl font-black text-black dark:text-white">
+              22 Verified
+            </p>
+            <p className="mt-1 font-display text-sm font-black uppercase text-black dark:text-white">
+              Licenses & Credentials
+            </p>
+            <p className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
+              Dicoding Full-Stack, Cisco CyberOps & Fortinet.
+            </p>
+            <span className="mt-4 inline-block text-xs font-black text-neo-forest dark:text-neo-sky uppercase">
+              Inspect Credentials ↗
+            </span>
+          </button>
+
+          {/* Card 3: Awards Podium */}
+          <button
+            type="button"
+            onClick={() => navigate("awards")}
+            className="neo-box neo-box-hover rounded-3xl bg-neo-rose/30 p-6 text-left dark:bg-[#25161e] dark:border-white transition-all -rotate-1 hover:rotate-0"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <span className="font-mono text-xs font-black bg-white px-2 py-0.5 rounded border border-black dark:bg-black dark:text-white">
+                [03] HONORS
+              </span>
+              <Trophy className="h-5 w-5 text-black dark:text-neo-rose" />
+            </div>
+            <p className="text-4xl font-black text-black dark:text-white">
+              5 Awards
+            </p>
+            <p className="mt-1 font-display text-sm font-black uppercase text-black dark:text-white">
+              Competitive Tournaments
+            </p>
+            <p className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
+              2nd Place UI/UX & Top 18 National CTF FIT.
+            </p>
+            <span className="mt-4 inline-block text-xs font-black text-neo-forest dark:text-neo-rose uppercase">
+              Trophy Podium ↗
+            </span>
+          </button>
+
+          {/* Card 4: Books Read */}
+          <button
+            type="button"
+            onClick={() => navigate("books")}
+            className="neo-box neo-box-hover rounded-3xl bg-neo-lavender/40 p-6 text-left dark:bg-[#1f1629] dark:border-white transition-all rotate-1 hover:rotate-0"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <span className="font-mono text-xs font-black bg-white px-2 py-0.5 rounded border border-black dark:bg-black dark:text-white">
+                [04] LITERACY
+              </span>
+              <BookOpen className="h-5 w-5 text-black dark:text-purple-300" />
+            </div>
+            <p className="text-4xl font-black text-black dark:text-white">
+              31 Books
+            </p>
+            <p className="mt-1 font-display text-sm font-black uppercase text-black dark:text-white">
+              Reflections & Reviews
+            </p>
+            <p className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
+              Average 4.8 ★ across Engineering & Philosophy.
+            </p>
+            <span className="mt-4 inline-block text-xs font-black text-neo-forest dark:text-purple-300 uppercase">
+              Open Bookshelf ↗
+            </span>
+          </button>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          THREE PILLARS WITH CASE ACCORDION
+          ========================================================================= */}
+      <section>
+        <div className="mb-4">
+          <span className="neo-badge rounded-md bg-neo-green text-black font-black">
+            ★ ENGINEERING FOUNDATIONS
+          </span>
+          <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-black dark:text-white mt-1">
+            Three Interconnected Disciplines
+          </h2>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {profile.aboutFocus?.map((item, idx) => {
+            const isExpanded = expandedPillar === idx;
+            const colors = [
+              "bg-neo-green text-black dark:bg-[#15231c] dark:text-white dark:border-white",
+              "bg-neo-yellow text-black dark:bg-[#252014] dark:text-white dark:border-white",
+              "bg-neo-sky text-black dark:bg-[#14202c] dark:text-white dark:border-white",
+            ];
+            const realCases = [
+              "Engineered in CodeLearn: zero backend runtime, 8-stage compiler, and instant static performance on Vercel.",
+              "Proven in Makat-Xploit & FIT CTF: browser WASM sandbox isolation and cryptographic puzzle engineering.",
+              "Implemented in EduQuestify & FISIP ULM: gamified user progression, accessible typography, and responsive component libraries.",
+            ];
+
+            return (
+              <div
+                key={item.title}
+                className={`neo-box rounded-3xl ${colors[idx % 3]} p-6 flex flex-col justify-between transition-all`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-mono text-xs font-black bg-white px-2.5 py-0.5 rounded border border-black text-black">
+                      PILLAR 0{idx + 1}
+                    </span>
+                    <Sparkles className="h-4 w-4" />
+                  </div>
+                  <h3 className="font-display text-xl font-black uppercase text-black dark:text-white">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-xs sm:text-sm font-bold leading-relaxed text-black/90 dark:text-slate-200">
+                    {item.description}
+                  </p>
+
+                  {isExpanded && (
+                    <div className="mt-4 rounded-xl border-2 border-black bg-white/95 p-3 text-xs font-bold text-black dark:bg-black/90 dark:text-white dark:border-white animate-in fade-in">
+                      <span className="block font-mono text-[10px] font-black uppercase text-neo-forest dark:text-neo-yellow mb-1">
+                        ✦ REAL IMPLEMENTATION CASE:
+                      </span>
+                      {realCases[idx]}
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-5 pt-3 border-t-2 border-black/15 dark:border-white/20 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => setExpandedPillar(isExpanded ? null : idx)}
+                    className="text-xs font-black uppercase hover:underline flex items-center gap-1"
+                  >
+                    <span>{isExpanded ? "Hide Case" : "Inspect Practical Case"}</span>
+                    {isExpanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+                  </button>
+                  <span className="font-mono text-[10px] font-black">VERIFIED ✦</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* =========================================================================
+          INTERACTIVE SKILLS ARSENAL (SEARCHABLE & COMPACT)
+          ========================================================================= */}
+      <section>
+        <div className="neo-box rounded-3xl bg-white p-6 sm:p-8 dark:bg-neo-darkcard dark:border-white">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b-2 border-black/10 pb-4 dark:border-white/20">
+            <div>
+              <span className="neo-badge rounded-md bg-neo-yellow text-black font-black">
+                ★ TECHNICAL COMPETENCIES
+              </span>
+              <h2 className="font-display text-2xl font-black uppercase tracking-tight text-black dark:text-white mt-1">
+                Skills Catalog & Applied Tools
+              </h2>
+            </div>
+
+            {/* Search Input */}
+            <div className="relative min-w-[240px]">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 dark:text-neo-yellow" />
+              <input
+                type="text"
+                placeholder="Search skill (e.g. React, Python)..."
+                value={skillSearch}
+                onChange={(e) => setSkillSearch(e.target.value)}
+                className="w-full rounded-xl border-2 border-black bg-neo-bg py-1.5 pl-9 pr-3 text-xs font-bold text-black focus:outline-none dark:border-white dark:bg-[#121620] dark:text-white"
+              />
+            </div>
+          </div>
+
+          {/* Category Tabs */}
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {skillCategories.map((cat) => {
+              const active = selectedSkillCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setSelectedSkillCategory(cat)}
+                  className={`neo-btn rounded-lg px-2.5 py-1 text-xs font-black uppercase ${
+                    active
+                      ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black dark:border-white"
+                      : "bg-white text-black dark:bg-[#181b24] dark:text-white"
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Skill Groups Grid */}
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredSkillGroups.map((group, groupIdx) => {
+              const badgeColors = [
+                "bg-neo-yellow text-black",
+                "bg-neo-sky text-black",
+                "bg-neo-rose text-black",
+                "bg-neo-lavender text-black",
+                "bg-neo-orange text-black",
+                "bg-neo-green text-black",
+              ];
+              return (
+                <div
+                  key={group.category}
+                  className="rounded-2xl border-2 border-black bg-neo-bg p-4 dark:border-white/30 dark:bg-[#121620]"
+                >
+                  <div className="flex items-center justify-between border-b border-black/10 pb-2 dark:border-white/20 mb-3">
+                    <h3 className="font-display text-sm font-black uppercase text-black dark:text-white">
+                      {group.category}
+                    </h3>
+                    <span className={`font-mono text-[10px] font-black px-1.5 py-0.2 rounded border border-black ${badgeColors[groupIdx % badgeColors.length]}`}>
+                      {group.items.length}
+                    </span>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {group.items.map((skill) => {
+                      const item = normalizeSkill(skill);
                       return (
                         <div
-                          key={`${group.category}-${skillItem.name}`}
-                          className="interactive-chip group relative inline-flex items-center gap-2 border border-cyan/30 bg-cyan/10 px-3 py-2 text-left text-sm text-cyan"
-                          tabIndex={skillItem.context ? 0 : undefined}
+                          key={`${group.category}-${item.name}`}
+                          className="group relative rounded-lg border border-black/40 bg-white px-2 py-1 text-xs font-black text-black hover:bg-neo-yellow dark:border-white/30 dark:bg-[#1f2430] dark:text-white dark:hover:bg-neo-yellow dark:hover:text-black cursor-pointer transition-colors"
                         >
-                          <span className="font-semibold text-cyan">{skillItem.name}</span>
-                          {skillItem.level ? (
+                          <span>{item.name}</span>
+                          {item.level && (
                             <span
-                              className={`shrink-0 border px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] ${getSkillLevelClass(skillItem.level)}`}
+                              className={`ml-1 rounded px-1 text-[9px] font-black uppercase border ${getSkillLevelBadge(
+                                item.level,
+                              )}`}
                             >
-                              {skillItem.level}
+                              {item.level}
                             </span>
-                          ) : null}
-                          {skillItem.context ? (
-                            <span className="pointer-events-none absolute bottom-[calc(100%+0.65rem)] left-0 z-30 w-64 max-w-[80vw] border border-cyan/40 bg-void/95 p-3 text-xs leading-5 text-slate-200 opacity-0 shadow-neon backdrop-blur transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus:translate-y-0 group-focus:opacity-100">
-                              {skillItem.context}
-                            </span>
-                          ) : null}
+                          )}
+                          {item.context && (
+                            <div className="pointer-events-none absolute bottom-[calc(100%+0.5rem)] left-0 z-30 hidden w-60 rounded-xl neo-box bg-white p-3 text-left text-[11px] font-bold text-black group-hover:block dark:bg-[#181b24] dark:text-white dark:border-white shadow-brutal">
+                              <p className="font-black text-neo-forest dark:text-neo-yellow mb-1">
+                                APPLICATION CONTEXT:
+                              </p>
+                              <p>{item.context}</p>
+                            </div>
+                          )}
                         </div>
                       );
                     })}
                   </div>
                 </div>
-              ))}
-            </div>
-          </Panel>
-
-          <Panel>
-            <SectionTitle kicker="Field log" title="Experience" />
-            <div className="grid gap-4">
-              {experiences.map((item) => (
-                <div key={`${item.role}-${item.period}`} className="interactive-row border border-white/10 bg-white/[0.04] p-4">
-                  <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <ShieldCheck className="h-5 w-5 text-danger" aria-hidden="true" />
-                      <h3 className="font-display text-lg font-bold text-white">{item.role}</h3>
-                    </div>
-                    <span className="interactive-chip border border-danger/40 bg-danger/10 px-3 py-1 text-xs text-rose-100">
-                      {item.period}
-                    </span>
-                  </div>
-                  <p className="text-sm font-semibold text-cyan">{item.place}</p>
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{item.description}</p>
-                </div>
-              ))}
-            </div>
-          </Panel>
-
-          <div className="flex flex-wrap gap-3">
-            <ExternalLink href={profile.github}>GitHub</ExternalLink>
-            <ExternalLink href={profile.linkedin} variant="red">LinkedIn</ExternalLink>
-            <ExternalLink href={profile.cvUrl} download>Download CV</ExternalLink>
+              );
+            })}
           </div>
-
-          <PortfolioStats />
-
-          <PartnerThanks />
-
-          <TechLogoMarquee />
         </div>
-      }
-    >
-      <div className="grid gap-6 lg:flex lg:flex-1 lg:flex-col">
-        <Panel className="p-6 sm:p-8">
-          <p className="mb-4 font-display text-lg font-semibold text-cyan">{profile.title}</p>
-          <p className="max-w-3xl text-base leading-8 text-slate-200">{profile.summary}</p>
-          {profile.aboutFocus?.length > 0 ? (
-            <div className="mt-6 grid gap-3 md:grid-cols-3">
-              {profile.aboutFocus.map((item) => (
-                <div key={item.title} className="interactive-row border border-white/10 bg-white/[0.035] p-4">
-                  <h3 className="font-display text-sm font-bold uppercase tracking-[0.16em] text-cyan">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-xs leading-6 text-slate-300">{item.description}</p>
-                </div>
-              ))}
-            </div>
-          ) : null}
-          <div className="mt-7 flex flex-wrap gap-3">
-            {pageButtons.map(([id, label]) => (
-              <button
-                key={id}
-                type="button"
-                onClick={() => navigate(id)}
-                className="interactive-chip border border-plasma/50 bg-plasma/10 px-4 py-3 text-sm font-semibold text-white transition hover:border-cyan hover:bg-cyan/10 hover:shadow-neon"
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </Panel>
+      </section>
 
-        <Panel className="lg:flex lg:flex-1 lg:flex-col">
-          <SectionTitle kicker="Academic track" title="Education" />
-          <div className="space-y-5">
-            {profile.education.map((item) => (
-              <div key={`${item.school}-${item.period}`} className="flex gap-4">
-                <GraduationCap className="mt-1 h-5 w-5 shrink-0 text-cyan" aria-hidden="true" />
-                <div>
-                  <h3 className="font-display text-lg font-bold text-white">{item.school}</h3>
-                  <p className="text-sm text-danger">{item.degree} | {item.period}</p>
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{item.detail}</p>
-                  <div className="mt-3 grid gap-2">
-                    {(Array.isArray(item.activity) ? item.activity : [item.activity]).map((activity) => (
-                      <span
-                        key={`${item.school}-${activity}`}
-                        className="interactive-chip inline-flex w-fit border border-cyan/30 bg-cyan/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan"
-                      >
-                        {activity}
-                      </span>
+      {/* =========================================================================
+          COLLABORATORS STICKER BOMB WALL
+          ========================================================================= */}
+      <section className="neo-box rounded-3xl bg-neo-cream p-6 sm:p-8 dark:bg-[#161a22] dark:border-white">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-4 border-b-2 border-black pb-3 dark:border-white">
+          <div>
+            <span className="neo-badge rounded-md bg-neo-rose text-black font-black">
+              ✦ SQUAD & NETWORK
+            </span>
+            <h2 className="font-display text-xl sm:text-2xl font-black uppercase text-black dark:text-white mt-1">
+              Appreciation to Teammates & Collaborators
+            </h2>
+          </div>
+          <span className="font-mono text-xs font-black bg-white px-3 py-1 rounded-lg border-2 border-black dark:bg-neo-yellow dark:text-black dark:border-white">
+            {getPartnerThanks().length} PEERS
+          </span>
+        </div>
+
+        <p className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 max-w-2xl mb-5">
+          Sincere gratitude to all teammates and competitors across CTF tournament squads, industry internships, and hackathons.
+        </p>
+
+        {/* Playful Sticker Bomb Cloud */}
+        <div className="flex flex-wrap gap-2">
+          {getPartnerThanks().map((partner, idx) => {
+            const rotations = ["-rotate-1", "rotate-1", "-rotate-2", "rotate-2", "rotate-0"];
+            const rot = rotations[idx % rotations.length];
+            return (
+              <div
+                key={partner.name}
+                className={`group relative neo-btn rounded-xl bg-white px-3 py-1.5 text-xs font-black uppercase text-black hover:bg-neo-yellow dark:bg-[#202533] dark:text-white dark:hover:bg-neo-yellow dark:hover:text-black transition-all ${rot} hover:rotate-0`}
+              >
+                <Users className="h-3.5 w-3.5 stroke-[2.5]" />
+                <span>{partner.name}</span>
+                {partner.activities.length > 1 && (
+                  <span className="rounded-full bg-neo-green px-1.5 py-0.2 text-[10px] font-black border border-black dark:text-black">
+                    {partner.activities.length}
+                  </span>
+                )}
+
+                {/* Tooltip */}
+                <div className="pointer-events-none absolute bottom-[calc(100%+0.5rem)] left-0 z-30 hidden w-64 rounded-xl neo-box bg-white p-3 text-left text-[11px] font-bold text-black group-hover:block dark:bg-[#181b24] dark:text-white dark:border-white shadow-brutal">
+                  <p className="font-black text-neo-forest dark:text-neo-yellow mb-1">
+                    SHARED ACTIVITIES:
+                  </p>
+                  <ul className="space-y-1">
+                    {partner.activities.map((act) => (
+                      <li key={act}>• {act}</li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* =========================================================================
+          PRODUCTION LOGOS RUNNING TICKER
+          ========================================================================= */}
+      <section className="neo-box rounded-2xl bg-white overflow-hidden dark:bg-[#181b24] dark:border-white">
+        <div className="bg-neo-yellow px-6 py-2.5 font-display text-xs sm:text-sm font-black uppercase text-black border-b-2 border-black dark:border-white">
+          ✦ PRODUCTION TECHNOLOGIES & TOOLKITS ✦
+        </div>
+        <div className="py-4 overflow-hidden">
+          <div className="neo-ticker-track flex gap-4 px-4">
+            {[...techLogos, ...techLogos, ...techLogos].map((tech, idx) => (
+              <div
+                key={`${tech.name}-${idx}`}
+                className="neo-btn rounded-xl bg-neo-bg px-3.5 py-1.5 text-xs font-black uppercase text-black hover:bg-neo-green dark:bg-[#202533] dark:text-white shrink-0"
+              >
+                <TechLogoIcon tech={tech} />
+                <span className="whitespace-nowrap">{tech.name}</span>
               </div>
             ))}
           </div>
-        </Panel>
-      </div>
-    </PageShell>
+        </div>
+      </section>
+    </div>
   );
 }

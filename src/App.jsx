@@ -1,16 +1,21 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Award,
   BookOpen,
-  Cpu,
   BriefcaseBusiness,
   ChevronUp,
+  Code2,
+  Command,
   FileSearch,
+  Github,
   Images,
-  Home,
-  IdCard,
+  Instagram,
+  Linkedin,
+  Mail,
   Menu,
+  ShieldCheck,
   Sparkles,
+  User,
   X,
 } from "lucide-react";
 import ProfilePage from "./pages/ProfilePage.jsx";
@@ -21,18 +26,20 @@ import BooksPage from "./pages/BooksPage.jsx";
 import ExperiencePage from "./pages/ExperiencePage.jsx";
 import ResearchPage from "./pages/ResearchPage.jsx";
 import GalleryPage from "./pages/GalleryPage.jsx";
-import CyberCursor from "./components/CyberCursor.jsx";
-import CodeRain from "./components/CodeRain.jsx";
+import ThemeToggle from "./components/ThemeToggle.jsx";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
+import { ToastProvider, useToast } from "./context/ToastContext.jsx";
+import { profile } from "./data/profile.js";
 
 const pages = [
-  { id: "profile", label: "Profile", icon: Home, component: ProfilePage },
-  { id: "experience", label: "Experience", icon: BriefcaseBusiness, component: ExperiencePage },
-  { id: "projects", label: "Technical Project", icon: Cpu, component: ProjectsPage },
-  { id: "certifications", label: "Certifications", icon: IdCard, component: CertificationsPage },
-  { id: "awards", label: "Awards", icon: Award, component: AwardsPage },
-  { id: "gallery", label: "Gallery", icon: Images, component: GalleryPage },
-  { id: "research", label: "Research", icon: FileSearch, component: ResearchPage },
-  { id: "books", label: "Books Read", icon: BookOpen, component: BooksPage },
+  { id: "profile", label: "Profile", keyNum: "1", icon: User, component: ProfilePage },
+  { id: "projects", label: "Projects", keyNum: "2", icon: Code2, component: ProjectsPage },
+  { id: "experience", label: "Experience", keyNum: "3", icon: BriefcaseBusiness, component: ExperiencePage },
+  { id: "certifications", label: "Certifications", keyNum: "4", icon: ShieldCheck, component: CertificationsPage },
+  { id: "awards", label: "Awards", keyNum: "5", icon: Award, component: AwardsPage },
+  { id: "books", label: "Books Read", keyNum: "6", icon: BookOpen, component: BooksPage },
+  { id: "gallery", label: "Gallery", keyNum: "7", icon: Images, component: GalleryPage },
+  { id: "research", label: "Research", keyNum: "8", icon: FileSearch, component: ResearchPage },
 ];
 
 function getInitialPage() {
@@ -40,12 +47,11 @@ function getInitialPage() {
   return pages.some((page) => page.id === hash) ? hash : "profile";
 }
 
-export default function App() {
+function PortfolioContent() {
   const [activePage, setActivePage] = useState(getInitialPage);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isPageSwitching, setIsPageSwitching] = useState(false);
-  const [scrollState, setScrollState] = useState({ progress: 0, isScrollable: false });
-  const didMount = useRef(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const { showToast } = useToast();
 
   useEffect(() => {
     const syncHash = () => setActivePage(getInitialPage());
@@ -54,35 +60,27 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (!didMount.current) {
-      didMount.current = true;
-      return undefined;
-    }
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    setIsPageSwitching(true);
-    const timeoutId = window.setTimeout(() => setIsPageSwitching(false), 620);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [activePage]);
-
+  // Keyboard shortcut listener (Keys 1-8 for rapid page jumping)
   useEffect(() => {
-    const updateScrollState = () => {
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const isScrollable = maxScroll > 80;
-      const progress = isScrollable ? Math.min(window.scrollY / maxScroll, 1) : 0;
-
-      setScrollState({ progress, isScrollable });
+    const handleKeyDown = (e) => {
+      if (["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
+      const num = parseInt(e.key, 10);
+      if (num >= 1 && num <= pages.length) {
+        const targetPage = pages[num - 1];
+        navigate(targetPage.id);
+        showToast(`Navigated to ${targetPage.label} [${num}]`);
+      }
     };
-
-    updateScrollState();
-    window.addEventListener("scroll", updateScrollState, { passive: true });
-    window.addEventListener("resize", updateScrollState);
-
-    return () => {
-      window.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", updateScrollState);
-    };
-  }, [activePage]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showToast]);
 
   const ActiveComponent = useMemo(
     () => pages.find((page) => page.id === activePage)?.component ?? ProfilePage,
@@ -94,139 +92,287 @@ export default function App() {
       setIsMenuOpen(false);
       return;
     }
-
     window.location.hash = pageId;
     setActivePage(pageId);
     setIsMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const tickerItems = [
+    { text: "M. ARYANDA SANGGADIENNATA", target: "profile" },
+    { text: "POLIBAN D3 INFORMATION SYSTEMS (GPA 3.91)", target: "profile" },
+    { text: "FULL-STACK WEB DEVELOPER", target: "projects" },
+    { text: "CYBERSECURITY RESEARCHER", target: "research" },
+    { text: "CODELEARN 500+ NOTES", target: "projects" },
+    { text: "PT BANUA SOLUSI SIBER INTERNSHIP", target: "experience" },
+    { text: "CISCO & FORTINET CERTIFIED", target: "certifications" },
+    { text: "NATIONAL CTF FINALIST", target: "awards" },
+  ];
+
   return (
-    <div className="relative isolate min-h-screen overflow-hidden bg-void text-ink antialiased">
-      <CyberCursor />
-      <div className="fixed inset-0 -z-20 bg-[url('/assets/cyberpunk-hero.png')] bg-cover bg-center opacity-28" />
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_20%_20%,rgba(139,92,246,.25),transparent_28%),radial-gradient(circle_at_80%_15%,rgba(255,46,99,.18),transparent_24%),linear-gradient(135deg,rgba(7,9,20,.9),rgba(10,15,35,.76)_48%,rgba(7,9,20,.92))]" />
-      <CodeRain />
-      <div className="pointer-events-none fixed inset-0 z-0 bg-grid bg-[length:56px_56px] opacity-18" />
-      <div className="pointer-events-none fixed inset-0 z-0 bg-scanline bg-[length:100%_4px] opacity-15" />
-      {scrollState.isScrollable ? (
-        <div
-          className="pointer-events-none fixed left-2 top-1/2 z-20 flex -translate-y-1/2 items-center gap-2 sm:left-3 lg:hidden"
-          aria-hidden="true"
-        >
-          <div className="relative h-44 w-1 overflow-hidden border border-cyan/40 bg-void/70 shadow-[0_0_18px_rgba(34,211,238,0.22)] backdrop-blur">
-            <div
-              className="absolute left-0 top-0 w-full bg-gradient-to-b from-cyan via-plasma to-danger shadow-[0_0_16px_rgba(34,211,238,0.65)]"
-              style={{ height: `${Math.max(scrollState.progress * 100, 8)}%` }}
-            />
-            <div className="absolute inset-x-[-3px] top-1/3 h-px bg-cyan/70 shadow-neon" />
-            <div className="absolute inset-x-[-3px] top-2/3 h-px bg-plasma/70 shadow-[0_0_14px_rgba(255,46,109,0.45)]" />
-          </div>
-          <div className="grid gap-2">
-            <span className="h-1.5 w-1.5 bg-cyan shadow-neon" />
-            <span className="h-1.5 w-1.5 bg-plasma shadow-[0_0_12px_rgba(255,46,109,0.75)]" />
-            <span className="h-1.5 w-1.5 bg-cyan/70 shadow-neon" />
-          </div>
+    <div className="min-h-[100dvh] bg-neo-bg text-black transition-colors duration-200 dark:bg-neo-darkbg dark:text-white flex flex-col justify-between">
+      {/* Top Interactive Neobrutalist Marquee Ticker */}
+      <div className="group relative overflow-hidden border-b-[3px] border-black bg-neo-green py-2 font-black tracking-wider text-black dark:border-white dark:bg-neo-yellow dark:text-black">
+        <div className="neo-ticker-track flex gap-8 text-xs uppercase sm:text-sm group-hover:[animation-play-state:paused]">
+          {[...tickerItems, ...tickerItems, ...tickerItems].map((item, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => navigate(item.target)}
+              className="flex items-center gap-3 whitespace-nowrap cursor-pointer hover:underline"
+            >
+              <span className="text-neo-forest dark:text-black">✦</span>
+              <span>{item.text}</span>
+            </button>
+          ))}
         </div>
-      ) : null}
-      {scrollState.isScrollable && scrollState.progress > 0.08 ? (
-        <button
-          type="button"
-          onClick={scrollToTop}
-          className="interactive-chip fixed bottom-5 right-5 z-30 grid h-12 w-12 place-items-center border border-cyan/50 bg-void/80 text-cyan shadow-[0_0_22px_rgba(34,211,238,0.28)] backdrop-blur transition hover:border-plasma hover:text-white hover:shadow-[0_0_28px_rgba(255,46,109,0.28)] sm:bottom-6 sm:right-6"
-          aria-label="Back to top"
-        >
-          <ChevronUp className="h-5 w-5" aria-hidden="true" />
-          <span className="absolute inset-1 border border-plasma/20" aria-hidden="true" />
-        </button>
-      ) : null}
-      <div
-        className={`page-switch-overlay pointer-events-none fixed inset-0 z-40 ${
-          isPageSwitching ? "is-active" : ""
-        }`}
-        aria-hidden="true"
-      >
-        <div className="page-switch-beam" />
-        <div className="page-switch-noise" />
-        <div className="page-switch-grid" />
       </div>
 
-      <header className="sticky top-0 z-30 border-b border-cyan/20 bg-void/75 backdrop-blur-xl">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      {/* Main Neobrutalist Header */}
+      <header className="sticky top-0 z-40 border-b-[3px] border-black bg-white dark:border-white dark:bg-neo-darkcard">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+          {/* Logo Brand Stamp */}
           <button
             type="button"
             onClick={() => navigate("profile")}
-            className="group flex items-center gap-3 text-left transition hover:-translate-y-0.5"
+            className="group flex items-center gap-3 text-left transition-transform active:translate-y-0.5"
           >
-            <span className="interactive-chip grid h-11 w-11 place-items-center border border-cyan/40 bg-cyan/10 shadow-neon">
-              <Sparkles className="h-5 w-5 text-cyan" aria-hidden="true" />
-            </span>
-            <span>
-              <span className="block font-display text-sm uppercase tracking-[0.28em] text-cyan">
-                Portfolio Aryanda
+            <div className="neo-btn rounded-xl bg-neo-green px-3 py-2 text-base font-black text-black group-hover:bg-emerald-300 dark:bg-neo-sky dark:text-black">
+              AS
+            </div>
+            <div>
+              <span className="block font-display text-lg font-black uppercase tracking-tight text-black sm:text-xl dark:text-white">
+                Aryanda S.
               </span>
-            </span>
+              <span className="block text-[11px] font-black uppercase tracking-wider text-neo-forest dark:text-neo-yellow">
+                Dev // CyberSec
+              </span>
+            </div>
           </button>
 
-          <button
-            type="button"
-            className="interactive-chip grid h-11 w-11 place-items-center border border-plasma/40 bg-plasma/10 text-plasma xl:hidden"
-            onClick={() => setIsMenuOpen((value) => !value)}
-            aria-label="Toggle navigation"
-          >
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-
-          <div className="hidden items-center gap-2 xl:flex">
-            {pages.map(({ id, label, icon: Icon }) => (
-              <button
-                key={id}
-                type="button"
-                onClick={() => navigate(id)}
-                className={`interactive-chip group flex items-center gap-2 border px-4 py-2 text-sm transition ${
-                  activePage === id
-                    ? "border-cyan bg-cyan/15 text-white shadow-neon"
-                    : "border-white/10 bg-white/5 text-slate-300 hover:border-plasma/70 hover:text-white"
-                }`}
-              >
-                <Icon className="h-4 w-4" aria-hidden="true" />
-                <span>{label}</span>
-              </button>
-            ))}
-          </div>
-        </nav>
-
-        {isMenuOpen && (
-          <div className="border-t border-white/10 bg-night/95 px-4 py-4 xl:hidden">
-            <div className="grid gap-2">
-              {pages.map(({ id, label, icon: Icon }) => (
+          {/* Desktop Navigation with Keypress Badges */}
+          <nav className="hidden items-center gap-2 xl:flex" aria-label="Main Navigation">
+            {pages.map(({ id, label, keyNum, icon: Icon }) => {
+              const isActive = activePage === id;
+              return (
                 <button
                   key={id}
                   type="button"
                   onClick={() => navigate(id)}
-                  className={`interactive-chip flex items-center gap-3 border px-4 py-3 text-left text-sm ${
-                    activePage === id
-                      ? "border-cyan bg-cyan/15 text-white"
-                      : "border-white/10 bg-white/5 text-slate-300"
+                  title={`Press ${keyNum} to jump to ${label}`}
+                  className={`neo-btn flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-black uppercase tracking-wider transition-all duration-150 ${
+                    isActive
+                      ? "bg-neo-yellow text-black shadow-brutal-sm dark:bg-neo-yellow dark:text-black dark:border-white"
+                      : "bg-white text-black hover:bg-neo-palegreen dark:bg-[#1f2430] dark:text-white dark:hover:bg-[#2c3444]"
                   }`}
                 >
-                  <Icon className="h-4 w-4" aria-hidden="true" />
+                  <Icon className="h-3.5 w-3.5 stroke-[2.5]" aria-hidden="true" />
                   <span>{label}</span>
+                  <span className={`text-[10px] px-1 py-0.2 rounded border font-mono ${isActive ? "bg-black text-white border-black" : "bg-black/5 dark:bg-white/10 border-black/20 dark:border-white/20 text-slate-500 dark:text-slate-400"}`}>
+                    {keyNum}
+                  </span>
                 </button>
-              ))}
+              );
+            })}
+          </nav>
+
+          {/* Right Controls: Theme Toggle & Mobile Menu */}
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+
+            {/* Mobile menu button */}
+            <button
+              type="button"
+              className="neo-btn h-10 w-10 rounded-xl bg-neo-yellow text-black xl:hidden dark:bg-neo-rose dark:text-black"
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            >
+              {isMenuOpen ? (
+                <X className="h-5 w-5 stroke-[2.5]" />
+              ) : (
+                <Menu className="h-5 w-5 stroke-[2.5]" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Dropdown Navigation */}
+        {isMenuOpen && (
+          <div className="border-t-[3px] border-black bg-neo-cream p-4 xl:hidden dark:border-white dark:bg-neo-darkcard">
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+              {pages.map(({ id, label, keyNum, icon: Icon }) => {
+                const isActive = activePage === id;
+                return (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => navigate(id)}
+                    className={`neo-btn flex items-center justify-between rounded-xl p-3 text-xs font-black uppercase tracking-wider ${
+                      isActive
+                        ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black"
+                        : "bg-white text-black hover:bg-neo-palegreen dark:bg-[#1f2430] dark:text-white"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 truncate">
+                      <Icon className="h-4 w-4 stroke-[2.5] shrink-0" aria-hidden="true" />
+                      <span className="truncate">{label}</span>
+                    </div>
+                    <span className="text-[10px] font-mono px-1 rounded bg-black/10 dark:bg-white/10">
+                      {keyNum}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
       </header>
 
-      <main className="relative z-10 mx-auto min-h-[calc(100vh-77px)] max-w-[1800px] px-4 py-8 sm:px-6 lg:px-8">
-        <div key={activePage} className="page-enter">
+      {/* Main Dynamic View Content */}
+      <main className="flex-1 py-6 sm:py-10">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <ActiveComponent navigate={navigate} />
         </div>
       </main>
+
+      {/* Floating Bottom Action Dock */}
+      {showScrollTop && (
+        <button
+          type="button"
+          onClick={scrollToTop}
+          className="neo-btn fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-2xl bg-neo-yellow text-black shadow-brutal hover:bg-yellow-300 dark:bg-neo-yellow dark:text-black dark:border-white"
+          aria-label="Scroll to top of page"
+          title="Back to Top"
+        >
+          <ChevronUp className="h-6 w-6 stroke-[3]" />
+        </button>
+      )}
+
+      {/* Neobrutalist Footer */}
+      <footer className="border-t-[3px] border-black bg-white dark:border-white dark:bg-neo-darkcard">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {/* Col 1: Identity */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="neo-btn rounded-xl bg-neo-green px-3 py-2 text-base font-black text-black dark:bg-neo-sky dark:text-black">
+                  AS
+                </div>
+                <span className="font-display text-xl font-black uppercase text-black dark:text-white">
+                  {profile.name}
+                </span>
+              </div>
+              <p className="text-xs font-bold leading-relaxed text-black dark:text-slate-300">
+                {profile.tagline}
+              </p>
+              <div className="inline-flex items-center gap-2 rounded-lg border-2 border-black bg-neo-green/30 px-3 py-1 text-xs font-black uppercase text-black dark:border-white dark:bg-[#202533] dark:text-neo-yellow">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                Available for Roles & Projects
+              </div>
+            </div>
+
+            {/* Col 2: Fast Track Links */}
+            <div>
+              <h4 className="font-display text-sm font-black uppercase text-black dark:text-white mb-4 border-b-2 border-black pb-1 dark:border-white/30">
+                Fast Navigation [1-8]
+              </h4>
+              <ul className="space-y-2 text-xs font-bold">
+                {pages.slice(0, 4).map((page) => (
+                  <li key={page.id}>
+                    <button
+                      type="button"
+                      onClick={() => navigate(page.id)}
+                      className="hover:underline text-black dark:text-slate-300 hover:text-neo-forest dark:hover:text-neo-yellow"
+                    >
+                      → {page.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 3: Competencies */}
+            <div>
+              <h4 className="font-display text-sm font-black uppercase text-black dark:text-white mb-4 border-b-2 border-black pb-1 dark:border-white/30">
+                Core Domains
+              </h4>
+              <div className="flex flex-wrap gap-1.5">
+                {["Cybersecurity", "React & Vite", "Node.js", "Laravel", "CTF / Forensics", "Vulnerability Research"].map(
+                  (tag) => (
+                    <span
+                      key={tag}
+                      className="neo-badge rounded-md bg-neo-cream text-[11px] text-black dark:bg-[#202533] dark:text-slate-200 dark:border-white/40"
+                    >
+                      {tag}
+                    </span>
+                  ),
+                )}
+              </div>
+            </div>
+
+            {/* Col 4: Social Contacts */}
+            <div className="space-y-4">
+              <h4 className="font-display text-sm font-black uppercase text-black dark:text-white border-b-2 border-black pb-1 dark:border-white/30">
+                Connect Directly
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                <a
+                  href={profile.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="neo-btn rounded-xl bg-neo-yellow p-2.5 text-black hover:bg-yellow-300 dark:bg-neo-yellow dark:text-black"
+                  aria-label="GitHub"
+                >
+                  <Github className="h-4 w-4 stroke-[2.5]" />
+                </a>
+                <a
+                  href={profile.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="neo-btn rounded-xl bg-neo-sky p-2.5 text-black hover:bg-sky-300 dark:bg-neo-sky dark:text-black"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="h-4 w-4 stroke-[2.5]" />
+                </a>
+                <a
+                  href={profile.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="neo-btn rounded-xl bg-neo-rose p-2.5 text-black hover:bg-rose-300 dark:bg-neo-rose dark:text-black"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="h-4 w-4 stroke-[2.5]" />
+                </a>
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="neo-btn rounded-xl bg-neo-green p-2.5 text-black hover:bg-emerald-300 dark:bg-neo-green dark:text-black"
+                  aria-label="Email"
+                >
+                  <Mail className="h-4 w-4 stroke-[2.5]" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 border-t-[2.5px] border-black pt-6 text-center text-xs font-black uppercase tracking-wider text-black dark:border-white dark:text-slate-400">
+            © {new Date().getFullYear()} {profile.name} // Designed with bold & interactive Neobrutalism.
+          </div>
+        </div>
+      </footer>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <ToastProvider>
+        <PortfolioContent />
+      </ToastProvider>
+    </ThemeProvider>
   );
 }

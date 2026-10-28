@@ -1,12 +1,28 @@
 import { Download, ExternalLink as ExternalLinkIcon } from "lucide-react";
 
-export default function ExternalLink({ href, children, variant = "cyan", download = false }) {
+export default function ExternalLink({
+  href,
+  children,
+  variant = "emerald",
+  download = false,
+  className = "",
+}) {
   if (!href) return null;
 
-  const styles =
-    variant === "red"
-      ? "border-danger/60 bg-danger/10 text-rose-100 hover:bg-danger/20"
-      : "border-cyan/60 bg-cyan/10 text-cyan hover:bg-cyan/20";
+  const variantStyles = {
+    emerald:
+      "bg-neo-green text-black hover:bg-emerald-300 dark:bg-neo-green dark:text-black dark:hover:bg-emerald-400",
+    yellow:
+      "bg-neo-yellow text-black hover:bg-amber-300 dark:bg-neo-yellow dark:text-black dark:hover:bg-amber-300",
+    secondary:
+      "bg-white text-black hover:bg-slate-100 dark:bg-[#202530] dark:text-white dark:hover:bg-[#2b3342]",
+    red:
+      "bg-neo-rose text-black hover:bg-rose-300 dark:bg-neo-rose dark:text-black dark:hover:bg-rose-300",
+    cyan:
+      "bg-neo-sky text-black hover:bg-sky-300 dark:bg-neo-sky dark:text-black dark:hover:bg-sky-300",
+  };
+
+  const selectedVariant = variantStyles[variant] || variantStyles.emerald;
 
   return (
     <a
@@ -14,13 +30,13 @@ export default function ExternalLink({ href, children, variant = "cyan", downloa
       target={download ? undefined : "_blank"}
       rel={download ? undefined : "noreferrer"}
       download={download ? true : undefined}
-      className={`interactive-link inline-flex items-center gap-2 border px-4 py-2 text-sm font-semibold transition ${styles}`}
+      className={`neo-btn rounded-xl px-4 py-2.5 text-xs font-black uppercase tracking-wider ${selectedVariant} ${className}`}
     >
       <span>{children}</span>
       {download ? (
-        <Download className="h-4 w-4" aria-hidden="true" />
+        <Download className="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
       ) : (
-        <ExternalLinkIcon className="h-4 w-4" aria-hidden="true" />
+        <ExternalLinkIcon className="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
       )}
     </a>
   );
