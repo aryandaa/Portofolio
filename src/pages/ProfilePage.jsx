@@ -347,16 +347,16 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               {/* Action Buttons Row */}
               <div className="mt-5 flex flex-wrap gap-3">
                 <ExternalLink href={profile.cvUrl} download variant="yellow">
-                  <Download className="h-4 w-4 stroke-[2.5]" />
-                  Download Full CV
+                  <Download className="h-4 w-4 stroke-[2.5] shrink-0" />
+                  <span>Download Full CV</span>
                 </ExternalLink>
                 <button
                   type="button"
                   onClick={() => navigate("projects")}
-                  className="neo-btn rounded-xl bg-neo-green px-4 py-2 text-xs font-black uppercase text-black hover:bg-emerald-300 dark:bg-neo-sky dark:text-black"
+                  className="neo-btn inline-flex items-center gap-2 rounded-xl bg-neo-green px-4 py-2 text-xs font-black uppercase text-black hover:bg-emerald-300 dark:bg-neo-sky dark:text-black"
                 >
                   <Code2 className="h-4 w-4 stroke-[2.5]" />
-                  Explore Projects
+                  <span>Explore Projects</span>
                 </button>
                 <button
                   type="button"

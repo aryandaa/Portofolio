@@ -1,4 +1,4 @@
-import { Download, ExternalLink as ExternalLinkIcon } from "lucide-react";
+import { ExternalLink as ExternalLinkIcon } from "lucide-react";
 
 export default function ExternalLink({
   href,
@@ -30,13 +30,11 @@ export default function ExternalLink({
       target={download ? undefined : "_blank"}
       rel={download ? undefined : "noreferrer"}
       download={download ? true : undefined}
-      className={`neo-btn rounded-xl px-4 py-2.5 text-xs font-black uppercase tracking-wider ${selectedVariant} ${className}`}
+      className={`neo-btn inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-xs font-black uppercase tracking-wider ${selectedVariant} ${className}`}
     >
-      <span>{children}</span>
-      {download ? (
-        <Download className="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
-      ) : (
-        <ExternalLinkIcon className="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
+      {children}
+      {!download && (
+        <ExternalLinkIcon className="h-4 w-4 stroke-[2.5] shrink-0" aria-hidden="true" />
       )}
     </a>
   );

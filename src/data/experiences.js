@@ -23,12 +23,12 @@ export const experiences = [
   },
   {
     role: "System Programmer Intern",
-    place: "Open Journal Theme - Internship (Remote)",
+    place: "Open Journal Theme - Internship (Onsite)",
     period: "July 2026 - September 2026",
     description:
       "Developed, maintained, and customized web systems including OJT Service Management and Invoize Plugin using Laravel, Filament, Vue/Nuxt, and Svelte, while executing security audits and threat analysis.",
     overview:
-      "3-month remote engineering internship focused on full-stack module architecture, Laravel Filament administration suites, API/webhook integrations, and cybersecurity incident log audits.",
+      "3-month onsite engineering internship focused on full-stack module architecture, Laravel Filament administration suites, API/webhook integrations, and cybersecurity incident log audits.",
     responsibilities: [
       "Developed, maintained, and customized web systems and modules including OJT Service Management, App & Knowledge Portals, and Invoize Plugin.",
       "Built full-stack features using Laravel, Filament, WordPress plugins, Vue/Nuxt, and Svelte; implemented RBAC and integrated APIs/webhooks.",

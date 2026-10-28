@@ -11,7 +11,7 @@ export const profile = {
   instagram: "https://instagram.com/ynda_06",
   github: "https://github.com/aryandaa",
   linkedin: "https://linkedin.com/in/aryanda-sanggadiennata",
-  cvUrl: "/assets/CV_Muhammad_Aryanda_Sanggadiennata.docx",
+  cvUrl: "/assets/CV_Muhammad_Aryanda_Sanggadiennata_ATS.pdf",
   summary:
     "Information Systems undergraduate at Politeknik Negeri Banjarmasin (GPA: 3.90/4.00) with hands-on experience in full-stack software development, cybersecurity research, and system engineering. Head of Programming Division at iTech Poliban, Founder of Makat-Xploit, and former System Programmer Intern at Open Journal Theme. Proven track record building and securing production systems for tech enterprises, government bodies (Kominfo, Polres Banjar), and academic institutions using Laravel, Filament, React.js, Vue/Nuxt, Svelte, and modern security auditing workflows.",
   aboutFocus: [
