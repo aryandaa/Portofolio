@@ -104,7 +104,7 @@ function PortfolioContent() {
 
   const tickerItems = [
     { text: "M. ARYANDA SANGGADIENNATA", target: "profile" },
-    { text: "POLIBAN D3 INFORMATION SYSTEMS (GPA 3.91)", target: "profile" },
+    { text: "POLIBAN D3 INFORMATION SYSTEMS (GPA 3.90)", target: "profile" },
     { text: "FULL-STACK WEB DEVELOPER", target: "projects" },
     { text: "CYBERSECURITY RESEARCHER", target: "research" },
     { text: "CODELEARN 500+ NOTES", target: "projects" },

@@ -1,18 +1,34 @@
 export const awards = [
   {
+    rank: "3rd Place Winner",
+    name: "KMIPN VIII (National Polytechnic Informatics Competition)",
+    date: "September 2026",
+    publisher: "Baklma & Indonesian Polytechnic Consortium",
+    description: "National Cyber Security CTF competition for polytechnics across Indonesia. Competed in Responsive Challenger category.",
+    partners: ["Muhammad Andika Anugerah", "Aide Rahman"],
+  },
+  {
     rank: "Top 18 out of 96 Participants",
-    name: "Capture The Flag FIT Competition",
+    name: "Capture The Flag FIT Competition 2026",
     date: "June 2026",
     publisher: "Satya Wacana Christian University",
-    // Add partner names here. Use [] when it was solo.
-    // Example: partners: ["Partner Name", "Another Partner"],
+    description: "Solved 100% of Cryptography challenges and multiple advanced Web Exploitation challenges in a national collegiate CTF.",
     partners: ["Muhammad Andika Anugerah", "Aide Rahman"],
+  },
+  {
+    rank: "2nd Place Winner",
+    name: "UI/UX Poliban Competition 2024",
+    date: "December 2024",
+    publisher: "iTech Community of Poliban",
+    description: "Engineered responsive high-fidelity design prototypes and user-centric wireframes in collegiate design contest.",
+    partners: ["Muhammad Yadzka", "Decy Alam Santoso"],
   },
   {
     rank: "Finalist",
     name: "Competition UI/UX ITFest",
     date: "November 2025",
     publisher: "Samarinda State Polytechnic",
+    description: "National UI/UX design competition focusing on human-centered interaction and accessible design systems.",
     partners: ["Nur Ira Lestari", "Siti Zahra Azizah"],
   },
   {
@@ -20,20 +36,15 @@ export const awards = [
     name: "Capture The Flag InTechFest",
     date: "September 2025",
     publisher: "Bali State Polytechnic",
+    description: "National cybersecurity tournament testing offensive security, web exploits, and forensic investigation.",
     partners: ["Muhammad Andika Anugerah", "Muhammad Rezky Nor Rizali"],
   },
   {
     rank: "Top 30 Finalist out of 100 Participants",
-    name: "Capture The Flag FIT Competition",
+    name: "Capture The Flag FIT Competition 2025",
     date: "July 2025",
     publisher: "Satya Wacana Christian University",
+    description: "National collegiate CTF tournament covering cryptanalysis, web exploitation, and binary forensics.",
     partners: ["Muhammad Andika Anugerah", "Muhammad Rezky Nor Rizali"],
-  },
-  {
-    rank: "2nd Place",
-    name: "UI/UX Poliban Competition 2024",
-    date: "December 2024",
-    publisher: "iTech Community of Poliban",
-    partners: ["Muhammad Yadzka", "Decy Alam Santoso"],
   },
 ];

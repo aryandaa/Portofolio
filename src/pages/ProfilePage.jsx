@@ -237,7 +237,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                 ★ POLIBAN STUDENT // D3 INFORMATION SYSTEMS
               </span>
               <span className="neo-badge rounded-md bg-neo-green text-black font-black text-xs rotate-1">
-                ⚡ GPA 3.91 / 4.00
+                ⚡ GPA 3.90 / 4.00
               </span>
               <span className="neo-badge rounded-md bg-white text-black font-mono text-xs dark:bg-[#1f2430] dark:text-white">
                 📍 BANJARMASIN, ID
@@ -457,7 +457,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                     ACADEMIC ACCREDITATION
                   </span>
                   <p className="font-display text-2xl font-black text-black dark:text-neo-yellow">
-                    GPA 3.91 <span className="text-xs font-mono font-bold">/ 4.00</span>
+                    GPA 3.90 <span className="text-xs font-mono font-bold">/ 4.00</span>
                   </p>
                 </div>
                 <div className="rounded-xl border-2 border-black bg-white px-3 py-1.5 text-center dark:bg-black dark:border-white">

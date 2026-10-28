@@ -1,27 +1,68 @@
 export const experiences = [
   {
-    role: "Full Stack Engineer",
-    place: "PT Inovasi Informatik Sinergi (Open Synergic) - Internship (On-Site)",
+    role: "Head of Programming Division",
+    place: "iTech Community: Politeknik Negeri Banjarmasin",
     period: "July 2026 - Present",
     description:
-      "Configured development environments, integrated administrative panels using Laravel Filament, learned codebase architectures for system management projects, and engaged in technical competitive preparation.",
+      "Direct division operations and execute strategic work programs, delivering hands-on training workshops in frontend, backend, and DevOps while serving as chief technical advisor for competition teams.",
     overview:
-      "Participated in an on-site engineering internship focused on PHP/Laravel ecosystem development, system maintenance for management platforms (OJT & OJS), and routing/UI enhancements.",
+      "Student organization leadership directing developer training, technical curriculum design, and competitive IT tournament preparation for engineering students across the campus.",
     responsibilities: [
-      "Configured local Linux Debian development environments and installed required project dependencies following Workpath specifications.",
-      "Studied Filament framework architecture and integrated admin panel interfaces into OJT and OJS management systems.",
-      "Populated initial mock/test data to evaluate data visualization and UI components within management modules.",
-      "Implemented routing logic, URL redirections, and target-blank navigation behavior for external resources.",
-      "Analyzed existing Laravel codebase to understand project structure, module integrations, and full-stack application workflow.",
+      "Direct division operations and execute strategic work programs across frontend, backend, and DevOps engineering.",
+      "Deliver hands-on training workshops and technical skill bootcamps for student developers.",
+      "Serve as chief technical consultant and advisor, supervising student engineering teams in university projects and national IT competitions.",
+      "Curate practical software engineering roadmaps and foster an active peer-to-peer technical development culture.",
     ],
-    technologies: ["Linux Debian", "PHP", "Laravel", "Filament", "Git"],
+    technologies: ["Frontend", "Backend", "DevOps", "Technical Advisory", "Leadership", "Git/GitHub"],
     highlights: [
-      "Successfully established a stable Linux Debian work station tailored for company development workflows.",
-      "Integrated Filament admin panels into existing OJT and OJS web management systems.",
+      "Supervised multiple engineering teams competing in national polytechnic IT competitions.",
+      "Delivered production-oriented workshops covering modern web frameworks and DevOps fundamentals.",
+    ],
+    partners: ["Aditya Rahman", "Linggar Anugerah Wijaya", "Decy Alam Santoso", "Muhammad Yadzka"],
+    evidence: [],
+  },
+  {
+    role: "System Programmer Intern",
+    place: "Open Journal Theme - Internship (Remote)",
+    period: "July 2026 - September 2026",
+    description:
+      "Developed, maintained, and customized web systems including OJT Service Management and Invoize Plugin using Laravel, Filament, Vue/Nuxt, and Svelte, while executing security audits and threat analysis.",
+    overview:
+      "3-month remote engineering internship focused on full-stack module architecture, Laravel Filament administration suites, API/webhook integrations, and cybersecurity incident log audits.",
+    responsibilities: [
+      "Developed, maintained, and customized web systems and modules including OJT Service Management, App & Knowledge Portals, and Invoize Plugin.",
+      "Built full-stack features using Laravel, Filament, WordPress plugins, Vue/Nuxt, and Svelte; implemented RBAC and integrated APIs/webhooks.",
+      "Executed security operations: incident log investigations, source code reviews, access control audits, and threat analysis for Judol Search Scanner.",
+      "Configured Linux Debian development environments and standardized module deployment pipelines.",
+    ],
+    technologies: ["Laravel", "Filament", "WordPress Plugins", "Vue.js", "Nuxt", "Svelte", "Security Auditing", "Log Analysis", "RBAC"],
+    highlights: [
+      "Integrated Filament administrative suites into active OJT and OJS web management portals.",
+      "Executed security investigations and log audits to mitigate illicit search injection threats.",
     ],
     partners: ["Aditya Rahman", "Linggar Anugerah Wijaya"],
-    // Put files in public/assets/evidence, then register proof of work here.
-    // Use type: "pdf" for PDF evidence; it will be previewed in the evidence modal.
+    evidence: [],
+  },
+  {
+    role: "Founder & Cryptography Security Researcher",
+    place: "Makat-Xploit - Cybersecurity Community",
+    period: "January 2025 - Present",
+    description:
+      "Founded security community; engineered advanced CTF scenarios in Cryptography and Web Exploitation; published monthly exploit advisories and mentored members in secure programming.",
+    overview:
+      "Founded and directed Makat-Xploit as a specialized cybersecurity research community centered on practical cryptanalysis, challenge engineering, and offensive/defensive security testing.",
+    responsibilities: [
+      "Designed and tested Capture The Flag scenarios, especially in Cryptography and Web Exploitation categories.",
+      "Mentored community members in cryptanalysis, web penetration testing, and defensive secure programming practices.",
+      "Researched emerging security issues and converted findings into technical advisories for the community.",
+      "Organized CTF training simulations and challenge walkthrough sessions.",
+    ],
+    technologies: ["Cryptography", "Web Exploitation", "CTF Engineering", "Digital Forensics", "Linux", "Python"],
+    highlights: [
+      "Created hands-on CTF challenge material helping members achieve high standings in national collegiate tournaments.",
+      "Published regular technical advisories and security research notes.",
+    ],
+    partners: ["Aditya Rahman", "Muhammad Andika Anugerah", "Hipni", "Aide Rahman", "Muhammad Rezky Nor Rizali", "Rifki Al Ansyari"],
     evidence: [],
   },
   {
@@ -29,156 +70,92 @@ export const experiences = [
     place: "CodingCamp 2026 by Dicoding & DBS Foundation - Apprenticeship (Remote)",
     period: "February 2026 - July 2026",
     description:
-      "Learned core web fundamentals and modern frameworks including React.js and Express.js while completing professional development courses and delivering a capstone project.",
+      "Engineered full-stack applications with React.js and Express.js; developed Capstone Project (AI Stress Detector) integrating predictive analytics and completed comprehensive AWS Cloud training.",
     overview:
-      "Joined a structured apprenticeship program focused on strengthening production-ready web development skills, professional growth, and team-based capstone delivery.",
+      "Intensive remote web engineering apprenticeship covering production frontend architecture, API services, and machine learning analytics integration.",
     responsibilities: [
-      "Studied and practiced core frontend fundamentals including semantic HTML, CSS, JavaScript, accessibility, and responsive interface patterns.",
-      "Built modern React.js interfaces and learned backend fundamentals using Express.js for API-driven application workflows.",
-      "Worked on a capstone project with collaborative planning, implementation, version control, and iterative feature delivery.",
-      "Completed professional development materials covering communication, problem solving, and product-oriented engineering habits.",
+      "Studied and implemented core frontend fundamentals, accessibility, responsive UI, and component state management.",
+      "Built modern React.js interfaces and implemented backend REST APIs using Express.js and Node.js.",
+      "Engineered Capstone Project (CekTenang: AI-Powered Stress Detector) integrating predictive analytics with an interactive user dashboard.",
+      "Completed comprehensive training across cloud computing on AWS, automated testing, and team Git workflows.",
     ],
-    technologies: ["HTML", "CSS", "JavaScript", "React.js", "Express.js", "Git", "GitHub"],
+    technologies: ["React.js", "Express.js", "Node.js", "AWS Cloud", "Tailwind CSS", "REST API", "Git/GitHub"],
     highlights: [
-      "Delivered a capstone project as part of a remote apprenticeship workflow.",
-      "Improved full-stack foundations from UI implementation to API integration.",
+      "Delivered full-stack AI-powered stress prediction capstone application in an agile multidisciplinary team.",
+      "Completed professional software development curriculum with graduation letter honors.",
     ],
-    // Add partner names here. Use [] when the work was solo or partner names are not public.
-    // Example: partners: ["Partner Name", "Another Partner"],
-    partners: [],
-    // Put files in public/assets/evidence, then register proof of work here.
-    // Supported types: "image" for photos/screenshots, "pdf" for previewable PDFs,
-    // or "document" for other downloadable files such as DOCX.
-    // Example:
-    // evidence: [
-    //   {
-    //     title: "Capstone project presentation",
-    //     type: "pdf",
-    //     url: "/assets/evidence/codingcamp-certificate.pdf",
-    //     description: "Certificate from the CodingCamp apprenticeship.",
-    //   },
-    // ],
+    partners: ["Lutfi Agisna", "Muhammad Rendy", "Eusthachius Rivan Verianto Norel", "Michael Jordan Alfanius Sianipar", "Aisyah Aurora Ayu Setianingrum"],
     evidence: [
       {
         title: "Graduation Letter",
         type: "pdf",
         url: "/assets/evidence/[Coding Camp 2026] Graduation Letter - CFCC524D6Y0161.pdf",
-        description: "Graduation Letter from the CodingCamp apprenticeship.",
-      }
+        description: "Official graduation letter from CodingCamp 2026 by Dicoding & DBS Foundation.",
+      },
     ],
-  },
-  {
-    role: "Founder & Cryptography Security Researcher",
-    place: "Makat-Xploit - Part-Time",
-    period: "January 2025 - Present",
-    description:
-      "Founded and led a cybersecurity community focused on research, CTF development, cryptography, web security, secure programming workshops, and monthly technical advisories.",
-    overview:
-      "Founded and managed Makat-Xploit as a cybersecurity learning community centered on research, CTF challenge building, cryptography, and practical web security knowledge sharing.",
-    responsibilities: [
-      "Designed and tested Capture The Flag scenarios, especially in Cryptography and Web Exploitation categories.",
-      "Mentored members through workshops, challenge walkthroughs, and secure programming practice sessions.",
-      "Researched emerging security issues and converted findings into technical advisories for the community.",
-      "Coordinated community learning activities, member discussions, and knowledge-sharing sessions.",
-    ],
-    technologies: ["Cryptography", "Web Exploitation", "CTF", "Linux", "Python", "Technical Writing"],
-    highlights: [
-      "Built a community space for cybersecurity learners and practitioners.",
-      "Created hands-on CTF material to help members understand real attack and defense patterns.",
-    ],
-    partners: ["Aditya Rahman", "Muhammad Andika Anugerah", "Hipni", "Aide Rahman", "Muhammad Rezky Nor Rizali", "Rifki Al Ansyari"],
-    // Example:
-    // evidence: [
-    //   {
-    //     title: "Community workshop documentation",
-    //     type: "image",
-    //     url: "/assets/evidence/makat-xploit-workshop.jpg",
-    //     description: "Workshop session about cryptography and web security.",
-    //   },
-    // ],
-    evidence: [],
   },
   {
     role: "Frontend & Backend Developer",
     place: "Albaik Infinite Teknologi - Internship (On-site)",
     period: "January 2024 - February 2024",
     description:
-      "Developed backend components using C# .NET, built responsive frontend interfaces from client specifications, and created visual design materials for digital promotions.",
+      "Built the responsive frontend portal for Banjar Regency Police Department (Polres Banjar) and launched Albaik corporate promotional website.",
     overview:
-      "Supported client and internal development work by building interface components, backend features, and supporting promotional design assets.",
+      "On-site development internship supporting client portals and company web properties with responsive frontend implementation and backend support.",
     responsibilities: [
-      "Implemented responsive frontend pages based on client requirements and visual references.",
-      "Developed backend components using C# .NET to support application functionality.",
-      "Collaborated with the team to translate specifications into usable web interfaces.",
-      "Prepared visual assets and digital promotion materials to support company communication.",
+      "Built the responsive public-facing portal for Banjar Regency Police Department (Polres Banjar) ensuring mobile readiness.",
+      "Developed corporate promotional website and marketing components for Albaik Infinite Teknologi.",
+      "Implemented responsive layouts and styled components according to visual identity requirements.",
+      "Collaborated with project managers to translate client specifications into functional web deliverables.",
     ],
-    technologies: ["C# .NET", "HTML", "CSS", "JavaScript", "Responsive Design", "Visual Design"],
+    technologies: ["HTML5", "CSS3", "JavaScript", "Bootstrap 5", "Responsive Web", "C# .NET"],
     highlights: [
-      "Contributed to public-facing website interfaces for client needs.",
-      "Balanced frontend implementation, backend support, and design asset creation in one internship role.",
+      "Shipped public police department portal with responsive UI and clear public access to service information.",
+      "Delivered company landing pages meeting client branding standards.",
     ],
     partners: ["Bima Rizqy Prasurya", "Muhammad Hafiz Fansuri"],
-    // Example:
-    // evidence: [
-    //   {
-    //     title: "Internship activity photo",
-    //     type: "image",
-    //     url: "/assets/evidence/albaik-internship.jpg",
-    //     description: "Documentation from frontend and backend internship work.",
-    //   },
-    // ],
     evidence: [],
   },
   {
     role: "Website Developer",
-    place: "Kominfo - Internship (On-site)",
+    place: "Ministry of Communication and Informatics (Kominfo) - Internship (On-site)",
     period: "August 2023 - November 2023",
     description:
-      "Designed and deployed an internal web app to automate employee travel permit workflows and indexed system data assets to reduce record retrieval times.",
+      "Architected and deployed an internal web application using Laravel and DomPDF to automate employee travel permits (SPPD) and streamlined department record access.",
     overview:
-      "Worked on an internal administrative web application for government workflow automation, focusing on document generation and faster data access.",
+      "Government internship developing internal administrative workflow automation tools to replace paper-based travel authorization forms with automated PDF generation.",
     responsibilities: [
-      "Developed an internal web app to automate official employee duty assignment and travel permit workflows.",
-      "Implemented document generation using Laravel PHP and PHP DomPDF to reduce manual administrative work.",
-      "Organized and indexed system data assets to improve record retrieval speed.",
-      "Adjusted workflows based on internal operational needs and document formatting requirements.",
+      "Architected and deployed an internal web application using Laravel and DomPDF to automate employee travel permits (SPPD).",
+      "Eliminated manual repetitive permit generation through automated database-driven document creation.",
+      "Organized and indexed department data assets to dramatically reduce record search times.",
+      "Gathered operational requirements from civil service staff to tailor system approval flows.",
     ],
-    technologies: ["Laravel", "PHP", "PHP DomPDF", "MySQL", "HTML", "CSS"],
+    technologies: ["PHP", "Laravel", "MySQL", "DomPDF", "Workflow Automation", "HTML/CSS"],
     highlights: [
-      "Reduced repetitive manual document creation through web-based automation.",
-      "Supported a government institution workflow with a practical internal system.",
+      "Replaced manual administrative paperwork with automated web-based duty letter generation.",
+      "Streamlined travel permit archiving for municipal government department.",
     ],
     partners: ["Bima Rizqy Prasurya", "Siti Zahra Azizah", "Muhammad Sultan Nabil Akbar", "Aisyah Amini"],
-    // Example:
-    // evidence: [
-    //   {
-    //     title: "SPPD system screenshot",
-    //     type: "image",
-    //     url: "/assets/evidence/kominfo-sppd-system.jpg",
-    //     description: "Screenshot of the internal duty letter automation system.",
-    //   },
-    // ],
     evidence: [],
   },
-  
   {
     role: "Marketing Specialist & Web Developer",
     place: "Bahtera Mart - Internship (On-site)",
     period: "January 2023 - April 2023",
     description:
-      "Built an e-commerce catalog app and a web-based minigame as marketing tools to increase digital engagement and expand the brand's online presence.",
+      "Built a promotional e-commerce web catalog and programmed 'Tera In Galaxy' JavaScript mini-game, boosting customer retention and brand reach.",
     overview:
-      "Combined web development and marketing execution by creating digital experiences that showcased products and encouraged customer engagement.",
+      "Combined interactive web programming with promotional marketing to drive retail customer engagement through gamification and digital product catalogs.",
     responsibilities: [
-      "Built a promotional website to showcase Bahtera Mart products and design poster archives.",
-      "Developed an e-commerce catalog experience to support product discovery and online promotion.",
-      "Created a Flappy Bird-inspired web game as a campaign mechanic for customer discounts.",
-      "Supported marketing activities through digital content, web assets, and interactive engagement tools.",
+      "Built a promotional e-commerce web catalog to showcase Bahtera Mart retail inventory.",
+      "Programmed 'Tera In Galaxy' arcade web game with HTML5 Canvas and dynamic collision physics for customer promotional campaigns.",
+      "Created digital marketing assets, posters, and interactive discount mechanics.",
+      "Monitored customer engagement during on-site and online promotional events.",
     ],
-    technologies: ["JavaScript", "HTML", "CSS", "Web Game Development", "Digital Marketing"],
+    technologies: ["JavaScript (ES6)", "HTML5 Canvas", "CSS3", "Web Game Development", "E-Commerce"],
     highlights: [
-      "Created an interactive minigame campaign to encourage customer participation.",
-      "Expanded the brand's online presence through web-based promotional tools.",
+      "Engaged retail customers with custom interactive web mini-game during marketing promotions.",
+      "Created digital catalog platform expanding store discovery.",
     ],
     partners: ["Aditiya Noor Rahman", "Annida Afrilia", "Aisyah Amini", "Khairunnisa Zahra Ramanda Sari"],
     evidence: [
@@ -186,7 +163,7 @@ export const experiences = [
         title: "Sertifikat Bahtera Mart",
         type: "image",
         url: "/assets/evidence/bahtera1.jpg",
-        description: "internship completion certificate.",
+        description: "Official internship completion certificate from Bahtera Mart.",
       },
     ],
   },

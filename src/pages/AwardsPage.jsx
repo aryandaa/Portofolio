@@ -21,7 +21,7 @@ export default function AwardsPage() {
 
   const getTrack = (award) => {
     const n = award.name.toLowerCase();
-    if (n.includes("ctf") || n.includes("capture the flag")) return "Cybersecurity CTF";
+    if (n.includes("ctf") || n.includes("capture the flag") || n.includes("kmipn")) return "Cybersecurity CTF";
     return "UI/UX Design";
   };
 
@@ -37,15 +37,16 @@ export default function AwardsPage() {
     showToast(`Copied award record!`);
   };
 
-  // Find 2nd place award for the spotlight
+  // Top podium spotlights
+  const kmipnAward = awards.find((a) => a.name.includes("KMIPN"));
   const silverAward = awards.find((a) => a.rank.includes("2nd Place"));
-  const top18Award = awards.find((a) => a.rank.includes("Top 18"));
+  const top18Award = awards.find((a) => a.name.includes("Top 18") || a.rank.includes("Top 18"));
 
   return (
     <PageShell
       eyebrow="Competitions & Honors"
       title="Honors & Competitive Awards"
-      description="Competitive track record across collegiate and national Cybersecurity tournaments (Capture The Flag / CTF) and UI/UX design competitions."
+      description={`Competitive track record across ${awards.length} collegiate and national Cybersecurity tournaments (KMIPN VIII, Capture The Flag / CTF) and UI/UX design competitions.`}
     >
       {/* Interactive Control & Track Switcher */}
       <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
@@ -59,7 +60,7 @@ export default function AwardsPage() {
                 Hall of Competitive Achievements
               </span>
               <p className="text-xs font-bold text-slate-600 dark:text-slate-400">
-                5 Collegiate & National Tournament Honors
+                {awards.length} Collegiate & National Tournament Honors
               </p>
             </div>
           </div>
@@ -96,14 +97,66 @@ export default function AwardsPage() {
 
       {/* TOURNAMENT PODIUM SPOTLIGHT (When All tracks selected) */}
       {selectedTrack === "All" && (
-        <div className="mb-8 grid gap-6 md:grid-cols-2">
-          {/* Podium 1: 2nd Place Silver Winner */}
+        <div className="mb-8 grid gap-6 md:grid-cols-3">
+          {/* Podium 1: 3rd Place KMIPN VIII */}
+          {kmipnAward && (
+            <div className="neo-box rounded-3xl border-[3px] border-black bg-neo-rose/20 p-6 dark:border-white dark:bg-[#25161e] shadow-brutal flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between border-b-2 border-black/15 pb-4 dark:border-white/20">
+                  <span className="neo-badge rounded-md bg-neo-rose text-black font-black text-xs">
+                    🥉 3RD PLACE NATIONAL
+                  </span>
+                  <span className="font-mono text-xs font-black text-slate-700 dark:text-slate-300">
+                    {kmipnAward.date}
+                  </span>
+                </div>
+
+                <div className="mt-4">
+                  <h3 className="font-display text-xl font-black uppercase tracking-tight text-black dark:text-white leading-tight">
+                    {kmipnAward.name}
+                  </h3>
+                  <p className="mt-1 text-xs font-black uppercase text-neo-forest dark:text-neo-yellow">
+                    HOSTED BY: {kmipnAward.publisher}
+                  </p>
+                  <p className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
+                    {kmipnAward.description}
+                  </p>
+                </div>
+
+                <div className="mt-4 rounded-xl border-2 border-black bg-white p-3 dark:border-white/30 dark:bg-[#121620]">
+                  <span className="text-[10px] font-black uppercase text-slate-500 dark:text-slate-400 block mb-1">
+                    Squad Teammates:
+                  </span>
+                  <div className="flex flex-wrap gap-1">
+                    {kmipnAward.partners.map((p) => (
+                      <span key={p} className="neo-badge rounded bg-neo-cream text-[10px] text-black dark:bg-[#202533] dark:text-white">
+                        ✦ {p}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-5 pt-3 border-t border-black/10 dark:border-white/20 flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => copyAwardRecord(kmipnAward)}
+                  className="neo-btn rounded-xl bg-white px-3 py-1.5 text-xs font-black uppercase text-black dark:bg-[#202533] dark:text-white"
+                >
+                  <Copy className="h-3.5 w-3.5 inline mr-1" />
+                  Copy Record
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Podium 2: 2nd Place Silver Winner UI/UX */}
           {silverAward && (
-            <div className="neo-box rounded-3xl border-[3px] border-black bg-neo-yellow/20 p-6 sm:p-8 dark:border-white dark:bg-[#1e2333] shadow-brutal flex flex-col justify-between">
+            <div className="neo-box rounded-3xl border-[3px] border-black bg-neo-yellow/20 p-6 dark:border-white dark:bg-[#1e2333] shadow-brutal flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between border-b-2 border-black/15 pb-4 dark:border-white/20">
                   <span className="neo-badge rounded-md bg-neo-yellow text-black font-black text-xs">
-                    🥈 2ND PLACE PODIUM WINNER
+                    🥈 2ND PLACE PODIUM
                   </span>
                   <span className="font-mono text-xs font-black text-slate-700 dark:text-slate-300">
                     {silverAward.date}
@@ -111,21 +164,24 @@ export default function AwardsPage() {
                 </div>
 
                 <div className="mt-4">
-                  <h3 className="font-display text-2xl font-black uppercase tracking-tight text-black dark:text-white">
+                  <h3 className="font-display text-xl font-black uppercase tracking-tight text-black dark:text-white leading-tight">
                     {silverAward.name}
                   </h3>
                   <p className="mt-1 text-xs font-black uppercase text-neo-forest dark:text-neo-yellow">
                     HOSTED BY: {silverAward.publisher}
                   </p>
+                  <p className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
+                    {silverAward.description}
+                  </p>
                 </div>
 
-                <div className="mt-4 rounded-xl border-2 border-black bg-white p-3.5 dark:border-white/30 dark:bg-[#121620]">
-                  <span className="text-[11px] font-black uppercase text-slate-500 dark:text-slate-400 block mb-1">
+                <div className="mt-4 rounded-xl border-2 border-black bg-white p-3 dark:border-white/30 dark:bg-[#121620]">
+                  <span className="text-[10px] font-black uppercase text-slate-500 dark:text-slate-400 block mb-1">
                     Squad Teammates:
                   </span>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1">
                     {silverAward.partners.map((p) => (
-                      <span key={p} className="neo-badge rounded bg-neo-cream text-[11px] text-black dark:bg-[#202533] dark:text-white">
+                      <span key={p} className="neo-badge rounded bg-neo-cream text-[10px] text-black dark:bg-[#202533] dark:text-white">
                         ✦ {p}
                       </span>
                     ))}
@@ -146,9 +202,9 @@ export default function AwardsPage() {
             </div>
           )}
 
-          {/* Podium 2: National CTF Top 18 */}
+          {/* Podium 3: National CTF Top 18 */}
           {top18Award && (
-            <div className="neo-box rounded-3xl border-[3px] border-black bg-neo-sky/20 p-6 sm:p-8 dark:border-white dark:bg-[#162338] shadow-brutal flex flex-col justify-between">
+            <div className="neo-box rounded-3xl border-[3px] border-black bg-neo-sky/20 p-6 dark:border-white dark:bg-[#162338] shadow-brutal flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between border-b-2 border-black/15 pb-4 dark:border-white/20">
                   <span className="neo-badge rounded-md bg-neo-sky text-black font-black text-xs">
@@ -160,21 +216,24 @@ export default function AwardsPage() {
                 </div>
 
                 <div className="mt-4">
-                  <h3 className="font-display text-2xl font-black uppercase tracking-tight text-black dark:text-white">
+                  <h3 className="font-display text-xl font-black uppercase tracking-tight text-black dark:text-white leading-tight">
                     {top18Award.name}
                   </h3>
                   <p className="mt-1 text-xs font-black uppercase text-neo-forest dark:text-neo-yellow">
                     HOSTED BY: {top18Award.publisher}
                   </p>
+                  <p className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
+                    {top18Award.description}
+                  </p>
                 </div>
 
-                <div className="mt-4 rounded-xl border-2 border-black bg-white p-3.5 dark:border-white/30 dark:bg-[#121620]">
-                  <span className="text-[11px] font-black uppercase text-slate-500 dark:text-slate-400 block mb-1">
+                <div className="mt-4 rounded-xl border-2 border-black bg-white p-3 dark:border-white/30 dark:bg-[#121620]">
+                  <span className="text-[10px] font-black uppercase text-slate-500 dark:text-slate-400 block mb-1">
                     Squad Teammates:
                   </span>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1">
                     {top18Award.partners.map((p) => (
-                      <span key={p} className="neo-badge rounded bg-neo-cream text-[11px] text-black dark:bg-[#202533] dark:text-white">
+                      <span key={p} className="neo-badge rounded bg-neo-cream text-[10px] text-black dark:bg-[#202533] dark:text-white">
                         ✦ {p}
                       </span>
                     ))}
@@ -241,6 +300,11 @@ export default function AwardsPage() {
                     <p className="mt-1 text-xs font-black uppercase text-neo-forest dark:text-neo-yellow">
                       ORGANIZER: {award.publisher}
                     </p>
+                    {award.description && (
+                      <p className="mt-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
+                        {award.description}
+                      </p>
+                    )}
                   </div>
                 </div>
 
