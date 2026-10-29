@@ -25,7 +25,6 @@ import { useToast } from "../context/ToastContext.jsx";
 export default function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [viewMode, setViewMode] = useState("bento"); // 'bento' | 'matrix'
   const [cardTabs, setCardTabs] = useState({}); // { [projectName]: 'overview' | 'features' }
   const { showToast } = useToast();
@@ -52,38 +51,19 @@ export default function ProjectsPage() {
     showToast(`Copied ${label} to clipboard!`);
   };
 
-  const getCategory = (proj) => {
-    const name = proj.name.toLowerCase();
-    const stack = (proj.stack || []).join(" ").toLowerCase();
-    if (name.includes("codelearn")) return "Featured Capstone";
-    if (name.includes("game") || name.includes("galaxy") || name.includes("avoid")) return "Games & Media";
-    if (stack.includes("figma") || stack.includes("ui/ux") || stack.includes("wordpress") || name.includes("redesign")) return "UI/UX & Web";
-    return "Full-Stack & Systems";
-  };
-
-  const categories = [
-    "All",
-    "Featured Capstone",
-    "Full-Stack & Systems",
-    "UI/UX & Web",
-    "Games & Media",
-  ];
-
   const filteredProjects = useMemo(() => {
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return technicalProjects;
     return technicalProjects.filter((p) => {
-      const cat = getCategory(p);
-      const matchesCat = selectedCategory === "All" || cat === selectedCategory;
-      const q = searchQuery.toLowerCase().trim();
-      if (!q) return matchesCat;
-      const matchesSearch =
+      return (
         p.name.toLowerCase().includes(q) ||
         p.role.toLowerCase().includes(q) ||
         p.institution.toLowerCase().includes(q) ||
         (p.stack && p.stack.some((s) => s.toLowerCase().includes(q))) ||
-        (p.features && p.features.some((f) => f.toLowerCase().includes(q)));
-      return matchesCat && matchesSearch;
+        (p.features && p.features.some((f) => f.toLowerCase().includes(q)))
+      );
     });
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery]);
 
   const setCardTab = (name, tab) => {
     setCardTabs((prev) => ({ ...prev, [name]: tab }));
@@ -143,40 +123,6 @@ export default function ProjectsPage() {
                 <span>Matrix</span>
               </button>
             </div>
-          </div>
-
-          {/* Category Chips Bar */}
-          <div className="mt-4 flex flex-wrap items-center gap-2 border-t-2 border-black/10 pt-4 dark:border-white/20">
-            {categories.map((cat) => {
-              const count =
-                cat === "All"
-                  ? technicalProjects.length
-                  : technicalProjects.filter((p) => getCategory(p) === cat).length;
-              const isActive = selectedCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`neo-btn flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-black uppercase tracking-wider transition-all ${
-                    isActive
-                      ? "bg-neo-green text-black dark:bg-neo-yellow dark:text-black dark:border-white"
-                      : "bg-white text-black hover:bg-neo-palegreen dark:bg-[#181b24] dark:text-white"
-                  }`}
-                >
-                  <span>{cat}</span>
-                  <span
-                    className={`rounded px-1.5 py-0.2 text-[10px] font-mono ${
-                      isActive
-                        ? "bg-black text-white dark:bg-black dark:text-neo-yellow"
-                        : "bg-black/10 dark:bg-white/10"
-                    }`}
-                  >
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
           </div>
         </div>
 

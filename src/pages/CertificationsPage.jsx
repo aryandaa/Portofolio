@@ -117,35 +117,23 @@ function CertificateImageCarousel({ certificate, onOpen }) {
 }
 
 export default function CertificationsPage() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState("grid"); // 'grid' | 'ledger'
+  const [viewMode, setViewMode] = useState("bento"); // 'bento' | 'matrix'
   const [viewer, setViewer] = useState(null);
   const [zoom, setZoom] = useState(1);
   const { showToast } = useToast();
 
-  // Extract unique categories
-  const categories = useMemo(() => {
-    const set = new Set();
-    certifications.forEach((c) => {
-      if (c.category) set.add(c.category);
-    });
-    return ["All", ...Array.from(set)];
-  }, []);
-
   // Filtered certificates
   const filteredCertificates = useMemo(() => {
     return certifications.filter((cert) => {
-      const matchCategory =
-        selectedCategory === "All" || cert.category === selectedCategory;
       const matchSearch =
         searchQuery === "" ||
         cert.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         cert.issuer.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (cert.date && cert.date.toLowerCase().includes(searchQuery.toLowerCase()));
-      return matchCategory && matchSearch;
+      return matchSearch;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [searchQuery]);
 
   // Viewer controls
   const openViewer = (certificate, initialIndex = 0) => {
@@ -228,65 +216,37 @@ export default function CertificationsPage() {
             <div className="flex items-center gap-2 shrink-0">
               <button
                 type="button"
-                onClick={() => setViewMode("grid")}
+                onClick={() => setViewMode("bento")}
                 className={`neo-btn flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black uppercase ${
-                  viewMode === "grid"
+                  viewMode === "bento"
                     ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black dark:border-white"
                     : "bg-white text-black dark:bg-[#181b24] dark:text-white"
                 }`}
               >
                 <Grid className="h-4 w-4" />
-                <span>Gallery</span>
+                <span>Bento</span>
               </button>
               <button
                 type="button"
-                onClick={() => setViewMode("ledger")}
+                onClick={() => setViewMode("matrix")}
                 className={`neo-btn flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black uppercase ${
-                  viewMode === "ledger"
+                  viewMode === "matrix"
                     ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black dark:border-white"
                     : "bg-white text-black dark:bg-[#181b24] dark:text-white"
                 }`}
               >
                 <List className="h-4 w-4" />
-                <span>Ledger</span>
+                <span>Matrix</span>
               </button>
             </div>
-          </div>
-
-          {/* Category Filter Chips */}
-          <div className="mt-4 flex flex-wrap items-center gap-2 border-t-2 border-black/10 pt-4 dark:border-white/20">
-            {categories.map((cat) => {
-              const active = selectedCategory === cat;
-              const count =
-                cat === "All"
-                  ? certifications.length
-                  : certifications.filter((c) => c.category === cat).length;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`neo-btn flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-black uppercase tracking-wider ${
-                    active
-                      ? "bg-neo-green text-black dark:bg-neo-yellow dark:text-black dark:border-white"
-                      : "bg-white text-black hover:bg-neo-palegreen dark:bg-[#181b24] dark:text-white"
-                  }`}
-                >
-                  <span>{cat}</span>
-                  <span className="rounded px-1.5 py-0.2 text-[10px] font-mono bg-black/10 dark:bg-white/10">
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
           </div>
         </div>
 
         {/* View Mode 1: Bento & Grid */}
-        {viewMode === "grid" && (
+        {viewMode === "bento" && (
           <div className="space-y-8">
             {/* Featured Master Spotlight for CodingCamp when matching */}
-            {selectedCategory === "All" && !searchQuery && (
+            {!searchQuery && (
               <div className="neo-box rounded-3xl border-[3px] border-black bg-neo-yellow/20 p-6 sm:p-8 dark:border-white dark:bg-[#1e2538] shadow-brutal">
                 <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
                   <div className="space-y-2">
@@ -385,7 +345,7 @@ export default function CertificationsPage() {
         )}
 
         {/* View Mode 2: Security Audit Ledger */}
-        {viewMode === "ledger" && (
+        {viewMode === "matrix" && (
           <div className="neo-box overflow-hidden rounded-3xl bg-white dark:bg-neo-darkcard dark:border-white">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs font-bold">

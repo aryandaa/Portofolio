@@ -108,11 +108,11 @@ export default function ResearchPage() {
         </div>
       </div>
 
-      {/* Tab 1: Interactive Security Terminal & Schema */}
+      {/* Tab 1: Interactive Security Terminal */}
       {activeTab === "terminal" && (
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
-          {/* Left: Interactive Terminal */}
-          <div className="neo-box rounded-3xl bg-slate-950 p-6 text-white border-[3px] border-black dark:border-white shadow-brutal flex flex-col justify-between min-h-[460px]">
+        <div className="w-full">
+          {/* Interactive Terminal */}
+          <div className="neo-box rounded-3xl bg-slate-950 p-6 sm:p-8 text-white border-[3px] border-black dark:border-white shadow-brutal flex flex-col justify-between min-h-[500px]">
             <div>
               {/* Terminal Window Top Bar */}
               <div className="flex items-center justify-between border-b border-white/20 pb-3 mb-4 font-mono text-xs text-slate-400">
@@ -126,7 +126,7 @@ export default function ResearchPage() {
               </div>
 
               {/* Terminal Output Stream */}
-              <div className="space-y-2.5 font-mono text-xs max-h-[260px] overflow-y-auto pr-2 scrollbar-none">
+              <div className="space-y-2.5 font-mono text-xs sm:text-sm max-h-[340px] overflow-y-auto pr-2 scrollbar-none">
                 {terminalHistory.map((item, idx) => (
                   <div
                     key={idx}
@@ -145,7 +145,7 @@ export default function ResearchPage() {
             </div>
 
             {/* Terminal Input Bar & Shortcut Chips */}
-            <div className="mt-4 pt-4 border-t border-white/20">
+            <div className="mt-6 pt-4 border-t border-white/20">
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {["abstract", "tracks", "status", "audit", "clear"].map((cmd) => (
                   <button
@@ -172,7 +172,7 @@ export default function ResearchPage() {
                   value={commandInput}
                   onChange={(e) => setCommandInput(e.target.value)}
                   placeholder="Type command (e.g. abstract, audit, help)..."
-                  className="flex-1 bg-transparent font-mono text-xs text-white placeholder:text-slate-500 focus:outline-none"
+                  className="flex-1 bg-transparent font-mono text-xs sm:text-sm text-white placeholder:text-slate-500 focus:outline-none"
                 />
                 <button
                   type="submit"
@@ -181,49 +181,6 @@ export default function ResearchPage() {
                   <CornerDownLeft className="h-3.5 w-3.5 inline" />
                 </button>
               </form>
-            </div>
-          </div>
-
-          {/* Right: Research Data Schema & Inquiry Focus */}
-          <div className="space-y-6">
-            <div className="neo-box rounded-3xl bg-white p-6 dark:bg-neo-darkcard dark:border-white">
-              <div className="mb-4 flex items-center gap-3 border-b-2 border-black/10 pb-3 dark:border-white/20">
-                <span className="neo-badge rounded-md bg-neo-rose text-black font-black">
-                  ✦ STATUS: DRAFTING
-                </span>
-                <h3 className="font-display text-base font-black uppercase text-black dark:text-white">
-                  Core Inquiries in Progress
-                </h3>
-              </div>
-
-              <div className="space-y-3">
-                <div className="rounded-2xl border-2 border-black bg-neo-cream p-4 dark:border-white/30 dark:bg-[#121620]">
-                  <h4 className="font-display text-xs font-black uppercase text-neo-forest dark:text-neo-yellow">
-                    1. Client-Side Hardening
-                  </h4>
-                  <p className="mt-1 text-xs font-bold leading-relaxed text-slate-700 dark:text-slate-300">
-                    Evaluating attack surface reduction when executing multi-language runtimes (Pyodide, WebAssembly) entirely in client browser contexts.
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border-2 border-black bg-neo-cream p-4 dark:border-white/30 dark:bg-[#121620]">
-                  <h4 className="font-display text-xs font-black uppercase text-neo-forest dark:text-neo-yellow">
-                    2. CTF Cryptography Engineering
-                  </h4>
-                  <p className="mt-1 text-xs font-bold leading-relaxed text-slate-700 dark:text-slate-300">
-                    Structuring applied cryptography challenges and modular educational testbeds for university competition environments.
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border-2 border-black bg-neo-cream p-4 dark:border-white/30 dark:bg-[#121620]">
-                  <h4 className="font-display text-xs font-black uppercase text-neo-forest dark:text-neo-yellow">
-                    3. Static Parser Pipelines
-                  </h4>
-                  <p className="mt-1 text-xs font-bold leading-relaxed text-slate-700 dark:text-slate-300">
-                    Benchmarking 8-stage zero-database Markdown compilers for large-scale knowledge graph generation.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>

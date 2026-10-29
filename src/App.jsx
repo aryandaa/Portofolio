@@ -288,7 +288,7 @@ function PortfolioContent() {
           </div>
 
           <div className="mt-10 border-t-[2.5px] border-black pt-6 text-center text-xs font-black uppercase tracking-wider text-black dark:border-white dark:text-slate-400">
-            © {new Date().getFullYear()} {profile.name} // Designed with bold & interactive Neobrutalism.
+            © {new Date().getFullYear()} {profile.name}
           </div>
         </div>
       </footer>

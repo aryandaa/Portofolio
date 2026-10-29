@@ -23,7 +23,6 @@ import { useToast } from "../context/ToastContext.jsx";
 export default function ExperiencePage() {
   const [selectedExperience, setSelectedExperience] = useState(null);
   const [activeTabByRole, setActiveTabByRole] = useState({}); // { [roleKey]: 'responsibilities' | 'highlights' | 'overview' }
-  const [selectedFilter, setSelectedFilter] = useState("All");
   const { showToast } = useToast();
 
   // Close modal on Escape
@@ -42,20 +41,6 @@ export default function ExperiencePage() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [selectedExperience]);
-
-  const getRoleCategory = (item) => {
-    const p = item.place.toLowerCase();
-    if (p.includes("founder")) return "Leadership";
-    if (p.includes("internship") || p.includes("apprenticeship")) return "Internships & Engineering";
-    return "Projects & Contracts";
-  };
-
-  const categories = ["All", "Internships & Engineering", "Leadership", "Projects & Contracts"];
-
-  const filteredExperiences = useMemo(() => {
-    if (selectedFilter === "All") return experiences;
-    return experiences.filter((e) => getRoleCategory(e) === selectedFilter);
-  }, [selectedFilter]);
 
   const setRoleTab = (key, tab) => {
     setActiveTabByRole((prev) => ({ ...prev, [key]: tab }));
@@ -101,42 +86,14 @@ export default function ExperiencePage() {
               );
             })}
           </div>
-
-          {/* Filter Pills */}
-          <div className="mt-4 flex flex-wrap items-center gap-2 border-t-2 border-black/10 pt-4 dark:border-white/20">
-            {categories.map((cat) => {
-              const active = selectedFilter === cat;
-              const count =
-                cat === "All"
-                  ? experiences.length
-                  : experiences.filter((e) => getRoleCategory(e) === cat).length;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setSelectedFilter(cat)}
-                  className={`neo-btn rounded-xl px-3.5 py-1.5 text-xs font-black uppercase tracking-wider ${
-                    active
-                      ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black dark:border-white"
-                      : "bg-white text-black hover:bg-neo-palegreen dark:bg-[#181b24] dark:text-white"
-                  }`}
-                >
-                  <span>{cat}</span>
-                  <span className="ml-1.5 text-[10px] font-mono px-1 rounded bg-black/10 dark:bg-white/10">
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
         </div>
 
         {/* Experience Dossier Cards */}
         <div className="space-y-8">
-          {filteredExperiences.map((item, idx) => {
+          {experiences.map((item, idx) => {
             const roleKey = `${item.role}-${item.period}`;
             const currentTab = activeTabByRole[roleKey] || "responsibilities";
-            const isLatest = idx === 0 && selectedFilter === "All";
+            const isLatest = idx === 0;
 
             return (
               <div

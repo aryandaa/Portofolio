@@ -134,7 +134,6 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
   const [selectedPersona, setSelectedPersona] = useState("fullstack"); // 'fullstack' | 'cybersec' | 'uiux'
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [skillSearch, setSkillSearch] = useState("");
-  const [selectedSkillCategory, setSelectedSkillCategory] = useState("All");
   const [expandedPillar, setExpandedPillar] = useState(0);
   const { showToast } = useToast();
 
@@ -189,18 +188,10 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
     showToast(`Copied ${label} to clipboard!`);
   };
 
-  // Skill search & category filtering
-  const skillCategories = useMemo(() => {
-    return ["All", ...profile.skills.map((s) => s.category)];
-  }, []);
-
+  // Skill search filtering
   const filteredSkillGroups = useMemo(() => {
     return profile.skills
       .map((group) => {
-        const matchesCategory =
-          selectedSkillCategory === "All" || group.category === selectedSkillCategory;
-        if (!matchesCategory) return null;
-
         const q = skillSearch.toLowerCase().trim();
         const matchingItems = group.items.filter((skill) => {
           if (!q) return true;
@@ -218,7 +209,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
         };
       })
       .filter(Boolean);
-  }, [selectedSkillCategory, skillSearch]);
+  }, [skillSearch]);
 
   const codelearn = technicalProjects.find((p) => p.name === "CodeLearn") || technicalProjects[0];
 
@@ -373,7 +364,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               {/* Clearance Badge Header */}
               <div className="flex items-center justify-between border-b-2 border-black pb-3 dark:border-white mb-4">
                 <span className="font-display text-sm font-black uppercase text-black dark:text-white">
-                  POLIBAN // D3-SI // 2026
+                  {new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }).toUpperCase()}
                 </span>
                 <span className="neo-badge rounded-md bg-neo-rose text-black text-[10px] font-black animate-pulse">
                   ● ACTIVE
@@ -740,27 +731,6 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                 className="w-full rounded-xl border-2 border-black bg-neo-bg py-1.5 pl-9 pr-3 text-xs font-bold text-black focus:outline-none dark:border-white dark:bg-[#121620] dark:text-white"
               />
             </div>
-          </div>
-
-          {/* Category Tabs */}
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {skillCategories.map((cat) => {
-              const active = selectedSkillCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setSelectedSkillCategory(cat)}
-                  className={`neo-btn rounded-lg px-2.5 py-1 text-xs font-black uppercase ${
-                    active
-                      ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black dark:border-white"
-                      : "bg-white text-black dark:bg-[#181b24] dark:text-white"
-                  }`}
-                >
-                  {cat}
-                </button>
-              );
-            })}
           </div>
 
           {/* Skill Groups Grid */}

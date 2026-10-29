@@ -4,11 +4,15 @@ import {
   Calendar,
   CheckCircle2,
   Copy,
+  Grid,
+  List,
   Medal,
+  Search,
   ShieldAlert,
   Sparkles,
   Trophy,
   Users,
+  X,
 } from "lucide-react";
 import { awards } from "../data/awards.js";
 import PageShell from "../components/PageShell.jsx";
@@ -16,7 +20,8 @@ import PartnerList from "../components/PartnerList.jsx";
 import { useToast } from "../context/ToastContext.jsx";
 
 export default function AwardsPage() {
-  const [selectedTrack, setSelectedTrack] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [viewMode, setViewMode] = useState("bento"); // 'bento' | 'matrix'
   const { showToast } = useToast();
 
   const getTrack = (award) => {
@@ -25,12 +30,19 @@ export default function AwardsPage() {
     return "UI/UX Design";
   };
 
-  const tracks = ["All", "Cybersecurity CTF", "UI/UX Design"];
-
   const filteredAwards = useMemo(() => {
-    if (selectedTrack === "All") return awards;
-    return awards.filter((a) => getTrack(a) === selectedTrack);
-  }, [selectedTrack]);
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return awards;
+    return awards.filter((a) => {
+      return (
+        a.name.toLowerCase().includes(q) ||
+        a.rank.toLowerCase().includes(q) ||
+        a.publisher.toLowerCase().includes(q) ||
+        (a.partners && a.partners.some((p) => p.toLowerCase().includes(q))) ||
+        (a.description && a.description.toLowerCase().includes(q))
+      );
+    });
+  }, [searchQuery]);
 
   const copyAwardRecord = (award) => {
     navigator.clipboard.writeText(`${award.rank} | ${award.name} (${award.publisher}, ${award.date})`);
@@ -44,52 +56,65 @@ export default function AwardsPage() {
 
   return (
     <PageShell title="Awards & Honors">
-      {/* Interactive Control & Track Switcher */}
+      {/* Interactive Control Desk */}
       <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3">
-            <div className="neo-btn h-12 w-12 rounded-2xl bg-neo-yellow text-black p-0 flex items-center justify-center">
-              <Trophy className="h-6 w-6 stroke-[2.5]" />
-            </div>
-            <div>
-              <span className="font-display text-sm font-black uppercase text-black dark:text-white">
-                Competitive Achievements
-              </span>
-            </div>
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          {/* Search Input */}
+          <div className="relative flex-1">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 stroke-[2.5] text-black dark:text-neo-yellow" />
+            <input
+              type="text"
+              placeholder="Search awards by name, rank, organizer, or teammate..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-2xl border-2 border-black bg-neo-bg py-3 pl-12 pr-4 text-sm font-bold text-black placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-black dark:border-white dark:bg-[#121620] dark:text-white dark:placeholder:text-slate-400"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 rounded-lg bg-black p-1 text-white hover:bg-slate-800 dark:bg-white dark:text-black"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            )}
           </div>
 
-          {/* Track Filter Buttons */}
-          <div className="flex flex-wrap items-center gap-2">
-            {tracks.map((track) => {
-              const active = selectedTrack === track;
-              const count =
-                track === "All"
-                  ? awards.length
-                  : awards.filter((a) => getTrack(a) === track).length;
-              return (
-                <button
-                  key={track}
-                  type="button"
-                  onClick={() => setSelectedTrack(track)}
-                  className={`neo-btn flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-black uppercase tracking-wider ${
-                    active
-                      ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black dark:border-white"
-                      : "bg-white text-black hover:bg-neo-palegreen dark:bg-[#181b24] dark:text-white"
-                  }`}
-                >
-                  <span>{track}</span>
-                  <span className="rounded px-1.5 py-0.2 text-[10px] font-mono bg-black/10 dark:bg-white/10">
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
+          {/* View Mode Toggle */}
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => setViewMode("bento")}
+              className={`neo-btn flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black uppercase ${
+                viewMode === "bento"
+                  ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black dark:border-white"
+                  : "bg-white text-black dark:bg-[#181b24] dark:text-white"
+              }`}
+            >
+              <Grid className="h-4 w-4" />
+              <span>Bento</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode("matrix")}
+              className={`neo-btn flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black uppercase ${
+                viewMode === "matrix"
+                  ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black dark:border-white"
+                  : "bg-white text-black dark:bg-[#181b24] dark:text-white"
+              }`}
+            >
+              <List className="h-4 w-4" />
+              <span>Matrix</span>
+            </button>
           </div>
         </div>
       </div>
 
-      {/* TOURNAMENT PODIUM SPOTLIGHT (When All tracks selected) */}
-      {selectedTrack === "All" && (
+      {/* View Mode 1: Bento */}
+      {viewMode === "bento" && (
+        <div className="space-y-8">
+          {/* TOURNAMENT PODIUM SPOTLIGHT (When no search query) */}
+          {!searchQuery && (
         <div className="mb-8 grid gap-6 md:grid-cols-3">
           {/* Podium 1: 3rd Place KMIPN VIII */}
           {kmipnAward && (
@@ -317,6 +342,71 @@ export default function AwardsPage() {
           );
         })}
       </div>
-    </PageShell>
+    </div>
+  )}
+
+  {/* View Mode 2: High-Density Matrix */}
+  {viewMode === "matrix" && (
+    <div className="neo-box overflow-hidden rounded-3xl bg-white dark:bg-neo-darkcard dark:border-white">
+      <div className="overflow-x-auto">
+        <table className="w-full text-left text-xs font-bold">
+          <thead className="border-b-[2.5px] border-black bg-neo-sky text-black uppercase font-black dark:border-white">
+            <tr>
+              <th className="px-5 py-4">#</th>
+              <th className="px-5 py-4">Award & Competition</th>
+              <th className="px-5 py-4">Rank / Honor</th>
+              <th className="px-5 py-4">Organizer</th>
+              <th className="px-5 py-4">Date</th>
+              <th className="px-5 py-4">Teammates</th>
+              <th className="px-5 py-4 text-right">Action</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y-2 divide-black/10 dark:divide-white/10 text-black dark:text-white">
+            {filteredAwards.map((a, i) => (
+              <tr
+                key={`${a.name}-${i}`}
+                className="transition-colors hover:bg-neo-yellow/20 dark:hover:bg-[#202533]"
+              >
+                <td className="px-5 py-4 font-mono font-black">{String(i + 1).padStart(2, "0")}</td>
+                <td className="px-5 py-4 font-display font-black uppercase max-w-[260px]">
+                  {a.name}
+                </td>
+                <td className="px-5 py-4">
+                  <span className="neo-badge rounded bg-neo-rose text-black text-[10px] font-black whitespace-nowrap">
+                    ★ {a.rank}
+                  </span>
+                </td>
+                <td className="px-5 py-4 text-neo-forest dark:text-neo-yellow font-bold">
+                  {a.publisher}
+                </td>
+                <td className="px-5 py-4 font-mono whitespace-nowrap">
+                  {a.date}
+                </td>
+                <td className="px-5 py-4 max-w-[200px]">
+                  <div className="flex flex-wrap gap-1">
+                    {a.partners.map((p) => (
+                      <span key={p} className="neo-badge rounded bg-neo-cream text-[10px] text-black dark:bg-[#202533] dark:text-white">
+                        {p}
+                      </span>
+                    ))}
+                  </div>
+                </td>
+                <td className="px-5 py-4 text-right">
+                  <button
+                    type="button"
+                    onClick={() => copyAwardRecord(a)}
+                    className="neo-btn rounded-lg bg-white px-3 py-1 text-xs font-black uppercase text-black hover:bg-neo-yellow dark:bg-[#121620] dark:text-white"
+                  >
+                    Copy
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )}
+</PageShell>
   );
 }
