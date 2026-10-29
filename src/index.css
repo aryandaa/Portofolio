@@ -25,11 +25,13 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     margin: 0;
     min-width: 320px;
+    overflow-x: hidden;
     background-color: var(--neo-canvas);
     color: #052e16;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;

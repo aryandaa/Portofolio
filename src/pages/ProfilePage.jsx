@@ -237,7 +237,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
 
             {/* Giant Punchy Display Typography */}
             <div>
-              <h1 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-black dark:text-white leading-[0.95]">
+              <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-black dark:text-white leading-[0.95] break-words">
                 M. Aryanda Sanggadiennata
               </h1>
               <p className="mt-3 text-sm sm:text-base font-bold text-slate-700 dark:text-slate-300">
@@ -246,7 +246,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
             </div>
 
             {/* Interactive Role Switcher Deck */}
-            <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 dark:bg-neo-darkcard dark:border-white shadow-brutal">
+            <div className="neo-box rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 dark:bg-neo-darkcard dark:border-white shadow-brutal">
               <div className="flex items-center justify-between border-b-2 border-black/10 pb-3 dark:border-white/20 mb-4">
                 <span className="text-xs font-black uppercase text-black dark:text-neo-yellow flex items-center gap-2">
                   <Terminal className="h-4 w-4" />
@@ -255,14 +255,14 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               </div>
 
               {/* 3 Clickable Persona Tabs */}
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                 <button
                   type="button"
                   onClick={() => {
                     setSelectedPersona("fullstack");
                     showToast("Switched to Full-Stack Architect view");
                   }}
-                  className={`neo-btn rounded-xl py-2 px-1 text-center text-xs font-black uppercase transition-all ${
+                  className={`neo-btn rounded-xl py-2 px-1 text-center text-[11px] sm:text-xs font-black uppercase transition-all truncate ${
                     selectedPersona === "fullstack"
                       ? "bg-neo-green text-black shadow-brutal-sm"
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-[#1e2330] dark:text-slate-300"
@@ -276,7 +276,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                     setSelectedPersona("cybersec");
                     showToast("Switched to CyberSecurity Researcher view");
                   }}
-                  className={`neo-btn rounded-xl py-2 px-1 text-center text-xs font-black uppercase transition-all ${
+                  className={`neo-btn rounded-xl py-2 px-1 text-center text-[11px] sm:text-xs font-black uppercase transition-all truncate ${
                     selectedPersona === "cybersec"
                       ? "bg-neo-sky text-black shadow-brutal-sm"
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-[#1e2330] dark:text-slate-300"
@@ -290,7 +290,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                     setSelectedPersona("uiux");
                     showToast("Switched to UI/UX Craftsman view");
                   }}
-                  className={`neo-btn rounded-xl py-2 px-1 text-center text-xs font-black uppercase transition-all ${
+                  className={`neo-btn rounded-xl py-2 px-1 text-center text-[11px] sm:text-xs font-black uppercase transition-all truncate ${
                     selectedPersona === "uiux"
                       ? "bg-neo-rose text-black shadow-brutal-sm"
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-[#1e2330] dark:text-slate-300"
@@ -357,7 +357,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
 
           {/* RIGHT: PHYSICAL CYBER CLEARANCE BADGE (Cols 5) */}
           <div className="lg:col-span-5">
-            <div className="relative neo-box rounded-3xl bg-neo-yellow p-6 dark:bg-[#181b24] dark:border-white shadow-brutal-lg">
+            <div className="relative neo-box rounded-2xl sm:rounded-3xl bg-neo-yellow p-4 sm:p-6 dark:bg-[#181b24] dark:border-white shadow-brutal-lg max-w-md mx-auto lg:max-w-none">
               {/* Lanyard Top Slot Graphic */}
               <div className="mx-auto mb-4 h-2.5 w-16 rounded-full border-2 border-black bg-black/20 dark:border-white dark:bg-white/20" />
 

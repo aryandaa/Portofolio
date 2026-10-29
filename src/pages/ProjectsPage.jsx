@@ -508,9 +508,13 @@ export default function ProjectsPage() {
 
         {/* View Mode 2: Matrix Dossier (Interactive Ledger) */}
         {viewMode === "matrix" && filteredProjects.length > 0 && (
-          <div className="neo-box overflow-hidden rounded-3xl bg-white dark:bg-neo-darkcard dark:border-white">
+          <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-white dark:bg-neo-darkcard dark:border-white">
+            <div className="px-4 py-2 border-b border-black/10 dark:border-white/20 sm:hidden bg-neo-yellow/20 text-[11px] font-mono font-bold text-black dark:text-slate-300 flex items-center justify-between">
+              <span>← SWIPE TABLE HORIZONTALLY →</span>
+              <span>[{filteredProjects.length} RECORDS]</span>
+            </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs font-bold">
+              <table className="w-full min-w-[700px] text-left text-xs font-bold">
                 <thead className="border-b-[2.5px] border-black bg-neo-yellow text-black uppercase font-black dark:border-white">
                   <tr>
                     <th className="px-5 py-4">#</th>
@@ -580,26 +584,26 @@ export default function ProjectsPage() {
           role="dialog"
           aria-modal="true"
           onClick={() => setSelectedProject(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 sm:p-6 backdrop-blur-sm animate-in fade-in duration-150"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 sm:p-6 backdrop-blur-sm animate-in fade-in duration-150"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="neo-box max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl bg-white p-0 shadow-brutal-lg dark:bg-[#181b24] dark:border-white"
+            className="neo-box max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-2xl sm:rounded-3xl bg-white p-0 shadow-brutal-lg dark:bg-[#181b24] dark:border-white"
           >
             {/* Modal Header */}
-            <div className="sticky top-0 z-10 flex items-center justify-between border-b-[3px] border-black bg-neo-sky px-6 py-4 text-black dark:border-white dark:bg-neo-sky dark:text-black">
-              <div className="flex items-center gap-3">
-                <span className="rounded-lg border-2 border-black bg-white px-2.5 py-1 text-xs font-black uppercase text-black">
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b-[3px] border-black bg-neo-sky px-4 sm:px-6 py-3 sm:py-4 text-black dark:border-white dark:bg-neo-sky dark:text-black">
+              <div className="flex items-center gap-2 sm:gap-3 truncate">
+                <span className="rounded-lg border-2 border-black bg-white px-2 py-0.5 text-[11px] font-black uppercase text-black shrink-0">
                   DOSSIER SPEC
                 </span>
-                <span className="font-display text-sm font-black uppercase tracking-wider">
+                <span className="font-display text-xs sm:text-sm font-black uppercase tracking-wider truncate">
                   {selectedProject.institution}
                 </span>
               </div>
               <button
                 type="button"
                 onClick={() => setSelectedProject(null)}
-                className="neo-btn flex h-9 w-9 items-center justify-center rounded-xl bg-neo-rose text-black hover:bg-rose-400 p-0"
+                className="neo-btn flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-neo-rose text-black hover:bg-rose-400 p-0"
                 aria-label="Close modal"
               >
                 <X className="h-5 w-5 stroke-[3]" />
@@ -607,7 +611,7 @@ export default function ProjectsPage() {
             </div>
 
             {/* Modal Body */}
-            <div className="p-6 sm:p-8 space-y-6">
+            <div className="p-4 sm:p-8 space-y-4 sm:space-y-6">
               <div>
                 <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-black dark:text-white">
                   {selectedProject.name}

@@ -2,13 +2,13 @@ export default function PageShell({ title, children, aside, below }) {
   return (
     <div className="space-y-6 sm:space-y-8">
       {/* Neobrutalist Page Header */}
-      <div className="relative overflow-hidden rounded-3xl border-[3px] border-black bg-white p-5 sm:p-7 shadow-brutal dark:border-white dark:bg-neo-darkcard dark:shadow-brutal-dark">
-        <div className="flex items-center gap-2 mb-3">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border-[3px] border-black bg-white p-4 sm:p-7 shadow-brutal dark:border-white dark:bg-neo-darkcard dark:shadow-brutal-dark">
+        <div className="flex items-center gap-2 mb-2 sm:mb-3">
           <span className="h-3 w-3 rounded-full bg-neo-rose border border-black dark:border-white" />
           <span className="h-3 w-3 rounded-full bg-neo-yellow border border-black dark:border-white" />
           <span className="h-3 w-3 rounded-full bg-neo-green border border-black dark:border-white" />
         </div>
-        <h1 className="font-display text-3xl font-black uppercase tracking-tight text-black sm:text-4xl lg:text-5xl dark:text-white">
+        <h1 className="font-display text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-black dark:text-white">
           {title}
         </h1>
       </div>

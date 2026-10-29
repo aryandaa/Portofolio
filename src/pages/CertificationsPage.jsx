@@ -346,9 +346,13 @@ export default function CertificationsPage() {
 
         {/* View Mode 2: Security Audit Ledger */}
         {viewMode === "matrix" && (
-          <div className="neo-box overflow-hidden rounded-3xl bg-white dark:bg-neo-darkcard dark:border-white">
+          <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-white dark:bg-neo-darkcard dark:border-white">
+            <div className="px-4 py-2 border-b border-black/10 dark:border-white/20 sm:hidden bg-neo-sky/20 text-[11px] font-mono font-bold text-black dark:text-slate-300 flex items-center justify-between">
+              <span>← SWIPE TABLE HORIZONTALLY →</span>
+              <span>[{filteredCertificates.length} CREDS]</span>
+            </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs font-bold">
+              <table className="w-full min-w-[680px] text-left text-xs font-bold">
                 <thead className="border-b-[2.5px] border-black bg-neo-sky text-black uppercase font-black dark:border-white">
                   <tr>
                     <th className="px-5 py-4">#</th>
@@ -406,26 +410,26 @@ export default function CertificationsPage() {
           role="dialog"
           aria-modal="true"
           onClick={closeViewer}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 sm:p-6 backdrop-blur-sm animate-in fade-in duration-150"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 sm:p-6 backdrop-blur-sm animate-in fade-in duration-150"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="neo-box flex h-full max-h-[95vh] w-full max-w-5xl flex-col overflow-hidden rounded-3xl bg-white p-0 shadow-brutal-lg dark:bg-[#181b24] dark:border-white"
+            className="neo-box flex h-full max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-0 shadow-brutal-lg dark:bg-[#181b24] dark:border-white"
           >
             {/* Modal Header Bar */}
-            <div className="flex items-center justify-between border-b-[3px] border-black bg-neo-yellow px-6 py-4 text-black dark:border-white dark:bg-neo-yellow dark:text-black">
-              <div className="flex items-center gap-3 truncate">
-                <span className="neo-badge rounded-md bg-white text-black font-black">
-                  VERIFIED CREDENTIAL
+            <div className="flex items-center justify-between border-b-[3px] border-black bg-neo-yellow px-4 sm:px-6 py-3 sm:py-4 text-black dark:border-white dark:bg-neo-yellow dark:text-black">
+              <div className="flex items-center gap-2 sm:gap-3 truncate">
+                <span className="neo-badge rounded-md bg-white text-black font-black text-xs shrink-0">
+                  VERIFIED
                 </span>
-                <span className="font-display text-sm font-black uppercase tracking-wider truncate">
+                <span className="font-display text-xs sm:text-sm font-black uppercase tracking-wider truncate">
                   {viewer.certificate.name}
                 </span>
               </div>
               <button
                 type="button"
                 onClick={closeViewer}
-                className="neo-btn flex h-9 w-9 items-center justify-center rounded-xl bg-neo-rose text-black hover:bg-rose-400 p-0"
+                className="neo-btn flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-neo-rose text-black hover:bg-rose-400 p-0"
                 aria-label="Close viewer"
               >
                 <X className="h-5 w-5 stroke-[3]" />

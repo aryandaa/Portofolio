@@ -12,9 +12,12 @@ import {
   Instagram,
   Linkedin,
   Mail,
+  Menu,
   ShieldCheck,
   Sparkles,
+  Terminal,
   User,
+  X,
 } from "lucide-react";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import ProjectsPage from "./pages/ProjectsPage.jsx";
@@ -48,10 +51,14 @@ function getInitialPage() {
 function PortfolioContent() {
   const [activePage, setActivePage] = useState(getInitialPage);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { showToast } = useToast();
 
   useEffect(() => {
-    const syncHash = () => setActivePage(getInitialPage());
+    const syncHash = () => {
+      setActivePage(getInitialPage());
+      setMobileMenuOpen(false);
+    };
     window.addEventListener("hashchange", syncHash);
     return () => window.removeEventListener("hashchange", syncHash);
   }, []);
@@ -62,6 +69,15 @@ function PortfolioContent() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close mobile drawer on Escape
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   // Keyboard shortcut listener (Keys 1-8 for rapid page jumping)
@@ -85,6 +101,7 @@ function PortfolioContent() {
   );
 
   const navigate = (pageId) => {
+    setMobileMenuOpen(false);
     if (pageId === activePage) return;
     window.location.hash = pageId;
     setActivePage(pageId);
@@ -127,9 +144,25 @@ function PortfolioContent() {
 
       {/* Main Neobrutalist Header */}
       <header className="sticky top-0 z-40 border-b-[3px] border-black bg-white dark:border-white dark:bg-neo-darkcard">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 sm:gap-3 px-2 sm:px-4 lg:px-6">
-          {/* Main Navigation Menu Buttons */}
-          <nav className="flex flex-1 items-center justify-start gap-1 sm:gap-1.5 xl:gap-2 overflow-x-auto py-1 scrollbar-none" aria-label="Main Navigation">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 sm:px-4 lg:px-6 py-2">
+          {/* Mobile / Tablet View (< lg): Active Page Indicator Badge */}
+          <div className="flex lg:hidden items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              className="neo-btn rounded-xl bg-neo-yellow px-3 py-1.5 text-xs font-black uppercase text-black flex items-center gap-2"
+              aria-label="Toggle navigation drawer"
+            >
+              <span className="h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
+              <span>{pages.find((p) => p.id === activePage)?.label || "Menu"}</span>
+              <span className="font-mono text-[10px] bg-black text-white px-1 py-0.2 rounded">
+                [{pages.find((p) => p.id === activePage)?.keyNum}]
+              </span>
+            </button>
+          </div>
+
+          {/* Desktop Navigation Menu Buttons (lg:flex) */}
+          <nav className="hidden lg:flex flex-1 items-center justify-start gap-1 xl:gap-2 overflow-x-auto py-1 scrollbar-none" aria-label="Main Navigation">
             {pages.map(({ id, label, keyNum, icon: Icon }) => {
               const isActive = activePage === id;
               return (
@@ -138,7 +171,7 @@ function PortfolioContent() {
                   type="button"
                   onClick={() => navigate(id)}
                   title={`Press ${keyNum} to jump to ${label}`}
-                  className={`neo-btn shrink-0 flex items-center gap-1.5 rounded-xl px-2 sm:px-2.5 xl:px-3 py-1.5 text-[11px] font-black uppercase tracking-wider transition-all duration-150 ${
+                  className={`neo-btn shrink-0 flex items-center gap-1.5 rounded-xl px-2.5 xl:px-3 py-1.5 text-[11px] font-black uppercase tracking-wider transition-all duration-150 ${
                     isActive
                       ? "bg-neo-yellow text-black shadow-brutal-sm dark:bg-neo-yellow dark:text-black dark:border-white"
                       : "bg-white text-black hover:bg-neo-palegreen dark:bg-[#1f2430] dark:text-white dark:hover:bg-[#2c3444]"
@@ -154,16 +187,92 @@ function PortfolioContent() {
             })}
           </nav>
 
-          {/* Right Controls: Theme Toggle */}
-          <div className="flex shrink-0 items-center pl-1 sm:pl-2">
+          {/* Right Controls: Theme Toggle & Hamburger on Mobile */}
+          <div className="flex shrink-0 items-center gap-2 pl-1 sm:pl-2">
             <ThemeToggle />
+
+            {/* Mobile / Tablet Hamburger Toggle Button */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              className="lg:hidden neo-btn rounded-xl bg-white p-2 text-black hover:bg-neo-yellow dark:bg-[#181b24] dark:text-white dark:hover:bg-neo-yellow dark:hover:text-black transition-colors"
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? (
+                <X className="h-5 w-5 stroke-[2.5]" />
+              ) : (
+                <Menu className="h-5 w-5 stroke-[2.5]" />
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Slide-down Navigation Drawer */}
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <div
+              className="fixed inset-0 top-[52px] bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+
+            {/* Menu Panel */}
+            <div className="absolute top-full left-0 right-0 z-50 border-b-[3px] border-black bg-white p-4 sm:p-5 shadow-brutal-lg dark:border-white dark:bg-[#181b24] lg:hidden animate-in fade-in slide-in-from-top-2 duration-150 max-h-[calc(100vh-100px)] overflow-y-auto">
+              <div className="flex items-center justify-between border-b-2 border-black/10 pb-2.5 mb-3.5 dark:border-white/20">
+                <span className="font-mono text-xs font-black uppercase text-black dark:text-neo-yellow flex items-center gap-2">
+                  <Terminal className="h-4 w-4" />
+                  <span>Navigation Directory</span>
+                </span>
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                  TAP OR PRESS 1-8
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+                {pages.map(({ id, label, keyNum, icon: Icon }) => {
+                  const isActive = activePage === id;
+                  return (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={() => navigate(id)}
+                      className={`neo-btn flex items-center justify-between rounded-2xl p-3 text-xs font-black uppercase transition-all ${
+                        isActive
+                          ? "bg-neo-yellow text-black shadow-brutal-sm dark:bg-neo-yellow dark:text-black dark:border-white"
+                          : "bg-slate-50 text-black hover:bg-neo-palegreen dark:bg-[#202533] dark:text-white dark:hover:bg-[#2a3042]"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 truncate">
+                        <Icon className="h-4 w-4 stroke-[2.5] shrink-0" />
+                        <span className="truncate">{label}</span>
+                      </div>
+                      <span className={`text-[10px] px-1.5 py-0.5 rounded border font-mono ${isActive ? "bg-black text-white border-black" : "bg-black/5 dark:bg-white/10 border-black/20 dark:border-white/20 text-slate-600 dark:text-slate-300"}`}>
+                        {keyNum}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-black/10 dark:border-white/20 flex items-center justify-between text-xs font-bold text-slate-600 dark:text-slate-400">
+                <span>© {new Date().getFullYear()} {profile.name}</span>
+                <button
+                  type="button"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="font-black text-neo-forest dark:text-neo-yellow uppercase"
+                >
+                  Close ✕
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </header>
 
       {/* Main Dynamic View Content */}
-      <main className="flex-1 py-6 sm:py-10">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <main className="flex-1 py-5 sm:py-8 lg:py-10">
+        <div className="mx-auto max-w-6xl px-3 sm:px-6 lg:px-8">
           <ActiveComponent navigate={navigate} />
         </div>
       </main>

@@ -143,26 +143,26 @@ export default function GalleryPage() {
           role="dialog"
           aria-modal="true"
           onClick={() => setSelectedItemIndex(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm animate-in fade-in duration-150"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-sm animate-in fade-in duration-150"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative flex max-h-[92vh] w-full max-w-4xl flex-col rounded-3xl border-[3px] border-black bg-white shadow-brutal-xl overflow-hidden dark:border-white dark:bg-[#181b24]"
+            className="relative flex max-h-[92vh] w-full max-w-4xl flex-col rounded-2xl sm:rounded-3xl border-[3px] border-black bg-white shadow-brutal-xl overflow-hidden dark:border-white dark:bg-[#181b24]"
           >
-            <div className="flex items-center justify-between border-b-[3px] border-black bg-neo-yellow px-6 py-4 dark:border-white dark:bg-neo-yellow dark:text-black">
-              <div>
-                <span className="neo-badge rounded-md bg-white text-black mb-1 dark:bg-black dark:text-white">
-                  PHOTO ARCHIVE [{selectedItemIndex + 1}/{galleryItems.length}]
+            <div className="flex items-center justify-between border-b-[3px] border-black bg-neo-yellow px-4 sm:px-6 py-3 sm:py-4 dark:border-white dark:bg-neo-yellow dark:text-black">
+              <div className="truncate mr-2">
+                <span className="neo-badge rounded-md bg-white text-black mb-1 text-[10px] dark:bg-black dark:text-white">
+                  PHOTO [{selectedItemIndex + 1}/{galleryItems.length}]
                 </span>
-                <h3 className="font-display text-xl font-black uppercase text-black mt-1">
+                <h3 className="font-display text-base sm:text-xl font-black uppercase text-black mt-0.5 truncate">
                   {selectedItem.title}
                 </h3>
-                <p className="text-xs font-bold text-black/80">{selectedItem.date}</p>
+                <p className="text-[11px] font-bold text-black/80">{selectedItem.date}</p>
               </div>
               <button
                 type="button"
                 onClick={() => setSelectedItemIndex(null)}
-                className="neo-btn h-10 w-10 rounded-xl bg-neo-rose text-black hover:bg-rose-300 dark:bg-neo-rose dark:text-black p-0"
+                className="neo-btn h-9 w-9 sm:h-10 sm:w-10 shrink-0 rounded-xl bg-neo-rose text-black hover:bg-rose-300 dark:bg-neo-rose dark:text-black p-0"
                 aria-label="Close photo viewer"
               >
                 <X className="h-5 w-5 stroke-[3]" />

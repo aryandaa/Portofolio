@@ -112,7 +112,7 @@ export default function ResearchPage() {
       {activeTab === "terminal" && (
         <div className="w-full">
           {/* Interactive Terminal */}
-          <div className="neo-box rounded-3xl bg-slate-950 p-6 sm:p-8 text-white border-[3px] border-black dark:border-white shadow-brutal flex flex-col justify-between min-h-[500px]">
+          <div className="neo-box rounded-2xl sm:rounded-3xl bg-slate-950 p-4 sm:p-8 text-white border-[3px] border-black dark:border-white shadow-brutal flex flex-col justify-between min-h-[440px] sm:min-h-[500px]">
             <div>
               {/* Terminal Window Top Bar */}
               <div className="flex items-center justify-between border-b border-white/20 pb-3 mb-4 font-mono text-xs text-slate-400">
@@ -122,7 +122,7 @@ export default function ResearchPage() {
                   <span className="h-3 w-3 rounded-full bg-emerald-500 inline-block" />
                   <span className="ml-2 text-white font-bold">research-inquiry.sh</span>
                 </div>
-                <span>CYSEC_CONSOLE // 2026</span>
+                <span className="hidden sm:inline">CYSEC_CONSOLE // 2026</span>
               </div>
 
               {/* Terminal Output Stream */}

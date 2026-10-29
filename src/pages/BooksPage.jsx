@@ -200,9 +200,13 @@ export default function BooksPage() {
 
       {/* View Mode: High-Density Matrix */}
       {viewMode === "matrix" && (
-        <div className="neo-box overflow-hidden rounded-3xl bg-white dark:bg-neo-darkcard dark:border-white">
+        <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-white dark:bg-neo-darkcard dark:border-white">
+          <div className="px-4 py-2 border-b border-black/10 dark:border-white/20 sm:hidden bg-neo-sky/20 text-[11px] font-mono font-bold text-black dark:text-slate-300 flex items-center justify-between">
+            <span>← SWIPE TABLE HORIZONTALLY →</span>
+            <span>[{filteredBooks.length} BOOKS]</span>
+          </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs font-bold">
+            <table className="w-full min-w-[680px] text-left text-xs font-bold">
               <thead className="border-b-[2.5px] border-black bg-neo-sky text-black uppercase font-black dark:border-white">
                 <tr>
                   <th className="px-5 py-4">#</th>
