@@ -64,11 +64,7 @@ export default function BooksPage() {
   ).toFixed(1);
 
   return (
-    <PageShell
-      eyebrow="Literacy & Reflections"
-      title="Books Read & Key Takeaways"
-      description={`Curated collection of ${booksRead.length} books (Self-Improvement, Fiction, History, Science) featuring personal ratings and reflective insights.`}
-    >
+    <PageShell title="Books Read">
       {/* Interactive Bookshelf Stats & Controls Desk */}
       <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
         {/* Top Metric Strip */}
@@ -203,14 +199,9 @@ export default function BooksPage() {
               <div>
                 {/* Header ribbon */}
                 <div className="flex items-start justify-between gap-3 border-b-2 border-black pb-3 dark:border-white">
-                  <div className="flex items-center gap-2">
-                    <span className="neo-badge rounded-md bg-neo-yellow text-black text-xs font-black">
-                      {book.category}
-                    </span>
-                    <span className="neo-badge rounded-md bg-white text-black text-[10px] dark:bg-[#202533] dark:text-white">
-                      FINISHED ✓
-                    </span>
-                  </div>
+                  <span className="neo-badge rounded-md bg-neo-yellow text-black text-xs font-black">
+                    {book.category}
+                  </span>
                   <div className="flex items-center gap-2">
                     <StarRating rating={book.rating} />
                     <button
@@ -232,9 +223,6 @@ export default function BooksPage() {
                 {/* Personal Reflection Note */}
                 {book.comment && (
                   <div className="mt-4 rounded-2xl border-2 border-black bg-neo-bg p-4 text-xs sm:text-sm font-bold leading-relaxed text-black dark:border-white/20 dark:bg-[#121620] dark:text-slate-200 whitespace-pre-line">
-                    <span className="block font-display text-[10px] font-black uppercase text-neo-forest dark:text-neo-yellow mb-1">
-                      ✦ Aryanda's Reflection:
-                    </span>
                     {displayComment}
                   </div>
                 )}

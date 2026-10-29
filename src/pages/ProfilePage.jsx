@@ -259,10 +259,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               <div className="flex items-center justify-between border-b-2 border-black/10 pb-3 dark:border-white/20 mb-4">
                 <span className="text-xs font-black uppercase text-black dark:text-neo-yellow flex items-center gap-2">
                   <Terminal className="h-4 w-4" />
-                  <span>Interactive Role Console</span>
-                </span>
-                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
-                  CLICK TO SWITCH FOCUS
+                  <span>Role Focus</span>
                 </span>
               </div>
 
@@ -327,10 +324,6 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                   {current.headline}
                 </h3>
 
-                <p className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 leading-relaxed">
-                  {current.description}
-                </p>
-
                 {/* Stack Tags */}
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {current.tags.map((tag) => (
@@ -379,14 +372,9 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
 
               {/* Clearance Badge Header */}
               <div className="flex items-center justify-between border-b-2 border-black pb-3 dark:border-white mb-4">
-                <div>
-                  <span className="font-mono text-[9px] font-black uppercase tracking-widest text-black/70 dark:text-slate-400 block">
-                    SECURITY CLEARANCE BADGE
-                  </span>
-                  <span className="font-display text-sm font-black uppercase text-black dark:text-white">
-                    POLIBAN // D3-SI // 2026
-                  </span>
-                </div>
+                <span className="font-display text-sm font-black uppercase text-black dark:text-white">
+                  POLIBAN // D3-SI // 2026
+                </span>
                 <span className="neo-badge rounded-md bg-neo-rose text-black text-[10px] font-black animate-pulse">
                   ● ACTIVE
                 </span>
@@ -450,20 +438,14 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                 )}
               </div>
 
-              {/* Holographic Verification Seal */}
+              {/* Verification & GPA */}
               <div className="mt-4 flex items-center justify-between">
-                <div>
-                  <span className="font-mono text-[10px] font-black uppercase text-slate-700 dark:text-slate-400">
-                    ACADEMIC ACCREDITATION
-                  </span>
-                  <p className="font-display text-2xl font-black text-black dark:text-neo-yellow">
-                    GPA 3.90 <span className="text-xs font-mono font-bold">/ 4.00</span>
-                  </p>
-                </div>
-                <div className="rounded-xl border-2 border-black bg-white px-3 py-1.5 text-center dark:bg-black dark:border-white">
-                  <span className="block text-[8px] font-mono font-black uppercase text-slate-500">SEAL</span>
-                  <span className="text-[10px] font-black text-neo-forest dark:text-neo-yellow">VERIFIED ★</span>
-                </div>
+                <p className="font-display text-2xl font-black text-black dark:text-neo-yellow">
+                  GPA 3.90 <span className="text-xs font-mono font-bold">/ 4.00</span>
+                </p>
+                <span className="neo-badge rounded-md bg-white text-black text-xs font-black dark:bg-black dark:text-white">
+                  VERIFIED ★
+                </span>
               </div>
 
               {/* Direct Social Links */}
@@ -502,25 +484,20 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               <span className="h-3.5 w-3.5 rounded-full border border-black bg-yellow-500 dark:border-white" />
               <span className="h-3.5 w-3.5 rounded-full border border-black bg-emerald-500 dark:border-white" />
               <span className="ml-3 font-mono text-xs font-black uppercase text-black dark:text-white">
-                codelearn.aryanda.dev // 100% Client-Side Engine
+                codelearn.aryanda.dev
               </span>
             </div>
 
-            <div className="flex items-center gap-2">
-              <span className="neo-badge rounded bg-neo-yellow text-black text-[10px] font-black">
-                ★ SIGNATURE SYSTEM
-              </span>
-              {codelearn.projectUrl && (
-                <a
-                  href={codelearn.projectUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="neo-btn rounded-xl bg-black px-3.5 py-1 text-xs font-black uppercase text-white hover:bg-slate-800 dark:bg-white dark:text-black"
-                >
-                  Launch App ↗
-                </a>
-              )}
-            </div>
+            {codelearn.projectUrl && (
+              <a
+                href={codelearn.projectUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="neo-btn rounded-xl bg-black px-3.5 py-1 text-xs font-black uppercase text-white hover:bg-slate-800 dark:bg-white dark:text-black"
+              >
+                Launch App ↗
+              </a>
+            )}
           </div>
 
           {/* Workstation Content Grid */}
@@ -530,7 +507,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                 CodeLearn: Personal Knowledge & Security Lab
               </h2>
               <p className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 leading-relaxed">
-                Transforms an Obsidian Vault into an ultra-fast static React web platform using a custom 8-stage compiler pipeline. Zero backend server costs, 108 CySec & OSINT tools, and 7 client-side language runtimes (Pyodide, php-wasm, sql.js) running in browser memory.
+                Transforms an Obsidian Vault into an ultra-fast static React platform with zero server costs, 108 CySec tools, and 7 in-browser language runtimes.
               </p>
 
               {/* 4 Callout Meters */}
@@ -563,23 +540,23 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                 <div className="space-y-1.5 text-xs font-mono font-bold text-slate-700 dark:text-slate-300">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-neo-green" />
-                    <span>01. SCAN (Obsidian Vault traversal)</span>
+                    <span>01. SCAN</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-neo-yellow" />
-                    <span>02. VALIDATE (Frontmatter & link checks)</span>
+                    <span>02. VALIDATE</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-neo-sky" />
-                    <span>03. INDEX (Knowledge graph mapping)</span>
+                    <span>03. INDEX</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-neo-rose" />
-                    <span>04. RENDER (Client-side interactive AST)</span>
+                    <span>04. RENDER</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                    <span>05-08. PUBLISH (Automated Vercel deployment)</span>
+                    <span>05-08. PUBLISH</span>
                   </div>
                 </div>
               </div>
@@ -590,7 +567,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                   onClick={() => navigate("projects")}
                   className="neo-btn w-full rounded-xl bg-neo-yellow py-2 text-center text-xs font-black uppercase text-black hover:bg-yellow-300"
                 >
-                  View All Technical Projects (11) →
+                  View All Projects →
                 </button>
               </div>
             </div>
@@ -599,18 +576,9 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
       </section>
 
       {/* =========================================================================
-          ASYMMETRIC CONTROL BOARD: 4 DIVERSE TACTICAL BLOCKS
+          CONTROL BOARD: 4 TACTICAL BLOCKS
           ========================================================================= */}
       <section>
-        <div className="mb-4 flex items-center justify-between">
-          <span className="neo-badge rounded-md bg-neo-yellow text-black font-black">
-            ★ VERIFIED RECORD VAULTS
-          </span>
-          <span className="text-xs font-black uppercase tracking-wider text-black dark:text-white">
-            QUICK VAULT JUMP
-          </span>
-        </div>
-
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {/* Card 1: Experience */}
           <button
@@ -625,13 +593,10 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               <BriefcaseBusiness className="h-5 w-5 text-black dark:text-neo-yellow" />
             </div>
             <p className="text-4xl font-black text-black dark:text-white">
-              6 Roles
+              7 Roles
             </p>
             <p className="mt-1 font-display text-sm font-black uppercase text-black dark:text-white">
               Work & Apprenticeships
-            </p>
-            <p className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
-              Open Synergic Laravel internship & CodingCamp 2026.
             </p>
             <span className="mt-4 inline-block text-xs font-black text-neo-forest dark:text-neo-yellow uppercase">
               View Timeline ↗
@@ -656,9 +621,6 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
             <p className="mt-1 font-display text-sm font-black uppercase text-black dark:text-white">
               Licenses & Credentials
             </p>
-            <p className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
-              Dicoding Full-Stack, Cisco CyberOps & Fortinet.
-            </p>
             <span className="mt-4 inline-block text-xs font-black text-neo-forest dark:text-neo-sky uppercase">
               Inspect Credentials ↗
             </span>
@@ -677,13 +639,10 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               <Trophy className="h-5 w-5 text-black dark:text-neo-rose" />
             </div>
             <p className="text-4xl font-black text-black dark:text-white">
-              5 Awards
+              6 Awards
             </p>
             <p className="mt-1 font-display text-sm font-black uppercase text-black dark:text-white">
               Competitive Tournaments
-            </p>
-            <p className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
-              2nd Place UI/UX & Top 18 National CTF FIT.
             </p>
             <span className="mt-4 inline-block text-xs font-black text-neo-forest dark:text-neo-rose uppercase">
               Trophy Podium ↗
@@ -703,13 +662,10 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               <BookOpen className="h-5 w-5 text-black dark:text-purple-300" />
             </div>
             <p className="text-4xl font-black text-black dark:text-white">
-              31 Books
+              15 Books
             </p>
             <p className="mt-1 font-display text-sm font-black uppercase text-black dark:text-white">
               Reflections & Reviews
-            </p>
-            <p className="mt-2 text-xs font-bold text-slate-700 dark:text-slate-300">
-              Average 4.8 ★ across Engineering & Philosophy.
             </p>
             <span className="mt-4 inline-block text-xs font-black text-neo-forest dark:text-purple-300 uppercase">
               Open Bookshelf ↗
@@ -719,30 +675,21 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
       </section>
 
       {/* =========================================================================
-          THREE PILLARS WITH CASE ACCORDION
+          THREE PILLARS
           ========================================================================= */}
       <section>
         <div className="mb-4">
-          <span className="neo-badge rounded-md bg-neo-green text-black font-black">
-            ★ ENGINEERING FOUNDATIONS
-          </span>
-          <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-black dark:text-white mt-1">
-            Three Interconnected Disciplines
+          <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-black dark:text-white">
+            Core Disciplines
           </h2>
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
           {profile.aboutFocus?.map((item, idx) => {
-            const isExpanded = expandedPillar === idx;
             const colors = [
               "bg-neo-green text-black dark:bg-[#15231c] dark:text-white dark:border-white",
               "bg-neo-yellow text-black dark:bg-[#252014] dark:text-white dark:border-white",
               "bg-neo-sky text-black dark:bg-[#14202c] dark:text-white dark:border-white",
-            ];
-            const realCases = [
-              "Engineered in CodeLearn: zero backend runtime, 8-stage compiler, and instant static performance on Vercel.",
-              "Proven in Makat-Xploit & FIT CTF: browser WASM sandbox isolation and cryptographic puzzle engineering.",
-              "Implemented in EduQuestify & FISIP ULM: gamified user progression, accessible typography, and responsive component libraries.",
             ];
 
             return (
@@ -763,27 +710,6 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                   <p className="mt-2 text-xs sm:text-sm font-bold leading-relaxed text-black/90 dark:text-slate-200">
                     {item.description}
                   </p>
-
-                  {isExpanded && (
-                    <div className="mt-4 rounded-xl border-2 border-black bg-white/95 p-3 text-xs font-bold text-black dark:bg-black/90 dark:text-white dark:border-white animate-in fade-in">
-                      <span className="block font-mono text-[10px] font-black uppercase text-neo-forest dark:text-neo-yellow mb-1">
-                        ✦ REAL IMPLEMENTATION CASE:
-                      </span>
-                      {realCases[idx]}
-                    </div>
-                  )}
-                </div>
-
-                <div className="mt-5 pt-3 border-t-2 border-black/15 dark:border-white/20 flex items-center justify-between">
-                  <button
-                    type="button"
-                    onClick={() => setExpandedPillar(isExpanded ? null : idx)}
-                    className="text-xs font-black uppercase hover:underline flex items-center gap-1"
-                  >
-                    <span>{isExpanded ? "Hide Case" : "Inspect Practical Case"}</span>
-                    {isExpanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
-                  </button>
-                  <span className="font-mono text-[10px] font-black">VERIFIED ✦</span>
                 </div>
               </div>
             );
@@ -792,17 +718,14 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
       </section>
 
       {/* =========================================================================
-          INTERACTIVE SKILLS ARSENAL (SEARCHABLE & COMPACT)
+          INTERACTIVE SKILLS ARSENAL
           ========================================================================= */}
       <section>
         <div className="neo-box rounded-3xl bg-white p-6 sm:p-8 dark:bg-neo-darkcard dark:border-white">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b-2 border-black/10 pb-4 dark:border-white/20">
             <div>
-              <span className="neo-badge rounded-md bg-neo-yellow text-black font-black">
-                ★ TECHNICAL COMPETENCIES
-              </span>
-              <h2 className="font-display text-2xl font-black uppercase tracking-tight text-black dark:text-white mt-1">
-                Skills Catalog & Applied Tools
+              <h2 className="font-display text-2xl font-black uppercase tracking-tight text-black dark:text-white">
+                Skills & Tools
               </h2>
             </div>
 
@@ -871,7 +794,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                       return (
                         <div
                           key={`${group.category}-${item.name}`}
-                          className="group relative rounded-lg border border-black/40 bg-white px-2 py-1 text-xs font-black text-black hover:bg-neo-yellow dark:border-white/30 dark:bg-[#1f2430] dark:text-white dark:hover:bg-neo-yellow dark:hover:text-black cursor-pointer transition-colors"
+                          className="rounded-lg border border-black/40 bg-white px-2 py-1 text-xs font-black text-black hover:bg-neo-yellow dark:border-white/30 dark:bg-[#1f2430] dark:text-white dark:hover:bg-neo-yellow dark:hover:text-black transition-colors"
                         >
                           <span>{item.name}</span>
                           {item.level && (
@@ -882,14 +805,6 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                             >
                               {item.level}
                             </span>
-                          )}
-                          {item.context && (
-                            <div className="pointer-events-none absolute bottom-[calc(100%+0.5rem)] left-0 z-30 hidden w-60 rounded-xl neo-box bg-white p-3 text-left text-[11px] font-bold text-black group-hover:block dark:bg-[#181b24] dark:text-white dark:border-white shadow-brutal">
-                              <p className="font-black text-neo-forest dark:text-neo-yellow mb-1">
-                                APPLICATION CONTEXT:
-                              </p>
-                              <p>{item.context}</p>
-                            </div>
                           )}
                         </div>
                       );
@@ -903,28 +818,19 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
       </section>
 
       {/* =========================================================================
-          COLLABORATORS STICKER BOMB WALL
+          COLLABORATORS
           ========================================================================= */}
       <section className="neo-box rounded-3xl bg-neo-cream p-6 sm:p-8 dark:bg-[#161a22] dark:border-white">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-4 border-b-2 border-black pb-3 dark:border-white">
-          <div>
-            <span className="neo-badge rounded-md bg-neo-rose text-black font-black">
-              ✦ SQUAD & NETWORK
-            </span>
-            <h2 className="font-display text-xl sm:text-2xl font-black uppercase text-black dark:text-white mt-1">
-              Appreciation to Teammates & Collaborators
-            </h2>
-          </div>
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-5 border-b-2 border-black pb-3 dark:border-white">
+          <h2 className="font-display text-xl sm:text-2xl font-black uppercase text-black dark:text-white">
+            Collaborators
+          </h2>
           <span className="font-mono text-xs font-black bg-white px-3 py-1 rounded-lg border-2 border-black dark:bg-neo-yellow dark:text-black dark:border-white">
             {getPartnerThanks().length} PEERS
           </span>
         </div>
 
-        <p className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 max-w-2xl mb-5">
-          Sincere gratitude to all teammates and competitors across CTF tournament squads, industry internships, and hackathons.
-        </p>
-
-        {/* Playful Sticker Bomb Cloud */}
+        {/* Playful Sticker Cloud */}
         <div className="flex flex-wrap gap-2">
           {getPartnerThanks().map((partner, idx) => {
             const rotations = ["-rotate-1", "rotate-1", "-rotate-2", "rotate-2", "rotate-0"];
@@ -932,7 +838,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
             return (
               <div
                 key={partner.name}
-                className={`group relative neo-btn rounded-xl bg-white px-3 py-1.5 text-xs font-black uppercase text-black hover:bg-neo-yellow dark:bg-[#202533] dark:text-white dark:hover:bg-neo-yellow dark:hover:text-black transition-all ${rot} hover:rotate-0`}
+                className={`neo-btn rounded-xl bg-white px-3 py-1.5 text-xs font-black uppercase text-black hover:bg-neo-yellow dark:bg-[#202533] dark:text-white dark:hover:bg-neo-yellow dark:hover:text-black transition-all ${rot} hover:rotate-0`}
               >
                 <Users className="h-3.5 w-3.5 stroke-[2.5]" />
                 <span>{partner.name}</span>
@@ -941,18 +847,6 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                     {partner.activities.length}
                   </span>
                 )}
-
-                {/* Tooltip */}
-                <div className="pointer-events-none absolute bottom-[calc(100%+0.5rem)] left-0 z-30 hidden w-64 rounded-xl neo-box bg-white p-3 text-left text-[11px] font-bold text-black group-hover:block dark:bg-[#181b24] dark:text-white dark:border-white shadow-brutal">
-                  <p className="font-black text-neo-forest dark:text-neo-yellow mb-1">
-                    SHARED ACTIVITIES:
-                  </p>
-                  <ul className="space-y-1">
-                    {partner.activities.map((act) => (
-                      <li key={act}>• {act}</li>
-                    ))}
-                  </ul>
-                </div>
               </div>
             );
           })}
@@ -960,11 +854,11 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
       </section>
 
       {/* =========================================================================
-          PRODUCTION LOGOS RUNNING TICKER
+          TECHNOLOGIES RUNNING TICKER
           ========================================================================= */}
       <section className="neo-box rounded-2xl bg-white overflow-hidden dark:bg-[#181b24] dark:border-white">
         <div className="bg-neo-yellow px-6 py-2.5 font-display text-xs sm:text-sm font-black uppercase text-black border-b-2 border-black dark:border-white">
-          ✦ PRODUCTION TECHNOLOGIES & TOOLKITS ✦
+          TECHNOLOGIES & TOOLKITS
         </div>
         <div className="py-4 overflow-hidden">
           <div className="neo-ticker-track flex gap-4 px-4">

@@ -53,10 +53,7 @@ function CertificateImageCarousel({ certificate, onOpen }) {
               <FileText className="h-6 w-6 stroke-[2.5]" />
             </div>
             <span className="text-xs font-black uppercase text-black dark:text-white">
-              OFFICIAL PDF DOCUMENT
-            </span>
-            <span className="text-[11px] font-bold text-neo-forest dark:text-neo-yellow mt-0.5">
-              ✦ CLICK TO PREVIEW
+              PDF Document
             </span>
           </button>
         ) : (
@@ -202,11 +199,7 @@ export default function CertificationsPage() {
 
   return (
     <>
-      <PageShell
-        eyebrow="Credentials & Validation"
-        title="Licenses & Certifications"
-        description={`Collection of ${certifications.length} verified technical credentials from Dicoding Indonesia, Cisco, Fortinet, and accredited industry authorities.`}
-      >
+      <PageShell title="Certifications">
         {/* Interactive Control Deck */}
         <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -296,23 +289,12 @@ export default function CertificationsPage() {
             {selectedCategory === "All" && !searchQuery && (
               <div className="neo-box rounded-3xl border-[3px] border-black bg-neo-yellow/20 p-6 sm:p-8 dark:border-white dark:bg-[#1e2538] shadow-brutal">
                 <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-                  <div className="space-y-3">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="neo-badge rounded-md bg-neo-yellow text-black font-black">
-                        ★ FLAGSHIP CREDENTIAL
-                      </span>
-                      <span className="neo-badge rounded-md bg-neo-green text-black font-black">
-                        COMPLETED WITH DISTINCTION
-                      </span>
-                    </div>
+                  <div className="space-y-2">
                     <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-black dark:text-white">
                       Certificate Of Completion CodingCamp 2026
                     </h2>
                     <p className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
                       Issued by <span className="text-black font-black dark:text-neo-yellow">Dicoding Indonesia & DBS Foundation</span> • July 2026
-                    </p>
-                    <p className="text-xs font-bold leading-relaxed text-black dark:text-slate-200 max-w-2xl">
-                      Intensive full-stack web engineering apprenticeship encompassing frontend systems, React runtimes, RESTful API design, and capstone project deployment.
                     </p>
                   </div>
 

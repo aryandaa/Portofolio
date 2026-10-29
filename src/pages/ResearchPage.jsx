@@ -21,8 +21,7 @@ import { useToast } from "../context/ToastContext.jsx";
 export default function ResearchPage() {
   const [activeTab, setActiveTab] = useState("terminal"); // 'terminal' | 'roadmap'
   const [terminalHistory, setTerminalHistory] = useState([
-    { type: "sys", text: "Security Research Interactive Console initialized." },
-    { type: "sys", text: "Type a command or click any shortcut chip below to explore." },
+    { type: "sys", text: "Interactive Security Console ready." },
   ]);
   const [commandInput, setCommandInput] = useState("");
   const { showToast } = useToast();
@@ -65,11 +64,7 @@ export default function ResearchPage() {
   };
 
   return (
-    <PageShell
-      eyebrow="Research & Inquiry"
-      title="Academic & Security Research"
-      description="Exploratory investigations in Cybersecurity, web vulnerability assessment, modern application architecture, and human-centered computing."
-    >
+    <PageShell title="Research">
       {/* Top Interactive Mode Tabs */}
       <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -81,9 +76,6 @@ export default function ResearchPage() {
               <span className="font-display text-sm font-black uppercase text-black dark:text-white">
                 Inquiry Sandbox & Methodology Lab
               </span>
-              <p className="text-xs font-bold text-slate-600 dark:text-slate-400">
-                Interactive console & research milestone roadmap
-              </p>
             </div>
           </div>
 

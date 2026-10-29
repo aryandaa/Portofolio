@@ -91,11 +91,7 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <PageShell
-        eyebrow="Architecture & Delivery"
-        title="Technical Projects"
-        description="Architectural systems, interactive learning platforms, client-side runtime integrations, and modern web engineering solutions."
-      >
+      <PageShell title="Projects">
         {/* Interactive Filter & View Control Desk */}
         <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -122,9 +118,6 @@ export default function ProjectsPage() {
 
             {/* View Mode Toggle */}
             <div className="flex items-center gap-2 shrink-0">
-              <span className="text-xs font-black uppercase text-black dark:text-slate-300 mr-1 hidden sm:inline">
-                View Mode:
-              </span>
               <button
                 type="button"
                 onClick={() => setViewMode("bento")}
@@ -312,7 +305,7 @@ export default function ProjectsPage() {
                             onClick={() => setSelectedProject(codelearn)}
                             className="neo-btn w-full rounded-2xl bg-neo-yellow py-3 text-center font-display text-xs font-black uppercase tracking-wider text-black hover:bg-yellow-300 dark:bg-neo-yellow dark:text-black dark:border-white"
                           >
-                            <span>Inspect Full Architecture Specifications</span>
+                            <span>View Specifications</span>
                             <span className="ml-2">→</span>
                           </button>
                         </div>
@@ -394,10 +387,6 @@ export default function ProjectsPage() {
                               </ul>
                             )}
                           </div>
-                        </div>
-
-                        <div className="mt-4 border-t border-black/10 pt-3 dark:border-white/20 text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                          ✦ Capstone verified: 0 type errors, 108 CySec tools active.
                         </div>
                       </div>
                     </div>
@@ -560,7 +549,7 @@ export default function ProjectsPage() {
                           onClick={() => setSelectedProject(project)}
                           className="neo-btn flex w-full items-center justify-between rounded-xl bg-neo-yellow px-4 py-2 text-xs font-black uppercase text-black hover:bg-yellow-300 dark:bg-neo-yellow dark:text-black"
                         >
-                          <span>Full Architecture Dossier</span>
+                          <span>View Details</span>
                           <span>→</span>
                         </button>
                       </div>

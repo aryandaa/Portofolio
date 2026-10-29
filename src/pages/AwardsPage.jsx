@@ -43,11 +43,7 @@ export default function AwardsPage() {
   const top18Award = awards.find((a) => a.name.includes("Top 18") || a.rank.includes("Top 18"));
 
   return (
-    <PageShell
-      eyebrow="Competitions & Honors"
-      title="Honors & Competitive Awards"
-      description={`Competitive track record across ${awards.length} collegiate and national Cybersecurity tournaments (KMIPN VIII, Capture The Flag / CTF) and UI/UX design competitions.`}
-    >
+    <PageShell title="Awards & Honors">
       {/* Interactive Control & Track Switcher */}
       <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -57,11 +53,8 @@ export default function AwardsPage() {
             </div>
             <div>
               <span className="font-display text-sm font-black uppercase text-black dark:text-white">
-                Hall of Competitive Achievements
+                Competitive Achievements
               </span>
-              <p className="text-xs font-bold text-slate-600 dark:text-slate-400">
-                {awards.length} Collegiate & National Tournament Honors
-              </p>
             </div>
           </div>
 

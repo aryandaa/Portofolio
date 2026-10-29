@@ -63,19 +63,12 @@ export default function ExperiencePage() {
 
   return (
     <>
-      <PageShell
-        eyebrow="Industry & Roles"
-        title="Work & Internship Experience"
-        description="Chronological record of software engineering internships, system integrations with Laravel Filament, and technical apprenticeships."
-      >
+      <PageShell title="Experience">
         {/* Interactive Career Timeline Scrubber Bar */}
         <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
           <div className="flex items-center justify-between border-b-2 border-black/10 pb-3 dark:border-white/20">
             <span className="font-display text-xs font-black uppercase text-black dark:text-neo-yellow">
-              Career Timeline Navigator
-            </span>
-            <span className="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400">
-              {experiences.length} Milestones Recorded
+              Career Timeline
             </span>
           </div>
 
@@ -215,20 +208,15 @@ export default function ExperiencePage() {
                     </p>
 
                     {item.technologies && item.technologies.length > 0 && (
-                      <div>
-                        <span className="block text-[11px] font-black uppercase text-slate-500 dark:text-slate-400 mb-2">
-                          Tools & Environment:
-                        </span>
-                        <div className="flex flex-wrap gap-1.5">
-                          {item.technologies.map((tech) => (
-                            <span
-                              key={tech}
-                              className="neo-badge rounded-md bg-neo-cream text-[11px] font-black text-black dark:bg-[#202533] dark:text-white dark:border-white/30"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {item.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className="neo-badge rounded-md bg-neo-cream text-[11px] font-black text-black dark:bg-[#202533] dark:text-white dark:border-white/30"
+                          >
+                            {tech}
+                          </span>
+                        ))}
                       </div>
                     )}
 

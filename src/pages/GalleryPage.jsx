@@ -42,11 +42,7 @@ export default function GalleryPage() {
 
   return (
     <>
-      <PageShell
-        eyebrow="Visual Archives"
-        title="Gallery & Activities"
-        description="Visual documentation of campus milestones, tech competitions, developer workshops, and professional community engagements."
-      >
+      <PageShell title="Gallery">
         {galleryItems.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {galleryItems.map((item, idx) => {
@@ -107,7 +103,7 @@ export default function GalleryPage() {
                         className="mt-4 neo-btn rounded-xl bg-neo-green px-3 py-1.5 text-xs font-black uppercase text-black hover:bg-emerald-300 dark:bg-neo-sky dark:text-black"
                       >
                         <Eye className="h-3.5 w-3.5 stroke-[2.5]" />
-                        <span>Inspect Full Photo</span>
+                        <span>Inspect</span>
                       </button>
                     )}
                   </div>

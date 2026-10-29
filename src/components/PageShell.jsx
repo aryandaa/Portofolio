@@ -1,38 +1,16 @@
-import { Sparkles, Terminal } from "lucide-react";
-
-export default function PageShell({ eyebrow, title, description, children, aside, below }) {
+export default function PageShell({ title, children, aside, below }) {
   return (
-    <div className="space-y-8">
-      {/* Dynamic Neobrutalist Page Header Header Deck */}
-      <div className="relative overflow-hidden rounded-3xl border-[3px] border-black bg-white p-6 sm:p-8 shadow-brutal dark:border-white dark:bg-neo-darkcard dark:shadow-brutal-dark">
-        {/* Decorative Top Stamp */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-black/10 pb-4 dark:border-white/20">
-          <div className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-neo-rose border border-black dark:border-white" />
-            <span className="h-3 w-3 rounded-full bg-neo-yellow border border-black dark:border-white" />
-            <span className="h-3 w-3 rounded-full bg-neo-green border border-black dark:border-white" />
-            {eyebrow && (
-              <span className="ml-2 font-mono text-xs font-black uppercase tracking-wider text-neo-forest dark:text-neo-yellow">
-                // {eyebrow}
-              </span>
-            )}
-          </div>
-          <span className="neo-badge rounded-md bg-neo-yellow text-black text-[10px] font-black uppercase">
-            ✦ VERIFIED ARTIFACT
-          </span>
+    <div className="space-y-6 sm:space-y-8">
+      {/* Neobrutalist Page Header */}
+      <div className="relative overflow-hidden rounded-3xl border-[3px] border-black bg-white p-5 sm:p-7 shadow-brutal dark:border-white dark:bg-neo-darkcard dark:shadow-brutal-dark">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="h-3 w-3 rounded-full bg-neo-rose border border-black dark:border-white" />
+          <span className="h-3 w-3 rounded-full bg-neo-yellow border border-black dark:border-white" />
+          <span className="h-3 w-3 rounded-full bg-neo-green border border-black dark:border-white" />
         </div>
-
-        {/* Title & Description */}
-        <div className="mt-4">
-          <h1 className="font-display text-3xl font-black uppercase tracking-tight text-black sm:text-4xl lg:text-5xl dark:text-white">
-            {title}
-          </h1>
-          {description && (
-            <p className="mt-2.5 max-w-3xl text-xs sm:text-sm font-bold leading-relaxed text-slate-700 dark:text-slate-300">
-              {description}
-            </p>
-          )}
-        </div>
+        <h1 className="font-display text-3xl font-black uppercase tracking-tight text-black sm:text-4xl lg:text-5xl dark:text-white">
+          {title}
+        </h1>
       </div>
 
       {/* Main Content Area */}
