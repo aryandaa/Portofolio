@@ -1,6 +1,6 @@
 export default function PageShell({ title, children, aside, below }) {
   return (
-    <div className="space-y-6 sm:space-y-8">
+    <div className="space-y-6 sm:space-y-8 min-w-0">
       {/* Neobrutalist Page Header */}
       <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border-[3px] border-black bg-white p-4 sm:p-7 shadow-brutal dark:border-white dark:bg-neo-darkcard dark:shadow-brutal-dark">
         <div className="flex items-center gap-2 mb-2 sm:mb-3">

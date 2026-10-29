@@ -53,7 +53,7 @@ export default function BooksPage() {
   return (
     <PageShell title="Books Read">
       {/* Interactive Bookshelf Stats & Controls Desk */}
-      <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
+      <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 mb-6 sm:mb-8 dark:bg-neo-darkcard dark:border-white min-w-0">
         {/* Top Metric Strip */}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 pb-5 border-b-2 border-black/10 dark:border-white/20">
           <div className="neo-box rounded-xl bg-neo-yellow/30 p-3 text-center dark:bg-[#202533]">
@@ -142,11 +142,11 @@ export default function BooksPage() {
             return (
               <div
                 key={bookKey}
-                className="neo-box neo-box-hover rounded-3xl bg-white p-6 sm:p-7 flex flex-col justify-between dark:bg-[#181b24] dark:border-white"
+                className="neo-box neo-box-hover overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 flex flex-col justify-between dark:bg-[#181b24] dark:border-white min-w-0"
               >
-                <div>
+                <div className="min-w-0">
                   {/* Header ribbon */}
-                  <div className="flex items-start justify-between gap-3 border-b-2 border-black pb-3 dark:border-white">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-black pb-3 dark:border-white">
                     <span className="neo-badge rounded-md bg-neo-yellow text-black text-xs font-black">
                       {book.category}
                     </span>
@@ -164,7 +164,7 @@ export default function BooksPage() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-display text-xl sm:text-2xl font-black uppercase text-black dark:text-white mt-4 leading-tight">
+                  <h3 className="font-display text-lg sm:text-xl font-black uppercase text-black dark:text-white mt-4 leading-tight break-words">
                     {book.title}
                   </h3>
 

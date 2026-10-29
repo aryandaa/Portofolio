@@ -57,11 +57,11 @@ export default function GalleryPage() {
               return (
                 <div
                   key={`${item.title}-${item.date}`}
-                  className={`neo-box neo-box-hover overflow-hidden rounded-3xl bg-white p-0 dark:bg-[#181b24] dark:border-white transition-all duration-200 ${rotationClass}`}
+                  className={`neo-box neo-box-hover overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-0 dark:bg-[#181b24] dark:border-white transition-all duration-200 min-w-0 ${rotationClass}`}
                 >
                   {/* Decorative Washi Tape Accent */}
                   <div className="relative flex justify-center">
-                    <span className="absolute -top-3 z-10 rounded-sm bg-neo-yellow/90 px-6 py-1 text-[9px] font-black uppercase tracking-widest text-black shadow-sm border border-black/30 rotate-1">
+                    <span className="absolute -top-3 z-10 rounded-sm bg-neo-yellow/90 px-4 sm:px-6 py-0.5 sm:py-1 text-[9px] font-black uppercase tracking-widest text-black shadow-sm border border-black/30 rotate-1">
                       POLAROID #{idx + 1}
                     </span>
                   </div>
@@ -85,14 +85,14 @@ export default function GalleryPage() {
                     )}
                   </div>
 
-                  <div className="p-5">
+                  <div className="p-4 sm:p-5 min-w-0">
                     <div className="mb-2">
                       <span className="neo-badge rounded-md bg-neo-yellow text-black text-[10px]">
                         <CalendarDays className="h-3 w-3 mr-1 inline" />
                         {item.date}
                       </span>
                     </div>
-                    <h3 className="font-display text-lg font-black uppercase text-black dark:text-white line-clamp-2">
+                    <h3 className="font-display text-base sm:text-lg font-black uppercase text-black dark:text-white line-clamp-2 break-words">
                       {item.title}
                     </h3>
 
@@ -100,7 +100,7 @@ export default function GalleryPage() {
                       <button
                         type="button"
                         onClick={() => setSelectedItemIndex(idx)}
-                        className="mt-4 neo-btn rounded-xl bg-neo-green px-3 py-1.5 text-xs font-black uppercase text-black hover:bg-emerald-300 dark:bg-neo-sky dark:text-black"
+                        className="mt-3 sm:mt-4 neo-btn rounded-xl bg-neo-green px-3 py-1.5 text-xs font-black uppercase text-black hover:bg-emerald-300 dark:bg-neo-sky dark:text-black"
                       >
                         <Eye className="h-3.5 w-3.5 stroke-[2.5]" />
                         <span>Inspect</span>

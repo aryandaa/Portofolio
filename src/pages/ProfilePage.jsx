@@ -223,14 +223,14 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
           {/* LEFT: EDITORIAL INTRO & INTERACTIVE CONSOLE (Cols 7) */}
           <div className="lg:col-span-7 space-y-6">
             {/* Top Identity Kicker Tape */}
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="neo-badge rounded-md bg-neo-yellow text-black font-black text-xs -rotate-1">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <span className="neo-badge rounded-md bg-neo-yellow text-black font-black text-[10px] sm:text-xs">
                 ★ POLIBAN STUDENT // D3 INFORMATION SYSTEMS
               </span>
-              <span className="neo-badge rounded-md bg-neo-green text-black font-black text-xs rotate-1">
+              <span className="neo-badge rounded-md bg-neo-green text-black font-black text-[10px] sm:text-xs">
                 ⚡ GPA 3.90 / 4.00
               </span>
-              <span className="neo-badge rounded-md bg-white text-black font-mono text-xs dark:bg-[#1f2430] dark:text-white">
+              <span className="neo-badge rounded-md bg-white text-black font-mono text-[10px] sm:text-xs dark:bg-[#1f2430] dark:text-white">
                 📍 BANJARMASIN, ID
               </span>
             </div>
@@ -246,7 +246,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
             </div>
 
             {/* Interactive Role Switcher Deck */}
-            <div className="neo-box rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 dark:bg-neo-darkcard dark:border-white shadow-brutal">
+            <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 dark:bg-neo-darkcard dark:border-white shadow-brutal min-w-0">
               <div className="flex items-center justify-between border-b-2 border-black/10 pb-3 dark:border-white/20 mb-4">
                 <span className="text-xs font-black uppercase text-black dark:text-neo-yellow flex items-center gap-2">
                   <Terminal className="h-4 w-4" />
@@ -262,7 +262,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                     setSelectedPersona("fullstack");
                     showToast("Switched to Full-Stack Architect view");
                   }}
-                  className={`neo-btn rounded-xl py-2 px-1 text-center text-[11px] sm:text-xs font-black uppercase transition-all truncate ${
+                  className={`neo-btn rounded-xl py-2 px-1 text-center text-[10px] sm:text-xs font-black uppercase transition-all truncate ${
                     selectedPersona === "fullstack"
                       ? "bg-neo-green text-black shadow-brutal-sm"
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-[#1e2330] dark:text-slate-300"
@@ -276,7 +276,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                     setSelectedPersona("cybersec");
                     showToast("Switched to CyberSecurity Researcher view");
                   }}
-                  className={`neo-btn rounded-xl py-2 px-1 text-center text-[11px] sm:text-xs font-black uppercase transition-all truncate ${
+                  className={`neo-btn rounded-xl py-2 px-1 text-center text-[10px] sm:text-xs font-black uppercase transition-all truncate ${
                     selectedPersona === "cybersec"
                       ? "bg-neo-sky text-black shadow-brutal-sm"
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-[#1e2330] dark:text-slate-300"
@@ -290,7 +290,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                     setSelectedPersona("uiux");
                     showToast("Switched to UI/UX Craftsman view");
                   }}
-                  className={`neo-btn rounded-xl py-2 px-1 text-center text-[11px] sm:text-xs font-black uppercase transition-all truncate ${
+                  className={`neo-btn rounded-xl py-2 px-1 text-center text-[10px] sm:text-xs font-black uppercase transition-all truncate ${
                     selectedPersona === "uiux"
                       ? "bg-neo-rose text-black shadow-brutal-sm"
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-[#1e2330] dark:text-slate-300"
@@ -467,14 +467,14 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
           FEATURED CAPSTONE STAGE: CODELEARN (INTERACTIVE WORKSTATION)
           ========================================================================= */}
       <section className="relative">
-        <div className="neo-box rounded-3xl border-[3px] border-black bg-neo-green/30 p-6 sm:p-8 dark:border-white dark:bg-[#182030] shadow-brutal-lg">
+        <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl border-[3px] border-black bg-neo-green/30 p-4 sm:p-6 lg:p-8 dark:border-white dark:bg-[#182030] shadow-brutal-lg min-w-0">
           {/* Workstation Window Bar */}
           <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-black pb-4 dark:border-white">
             <div className="flex items-center gap-2">
               <span className="h-3.5 w-3.5 rounded-full border border-black bg-rose-500 dark:border-white" />
               <span className="h-3.5 w-3.5 rounded-full border border-black bg-yellow-500 dark:border-white" />
               <span className="h-3.5 w-3.5 rounded-full border border-black bg-emerald-500 dark:border-white" />
-              <span className="ml-3 font-mono text-xs font-black uppercase text-black dark:text-white">
+              <span className="ml-2 sm:ml-3 font-mono text-xs font-black uppercase text-black dark:text-white truncate">
                 codelearn.aryanda.dev
               </span>
             </div>
@@ -484,7 +484,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                 href={codelearn.projectUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="neo-btn rounded-xl bg-black px-3.5 py-1 text-xs font-black uppercase text-white hover:bg-slate-800 dark:bg-white dark:text-black"
+                className="neo-btn rounded-xl bg-black px-3.5 py-1.5 text-xs font-black uppercase text-white hover:bg-slate-800 dark:bg-white dark:text-black"
               >
                 Launch App ↗
               </a>
@@ -493,8 +493,8 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
 
           {/* Workstation Content Grid */}
           <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr_1fr]">
-            <div className="space-y-4">
-              <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-black dark:text-white">
+            <div className="space-y-4 min-w-0">
+              <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-black dark:text-white break-words">
                 CodeLearn: Personal Knowledge & Security Lab
               </h2>
               <p className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 leading-relaxed">
@@ -502,22 +502,22 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               </p>
 
               {/* 4 Callout Meters */}
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                <div className="rounded-xl border-2 border-black bg-white p-3 text-center dark:border-white/30 dark:bg-[#202533]">
-                  <span className="block font-display text-xl font-black text-black dark:text-neo-yellow">500+</span>
-                  <span className="text-[10px] font-black uppercase text-slate-600 dark:text-slate-400">Obsidian Notes</span>
+              <div className="grid grid-cols-2 gap-2 sm:gap-3 sm:grid-cols-4">
+                <div className="rounded-xl border-2 border-black bg-white p-2.5 sm:p-3 text-center dark:border-white/30 dark:bg-[#202533]">
+                  <span className="block font-display text-lg sm:text-xl font-black text-black dark:text-neo-yellow">500+</span>
+                  <span className="text-[9px] sm:text-[10px] font-black uppercase text-slate-600 dark:text-slate-400">Obsidian Notes</span>
                 </div>
-                <div className="rounded-xl border-2 border-black bg-white p-3 text-center dark:border-white/30 dark:bg-[#202533]">
-                  <span className="block font-display text-xl font-black text-black dark:text-neo-sky">108</span>
-                  <span className="text-[10px] font-black uppercase text-slate-600 dark:text-slate-400">CySec Tools</span>
+                <div className="rounded-xl border-2 border-black bg-white p-2.5 sm:p-3 text-center dark:border-white/30 dark:bg-[#202533]">
+                  <span className="block font-display text-lg sm:text-xl font-black text-black dark:text-neo-sky">108</span>
+                  <span className="text-[9px] sm:text-[10px] font-black uppercase text-slate-600 dark:text-slate-400">CySec Tools</span>
                 </div>
-                <div className="rounded-xl border-2 border-black bg-white p-3 text-center dark:border-white/30 dark:bg-[#202533]">
-                  <span className="block font-display text-xl font-black text-black dark:text-neo-rose">7</span>
-                  <span className="text-[10px] font-black uppercase text-slate-600 dark:text-slate-400">Language Runtimes</span>
+                <div className="rounded-xl border-2 border-black bg-white p-2.5 sm:p-3 text-center dark:border-white/30 dark:bg-[#202533]">
+                  <span className="block font-display text-lg sm:text-xl font-black text-black dark:text-neo-rose">7</span>
+                  <span className="text-[9px] sm:text-[10px] font-black uppercase text-slate-600 dark:text-slate-400">Language Runtimes</span>
                 </div>
-                <div className="rounded-xl border-2 border-black bg-white p-3 text-center dark:border-white/30 dark:bg-[#202533]">
-                  <span className="block font-display text-xl font-black text-black dark:text-neo-green">$0</span>
-                  <span className="text-[10px] font-black uppercase text-slate-600 dark:text-slate-400">Database Cost</span>
+                <div className="rounded-xl border-2 border-black bg-white p-2.5 sm:p-3 text-center dark:border-white/30 dark:bg-[#202533]">
+                  <span className="block font-display text-lg sm:text-xl font-black text-black dark:text-neo-green">$0</span>
+                  <span className="text-[9px] sm:text-[10px] font-black uppercase text-slate-600 dark:text-slate-400">Database Cost</span>
                 </div>
               </div>
             </div>
@@ -570,12 +570,12 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
           CONTROL BOARD: 4 TACTICAL BLOCKS
           ========================================================================= */}
       <section>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {/* Card 1: Experience */}
           <button
             type="button"
             onClick={() => navigate("experience")}
-            className="neo-box neo-box-hover rounded-3xl bg-neo-yellow/30 p-6 text-left dark:bg-[#252216] dark:border-white transition-all -rotate-1 hover:rotate-0"
+            className="neo-box neo-box-hover overflow-hidden rounded-2xl sm:rounded-3xl bg-neo-yellow/30 p-5 sm:p-6 text-left dark:bg-[#252216] dark:border-white transition-all sm:-rotate-1 hover:rotate-0 min-w-0"
           >
             <div className="flex items-center justify-between mb-3">
               <span className="font-mono text-xs font-black bg-white px-2 py-0.5 rounded border border-black dark:bg-black dark:text-white">
@@ -583,7 +583,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               </span>
               <BriefcaseBusiness className="h-5 w-5 text-black dark:text-neo-yellow" />
             </div>
-            <p className="text-4xl font-black text-black dark:text-white">
+            <p className="text-3xl sm:text-4xl font-black text-black dark:text-white">
               7 Roles
             </p>
             <p className="mt-1 font-display text-sm font-black uppercase text-black dark:text-white">
@@ -598,7 +598,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
           <button
             type="button"
             onClick={() => navigate("certifications")}
-            className="neo-box neo-box-hover rounded-3xl bg-neo-sky/30 p-6 text-left dark:bg-[#14202c] dark:border-white transition-all rotate-1 hover:rotate-0"
+            className="neo-box neo-box-hover overflow-hidden rounded-2xl sm:rounded-3xl bg-neo-sky/30 p-5 sm:p-6 text-left dark:bg-[#14202c] dark:border-white transition-all sm:rotate-1 hover:rotate-0 min-w-0"
           >
             <div className="flex items-center justify-between mb-3">
               <span className="font-mono text-xs font-black bg-white px-2 py-0.5 rounded border border-black dark:bg-black dark:text-white">
@@ -606,7 +606,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               </span>
               <ShieldCheck className="h-5 w-5 text-black dark:text-neo-sky" />
             </div>
-            <p className="text-4xl font-black text-black dark:text-white">
+            <p className="text-3xl sm:text-4xl font-black text-black dark:text-white">
               22 Verified
             </p>
             <p className="mt-1 font-display text-sm font-black uppercase text-black dark:text-white">
@@ -621,7 +621,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
           <button
             type="button"
             onClick={() => navigate("awards")}
-            className="neo-box neo-box-hover rounded-3xl bg-neo-rose/30 p-6 text-left dark:bg-[#25161e] dark:border-white transition-all -rotate-1 hover:rotate-0"
+            className="neo-box neo-box-hover overflow-hidden rounded-2xl sm:rounded-3xl bg-neo-rose/30 p-5 sm:p-6 text-left dark:bg-[#25161e] dark:border-white transition-all sm:-rotate-1 hover:rotate-0 min-w-0"
           >
             <div className="flex items-center justify-between mb-3">
               <span className="font-mono text-xs font-black bg-white px-2 py-0.5 rounded border border-black dark:bg-black dark:text-white">
@@ -629,7 +629,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               </span>
               <Trophy className="h-5 w-5 text-black dark:text-neo-rose" />
             </div>
-            <p className="text-4xl font-black text-black dark:text-white">
+            <p className="text-3xl sm:text-4xl font-black text-black dark:text-white">
               6 Awards
             </p>
             <p className="mt-1 font-display text-sm font-black uppercase text-black dark:text-white">
@@ -644,7 +644,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
           <button
             type="button"
             onClick={() => navigate("books")}
-            className="neo-box neo-box-hover rounded-3xl bg-neo-lavender/40 p-6 text-left dark:bg-[#1f1629] dark:border-white transition-all rotate-1 hover:rotate-0"
+            className="neo-box neo-box-hover overflow-hidden rounded-2xl sm:rounded-3xl bg-neo-lavender/40 p-5 sm:p-6 text-left dark:bg-[#1f1629] dark:border-white transition-all sm:rotate-1 hover:rotate-0 min-w-0"
           >
             <div className="flex items-center justify-between mb-3">
               <span className="font-mono text-xs font-black bg-white px-2 py-0.5 rounded border border-black dark:bg-black dark:text-white">
@@ -652,7 +652,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               </span>
               <BookOpen className="h-5 w-5 text-black dark:text-purple-300" />
             </div>
-            <p className="text-4xl font-black text-black dark:text-white">
+            <p className="text-3xl sm:text-4xl font-black text-black dark:text-white">
               15 Books
             </p>
             <p className="mt-1 font-display text-sm font-black uppercase text-black dark:text-white">
@@ -675,7 +675,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
           </h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
           {profile.aboutFocus?.map((item, idx) => {
             const colors = [
               "bg-neo-green text-black dark:bg-[#15231c] dark:text-white dark:border-white",
@@ -686,7 +686,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
             return (
               <div
                 key={item.title}
-                className={`neo-box rounded-3xl ${colors[idx % 3]} p-6 flex flex-col justify-between transition-all`}
+                className={`neo-box overflow-hidden rounded-2xl sm:rounded-3xl ${colors[idx % 3]} p-5 sm:p-6 flex flex-col justify-between transition-all min-w-0`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
@@ -695,7 +695,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
                     </span>
                     <Sparkles className="h-4 w-4" />
                   </div>
-                  <h3 className="font-display text-xl font-black uppercase text-black dark:text-white">
+                  <h3 className="font-display text-lg sm:text-xl font-black uppercase text-black dark:text-white break-words">
                     {item.title}
                   </h3>
                   <p className="mt-2 text-xs sm:text-sm font-bold leading-relaxed text-black/90 dark:text-slate-200">
@@ -712,16 +712,16 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
           INTERACTIVE SKILLS ARSENAL
           ========================================================================= */}
       <section>
-        <div className="neo-box rounded-3xl bg-white p-6 sm:p-8 dark:bg-neo-darkcard dark:border-white">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b-2 border-black/10 pb-4 dark:border-white/20">
+        <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 lg:p-8 dark:bg-neo-darkcard dark:border-white min-w-0">
+          <div className="flex flex-col gap-3 sm:gap-4 sm:flex-row sm:items-center sm:justify-between border-b-2 border-black/10 pb-4 dark:border-white/20 min-w-0">
             <div>
-              <h2 className="font-display text-2xl font-black uppercase tracking-tight text-black dark:text-white">
+              <h2 className="font-display text-xl sm:text-2xl font-black uppercase tracking-tight text-black dark:text-white">
                 Skills & Tools
               </h2>
             </div>
 
             {/* Search Input */}
-            <div className="relative min-w-[240px]">
+            <div className="relative w-full sm:w-auto sm:min-w-[240px]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 dark:text-neo-yellow" />
               <input
                 type="text"
@@ -734,7 +734,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
           </div>
 
           {/* Skill Groups Grid */}
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredSkillGroups.map((group, groupIdx) => {
               const badgeColors = [
                 "bg-neo-yellow text-black",
@@ -747,10 +747,10 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
               return (
                 <div
                   key={group.category}
-                  className="rounded-2xl border-2 border-black bg-neo-bg p-4 dark:border-white/30 dark:bg-[#121620]"
+                  className="rounded-2xl border-2 border-black bg-neo-bg p-4 dark:border-white/30 dark:bg-[#121620] min-w-0"
                 >
                   <div className="flex items-center justify-between border-b border-black/10 pb-2 dark:border-white/20 mb-3">
-                    <h3 className="font-display text-sm font-black uppercase text-black dark:text-white">
+                    <h3 className="font-display text-sm font-black uppercase text-black dark:text-white truncate">
                       {group.category}
                     </h3>
                     <span className={`font-mono text-[10px] font-black px-1.5 py-0.2 rounded border border-black ${badgeColors[groupIdx % badgeColors.length]}`}>
@@ -790,8 +790,8 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
       {/* =========================================================================
           COLLABORATORS
           ========================================================================= */}
-      <section className="neo-box rounded-3xl bg-neo-cream p-6 sm:p-8 dark:bg-[#161a22] dark:border-white">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-5 border-b-2 border-black pb-3 dark:border-white">
+      <section className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-neo-cream p-4 sm:p-6 lg:p-8 dark:bg-[#161a22] dark:border-white min-w-0">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-5 border-b-2 border-black pb-3 dark:border-white">
           <h2 className="font-display text-xl sm:text-2xl font-black uppercase text-black dark:text-white">
             Collaborators
           </h2>
@@ -803,7 +803,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
         {/* Playful Sticker Cloud */}
         <div className="flex flex-wrap gap-2">
           {getPartnerThanks().map((partner, idx) => {
-            const rotations = ["-rotate-1", "rotate-1", "-rotate-2", "rotate-2", "rotate-0"];
+            const rotations = ["sm:-rotate-1", "sm:rotate-1", "sm:-rotate-2", "sm:rotate-2", "rotate-0"];
             const rot = rotations[idx % rotations.length];
             return (
               <div
@@ -826,7 +826,7 @@ export default function ProfilePage({ navigate = (id) => (window.location.hash =
       {/* =========================================================================
           TECHNOLOGIES RUNNING TICKER
           ========================================================================= */}
-      <section className="neo-box rounded-2xl bg-white overflow-hidden dark:bg-[#181b24] dark:border-white">
+      <section className="neo-box rounded-2xl sm:rounded-3xl bg-white overflow-hidden dark:bg-[#181b24] dark:border-white min-w-0">
         <div className="bg-neo-yellow px-6 py-2.5 font-display text-xs sm:text-sm font-black uppercase text-black border-b-2 border-black dark:border-white">
           TECHNOLOGIES & TOOLKITS
         </div>

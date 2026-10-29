@@ -189,8 +189,8 @@ export default function CertificationsPage() {
     <>
       <PageShell title="Certifications">
         {/* Interactive Control Deck */}
-        <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 mb-6 sm:mb-8 dark:bg-neo-darkcard dark:border-white min-w-0">
+          <div className="flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-center lg:justify-between min-w-0">
             {/* Search Input */}
             <div className="relative flex-1">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 stroke-[2.5] text-black dark:text-neo-yellow" />
@@ -247,10 +247,10 @@ export default function CertificationsPage() {
           <div className="space-y-8">
             {/* Featured Master Spotlight for CodingCamp when matching */}
             {!searchQuery && (
-              <div className="neo-box rounded-3xl border-[3px] border-black bg-neo-yellow/20 p-6 sm:p-8 dark:border-white dark:bg-[#1e2538] shadow-brutal">
-                <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-                  <div className="space-y-2">
-                    <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-black dark:text-white">
+              <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl border-[3px] border-black bg-neo-yellow/20 p-4 sm:p-6 lg:p-8 dark:border-white dark:bg-[#1e2538] shadow-brutal min-w-0">
+                <div className="flex flex-col gap-5 sm:gap-6 lg:flex-row lg:items-center lg:justify-between min-w-0">
+                  <div className="space-y-2 min-w-0">
+                    <h2 className="font-display text-xl sm:text-2xl lg:text-3xl font-black uppercase tracking-tight text-black dark:text-white break-words">
                       Certificate Of Completion CodingCamp 2026
                     </h2>
                     <p className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
@@ -258,11 +258,11 @@ export default function CertificationsPage() {
                     </p>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-3 shrink-0">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 shrink-0">
                     <button
                       type="button"
                       onClick={() => openViewer(certifications[1], 0)}
-                      className="neo-btn rounded-xl bg-neo-yellow px-5 py-3 font-display text-xs font-black uppercase text-black hover:bg-yellow-300 dark:bg-neo-yellow dark:text-black"
+                      className="neo-btn rounded-xl bg-neo-yellow px-4 sm:px-5 py-2.5 sm:py-3 font-display text-xs font-black uppercase text-black hover:bg-yellow-300 dark:bg-neo-yellow dark:text-black"
                     >
                       <Eye className="h-4 w-4 inline mr-1.5" />
                       Inspect Master PDF
@@ -270,7 +270,7 @@ export default function CertificationsPage() {
                     <a
                       href={certifications[1].images[0]}
                       download
-                      className="neo-btn rounded-xl bg-white px-4 py-3 text-xs font-black uppercase text-black hover:bg-slate-100 dark:bg-[#202533] dark:text-white"
+                      className="neo-btn rounded-xl bg-white px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs font-black uppercase text-black hover:bg-slate-100 dark:bg-[#202533] dark:text-white"
                     >
                       <Download className="h-4 w-4 inline mr-1.5" />
                       Download
@@ -285,7 +285,7 @@ export default function CertificationsPage() {
               {filteredCertificates.map((cert) => (
                 <div
                   key={`${cert.name}-${cert.date}`}
-                  className="neo-box neo-box-hover rounded-2xl bg-white p-5 flex flex-col justify-between dark:bg-[#181b24] dark:border-white"
+                  className="neo-box neo-box-hover overflow-hidden rounded-2xl bg-white p-4 sm:p-5 flex flex-col justify-between dark:bg-[#181b24] dark:border-white min-w-0"
                 >
                   <div>
                     <CertificateImageCarousel certificate={cert} onOpen={openViewer} />
@@ -317,11 +317,11 @@ export default function CertificationsPage() {
                   </div>
 
                   {cert.images && cert.images.length > 0 && (
-                    <div className="mt-5 flex items-center justify-between border-t-2 border-black pt-3 dark:border-white">
+                    <div className="mt-5 flex flex-wrap items-center justify-between gap-2 border-t-2 border-black pt-3 dark:border-white">
                       <button
                         type="button"
                         onClick={() => openViewer(cert, 0)}
-                        className="neo-btn rounded-lg bg-neo-palegreen px-3 py-1.5 text-xs font-black uppercase text-black hover:bg-neo-green dark:bg-neo-sky dark:text-black"
+                        className="neo-btn rounded-lg bg-neo-palegreen px-2.5 sm:px-3 py-1.5 text-xs font-black uppercase text-black hover:bg-neo-green dark:bg-neo-sky dark:text-black"
                       >
                         <Eye className="h-3.5 w-3.5 stroke-[2.5]" />
                         <span>INSPECT</span>
@@ -330,7 +330,7 @@ export default function CertificationsPage() {
                       <a
                         href={cert.images[0]}
                         download
-                        className="neo-btn rounded-lg bg-white px-3 py-1.5 text-xs font-black uppercase text-black hover:bg-slate-100 dark:bg-[#202533] dark:text-white"
+                        className="neo-btn rounded-lg bg-white px-2.5 sm:px-3 py-1.5 text-xs font-black uppercase text-black hover:bg-slate-100 dark:bg-[#202533] dark:text-white"
                         title="Download certificate file"
                       >
                         <Download className="h-3.5 w-3.5 stroke-[2.5]" />
@@ -477,7 +477,7 @@ export default function CertificationsPage() {
             </div>
 
             {/* Modal Footer Controls */}
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t-[3px] border-black bg-white px-6 py-3 dark:border-white dark:bg-[#121620]">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t-[3px] border-black bg-white px-4 sm:px-6 py-2.5 sm:py-3 dark:border-white dark:bg-[#121620]">
               <div className="text-xs font-black uppercase text-black dark:text-white">
                 {viewer.certificate.issuer} • {viewer.certificate.date}
               </div>

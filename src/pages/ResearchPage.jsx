@@ -66,24 +66,24 @@ export default function ResearchPage() {
   return (
     <PageShell title="Research">
       {/* Top Interactive Mode Tabs */}
-      <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 mb-6 sm:mb-8 dark:bg-neo-darkcard dark:border-white min-w-0">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between min-w-0">
           <div className="flex items-center gap-3">
-            <div className="neo-btn h-12 w-12 rounded-2xl bg-neo-yellow text-black p-0 flex items-center justify-center">
-              <FlaskConical className="h-6 w-6 stroke-[2.5]" />
+            <div className="neo-btn h-11 w-11 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl bg-neo-yellow text-black p-0 flex items-center justify-center shrink-0">
+              <FlaskConical className="h-5 w-5 sm:h-6 sm:w-6 stroke-[2.5]" />
             </div>
             <div>
-              <span className="font-display text-sm font-black uppercase text-black dark:text-white">
+              <span className="font-display text-xs sm:text-sm font-black uppercase text-black dark:text-white">
                 Inquiry Sandbox & Methodology Lab
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => setActiveTab("terminal")}
-              className={`neo-btn flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-black uppercase ${
+              className={`neo-btn flex items-center gap-1.5 rounded-xl px-3 sm:px-4 py-2 text-xs font-black uppercase ${
                 activeTab === "terminal"
                   ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black dark:border-white"
                   : "bg-white text-black dark:bg-[#181b24] dark:text-white"
@@ -95,7 +95,7 @@ export default function ResearchPage() {
             <button
               type="button"
               onClick={() => setActiveTab("roadmap")}
-              className={`neo-btn flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-black uppercase ${
+              className={`neo-btn flex items-center gap-1.5 rounded-xl px-3 sm:px-4 py-2 text-xs font-black uppercase ${
                 activeTab === "roadmap"
                   ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black dark:border-white"
                   : "bg-white text-black dark:bg-[#181b24] dark:text-white"
@@ -110,9 +110,9 @@ export default function ResearchPage() {
 
       {/* Tab 1: Interactive Security Terminal */}
       {activeTab === "terminal" && (
-        <div className="w-full">
+        <div className="w-full min-w-0">
           {/* Interactive Terminal */}
-          <div className="neo-box rounded-2xl sm:rounded-3xl bg-slate-950 p-4 sm:p-8 text-white border-[3px] border-black dark:border-white shadow-brutal flex flex-col justify-between min-h-[440px] sm:min-h-[500px]">
+          <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-slate-950 p-4 sm:p-8 text-white border-[3px] border-black dark:border-white shadow-brutal flex flex-col justify-between min-h-[440px] sm:min-h-[500px] min-w-0">
             <div>
               {/* Terminal Window Top Bar */}
               <div className="flex items-center justify-between border-b border-white/20 pb-3 mb-4 font-mono text-xs text-slate-400">
@@ -188,15 +188,15 @@ export default function ResearchPage() {
 
       {/* Tab 2: Milestone Roadmap */}
       {activeTab === "roadmap" && (
-        <div className="grid gap-6 md:grid-cols-3">
-          <div className="neo-box rounded-3xl bg-white p-6 dark:bg-neo-darkcard dark:border-white">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
+          <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 dark:bg-neo-darkcard dark:border-white min-w-0">
             <div className="flex items-center justify-between border-b-2 border-black/10 pb-3 dark:border-white/20 mb-4">
-              <span className="neo-badge rounded-md bg-neo-green text-black font-black">
+              <span className="neo-badge rounded-md bg-neo-green text-black font-black text-[10px] sm:text-xs">
                 PHASE 01 // COMPLETED
               </span>
-              <CheckCircle2 className="h-5 w-5 text-neo-forest dark:text-neo-green" />
+              <CheckCircle2 className="h-5 w-5 text-neo-forest dark:text-neo-green shrink-0" />
             </div>
-            <h4 className="font-display text-lg font-black uppercase text-black dark:text-white">
+            <h4 className="font-display text-base sm:text-lg font-black uppercase text-black dark:text-white break-words">
               Literature Review & Threat Modeling
             </h4>
             <p className="mt-2 text-xs font-bold leading-relaxed text-slate-700 dark:text-slate-300">
@@ -204,14 +204,14 @@ export default function ResearchPage() {
             </p>
           </div>
 
-          <div className="neo-box rounded-3xl bg-neo-yellow/20 p-6 dark:bg-[#1e2333] border-[3px] dark:border-white">
+          <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-neo-yellow/20 p-4 sm:p-6 dark:bg-[#1e2333] border-[3px] dark:border-white min-w-0">
             <div className="flex items-center justify-between border-b-2 border-black/10 pb-3 dark:border-white/20 mb-4">
-              <span className="neo-badge rounded-md bg-neo-yellow text-black font-black">
+              <span className="neo-badge rounded-md bg-neo-yellow text-black font-black text-[10px] sm:text-xs">
                 PHASE 02 // ACTIVE
               </span>
-              <Hourglass className="h-5 w-5 text-amber-600 dark:text-neo-yellow animate-spin" />
+              <Hourglass className="h-5 w-5 text-amber-600 dark:text-neo-yellow animate-spin shrink-0" />
             </div>
-            <h4 className="font-display text-lg font-black uppercase text-black dark:text-white">
+            <h4 className="font-display text-base sm:text-lg font-black uppercase text-black dark:text-white break-words">
               Harness & Benchmark Testing
             </h4>
             <p className="mt-2 text-xs font-bold leading-relaxed text-slate-700 dark:text-slate-300">
@@ -219,14 +219,14 @@ export default function ResearchPage() {
             </p>
           </div>
 
-          <div className="neo-box rounded-3xl bg-white p-6 dark:bg-neo-darkcard dark:border-white">
+          <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 dark:bg-neo-darkcard dark:border-white min-w-0">
             <div className="flex items-center justify-between border-b-2 border-black/10 pb-3 dark:border-white/20 mb-4">
-              <span className="neo-badge rounded-md bg-white text-black border border-black dark:bg-[#202533] dark:text-white dark:border-white">
+              <span className="neo-badge rounded-md bg-white text-black border border-black dark:bg-[#202533] dark:text-white dark:border-white text-[10px] sm:text-xs">
                 PHASE 03 // UPCOMING
               </span>
-              <RadioTower className="h-5 w-5 text-blue-500" />
+              <RadioTower className="h-5 w-5 text-blue-500 shrink-0" />
             </div>
-            <h4 className="font-display text-lg font-black uppercase text-black dark:text-white">
+            <h4 className="font-display text-base sm:text-lg font-black uppercase text-black dark:text-white break-words">
               Preprint Publication & DOI Indexing
             </h4>
             <p className="mt-2 text-xs font-bold leading-relaxed text-slate-700 dark:text-slate-300">

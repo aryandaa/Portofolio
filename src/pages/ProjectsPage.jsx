@@ -73,8 +73,8 @@ export default function ProjectsPage() {
     <>
       <PageShell title="Projects">
         {/* Interactive Filter & View Control Desk */}
-        <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 mb-6 sm:mb-8 dark:bg-neo-darkcard dark:border-white min-w-0">
+          <div className="flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-center lg:justify-between min-w-0">
             {/* Search Input */}
             <div className="relative flex-1">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 stroke-[2.5] text-black dark:text-neo-yellow" />
@@ -157,21 +157,21 @@ export default function ProjectsPage() {
                 const codelearn = technicalProjects.find((p) => p.name === "CodeLearn");
                 const currentTab = cardTabs[codelearn.name] || "overview";
                 return (
-                  <div className="neo-box rounded-3xl border-[3px] border-black bg-neo-green/30 p-6 sm:p-10 dark:border-white dark:bg-[#182030] shadow-brutal-lg">
+                    <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl border-[3px] border-black bg-neo-green/30 p-4 sm:p-6 lg:p-8 dark:border-white dark:bg-[#182030] shadow-brutal-lg">
                     {/* Top Ribbon */}
                     <div className="flex flex-wrap items-center justify-between gap-3 border-b-[2.5px] border-black pb-4 dark:border-white">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="neo-badge rounded-lg bg-neo-yellow text-black font-black">
+                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                        <span className="neo-badge rounded-lg bg-neo-yellow text-black font-black text-[10px] sm:text-xs py-0.5 sm:py-1 px-2 sm:px-2.5">
                           ★ SIGNATURE CAPSTONE SYSTEM
                         </span>
-                        <span className="neo-badge rounded-lg bg-neo-rose text-black font-black">
+                        <span className="neo-badge rounded-lg bg-neo-rose text-black font-black text-[10px] sm:text-xs py-0.5 sm:py-1 px-2 sm:px-2.5">
                           100% CLIENT-SIDE RUNTIME
                         </span>
-                        <span className="neo-badge rounded-lg bg-white text-black font-mono text-xs dark:bg-black dark:text-white">
+                        <span className="neo-badge rounded-lg bg-white text-black font-mono text-[10px] sm:text-xs py-0.5 sm:py-1 px-2 sm:px-2.5 dark:bg-black dark:text-white">
                           {codelearn.period}
                         </span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         {codelearn.projectUrl && (
                           <button
                             type="button"
@@ -197,35 +197,35 @@ export default function ProjectsPage() {
                     </div>
 
                     {/* Main Grid: Left Spec Brief, Right Interactive Tabs */}
-                    <div className="mt-6 grid gap-8 lg:grid-cols-[1.1fr_1.3fr]">
+                    <div className="mt-6 grid gap-6 lg:gap-8 lg:grid-cols-[1.1fr_1.3fr]">
                       {/* Left: Identity & Metrics */}
-                      <div className="space-y-4">
+                      <div className="space-y-4 min-w-0">
                         <div>
-                          <h2 className="font-display text-3xl sm:text-4xl font-black uppercase tracking-tight text-black dark:text-white">
+                          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-black dark:text-white">
                             {codelearn.name}
                           </h2>
-                          <p className="mt-1 font-display text-sm font-black uppercase text-neo-forest dark:text-neo-yellow">
+                          <p className="mt-1 font-display text-xs sm:text-sm font-black uppercase text-neo-forest dark:text-neo-yellow">
                             ROLE: {codelearn.role}
                           </p>
                         </div>
 
                         {/* Interactive Metric Callouts */}
-                        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                          <div className="neo-box rounded-xl bg-white p-3 text-center dark:bg-[#202533] dark:border-white/50">
-                            <span className="block font-display text-xl font-black text-black dark:text-neo-yellow">500+</span>
-                            <span className="text-[10px] font-black uppercase text-slate-600 dark:text-slate-300">Obsidian Notes</span>
+                        <div className="grid grid-cols-2 gap-2 sm:gap-3 sm:grid-cols-4">
+                          <div className="neo-box rounded-xl bg-white p-2.5 sm:p-3 text-center dark:bg-[#202533] dark:border-white/50">
+                            <span className="block font-display text-lg sm:text-xl font-black text-black dark:text-neo-yellow">500+</span>
+                            <span className="text-[9px] sm:text-[10px] font-black uppercase text-slate-600 dark:text-slate-300">Obsidian Notes</span>
                           </div>
-                          <div className="neo-box rounded-xl bg-white p-3 text-center dark:bg-[#202533] dark:border-white/50">
-                            <span className="block font-display text-xl font-black text-black dark:text-neo-sky">108</span>
-                            <span className="text-[10px] font-black uppercase text-slate-600 dark:text-slate-300">CySec Tools</span>
+                          <div className="neo-box rounded-xl bg-white p-2.5 sm:p-3 text-center dark:bg-[#202533] dark:border-white/50">
+                            <span className="block font-display text-lg sm:text-xl font-black text-black dark:text-neo-sky">108</span>
+                            <span className="text-[9px] sm:text-[10px] font-black uppercase text-slate-600 dark:text-slate-300">CySec Tools</span>
                           </div>
-                          <div className="neo-box rounded-xl bg-white p-3 text-center dark:bg-[#202533] dark:border-white/50">
-                            <span className="block font-display text-xl font-black text-black dark:text-neo-rose">7</span>
-                            <span className="text-[10px] font-black uppercase text-slate-600 dark:text-slate-300">Browser Runtimes</span>
+                          <div className="neo-box rounded-xl bg-white p-2.5 sm:p-3 text-center dark:bg-[#202533] dark:border-white/50">
+                            <span className="block font-display text-lg sm:text-xl font-black text-black dark:text-neo-rose">7</span>
+                            <span className="text-[9px] sm:text-[10px] font-black uppercase text-slate-600 dark:text-slate-300">Browser Runtimes</span>
                           </div>
-                          <div className="neo-box rounded-xl bg-white p-3 text-center dark:bg-[#202533] dark:border-white/50">
-                            <span className="block font-display text-xl font-black text-black dark:text-neo-green">8-Stage</span>
-                            <span className="text-[10px] font-black uppercase text-slate-600 dark:text-slate-300">Parser Pipeline</span>
+                          <div className="neo-box rounded-xl bg-white p-2.5 sm:p-3 text-center dark:bg-[#202533] dark:border-white/50">
+                            <span className="block font-display text-lg sm:text-xl font-black text-black dark:text-neo-green">8-Stage</span>
+                            <span className="text-[9px] sm:text-[10px] font-black uppercase text-slate-600 dark:text-slate-300">Parser Pipeline</span>
                           </div>
                         </div>
 
@@ -238,7 +238,7 @@ export default function ProjectsPage() {
                           {codelearn.stack.map((s) => (
                             <span
                               key={s}
-                              className="neo-badge rounded-md bg-white text-[11px] font-black text-black dark:bg-[#202533] dark:text-white dark:border-white/30"
+                              className="neo-badge rounded-md bg-white text-[10px] sm:text-[11px] font-black text-black dark:bg-[#202533] dark:text-white dark:border-white/30"
                             >
                               {s}
                             </span>
@@ -258,14 +258,14 @@ export default function ProjectsPage() {
                       </div>
 
                       {/* Right: In-Card Tabbed Viewer */}
-                      <div className="neo-box rounded-2xl bg-white p-5 dark:bg-[#121620] dark:border-white flex flex-col justify-between">
+                      <div className="neo-box rounded-2xl bg-white p-4 sm:p-5 dark:bg-[#121620] dark:border-white flex flex-col justify-between min-w-0">
                         <div>
                           {/* Tab Navigation */}
-                          <div className="flex items-center gap-2 border-b-2 border-black/10 pb-3 dark:border-white/20">
+                          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 border-b-2 border-black/10 pb-3 dark:border-white/20">
                             <button
                               type="button"
                               onClick={() => setCardTab(codelearn.name, "overview")}
-                              className={`neo-btn rounded-lg px-3 py-1 text-xs font-black uppercase tracking-wider ${
+                              className={`neo-btn rounded-lg px-2.5 sm:px-3 py-1 text-xs font-black uppercase tracking-wider ${
                                 currentTab === "overview"
                                   ? "bg-neo-yellow text-black dark:bg-neo-yellow dark:text-black"
                                   : "bg-slate-100 text-slate-700 dark:bg-[#202533] dark:text-slate-300"
@@ -276,7 +276,7 @@ export default function ProjectsPage() {
                             <button
                               type="button"
                               onClick={() => setCardTab(codelearn.name, "features")}
-                              className={`neo-btn rounded-lg px-3 py-1 text-xs font-black uppercase tracking-wider ${
+                              className={`neo-btn rounded-lg px-2.5 sm:px-3 py-1 text-xs font-black uppercase tracking-wider ${
                                 currentTab === "features"
                                   ? "bg-neo-sky text-black dark:bg-neo-sky dark:text-black"
                                   : "bg-slate-100 text-slate-700 dark:bg-[#202533] dark:text-slate-300"
@@ -287,7 +287,7 @@ export default function ProjectsPage() {
                             <button
                               type="button"
                               onClick={() => setCardTab(codelearn.name, "duties")}
-                              className={`neo-btn rounded-lg px-3 py-1 text-xs font-black uppercase tracking-wider ${
+                              className={`neo-btn rounded-lg px-2.5 sm:px-3 py-1 text-xs font-black uppercase tracking-wider ${
                                 currentTab === "duties"
                                   ? "bg-neo-rose text-black dark:bg-neo-rose dark:text-black"
                                   : "bg-slate-100 text-slate-700 dark:bg-[#202533] dark:text-slate-300"
@@ -303,7 +303,7 @@ export default function ProjectsPage() {
                               <div className="space-y-3 text-xs sm:text-sm font-bold leading-relaxed text-slate-800 dark:text-slate-200">
                                 <p>
                                   CodeLearn transforms an Obsidian study vault into a static React platform through an 8-stage pipeline:
-                                  <span className="font-mono text-neo-forest dark:text-neo-yellow"> SCAN → VALIDATE → INDEX → RESOLVE → RENDER → COPY → WRITE → PUBLISH</span>.
+                                  <span className="font-mono text-neo-forest dark:text-neo-yellow break-all sm:break-normal"> SCAN → VALIDATE → INDEX → RESOLVE → RENDER → COPY → WRITE → PUBLISH</span>.
                                 </p>
                                 <p>
                                   Features zero backend dependencies: client-side Pyodide, php-wasm, and SQLite runtimes execute code directly in browser memory without risk of remote server compromise.
@@ -357,21 +357,21 @@ export default function ProjectsPage() {
                   return (
                     <div
                       key={project.name}
-                      className="neo-box neo-box-hover rounded-3xl bg-white p-6 dark:bg-[#181b24] dark:border-white flex flex-col justify-between"
+                      className="neo-box neo-box-hover overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 dark:bg-[#181b24] dark:border-white flex flex-col justify-between min-w-0"
                     >
-                      <div>
+                      <div className="min-w-0">
                         {/* Top Meta Bar */}
                         <div className="flex flex-wrap items-center justify-between gap-2 border-b-[2px] border-black pb-3 dark:border-white">
-                          <div className="flex flex-wrap items-center gap-1.5">
-                            <span className={`neo-badge rounded-md ${accentColor} text-[10px] font-black`}>
+                          <div className="flex flex-wrap items-center gap-1.5 min-w-0">
+                            <span className={`neo-badge rounded-md ${accentColor} text-[10px] font-black shrink-0`}>
                               #{String(idx + 2).padStart(2, "0")}
                             </span>
-                            <span className="neo-badge rounded-md bg-white text-black text-[10px] dark:bg-[#202533] dark:text-white">
+                            <span className="neo-badge rounded-md bg-white text-black text-[10px] dark:bg-[#202533] dark:text-white truncate">
                               {project.period}
                             </span>
                           </div>
 
-                          <div className="flex items-center gap-1.5">
+                          <div className="flex flex-wrap items-center gap-1.5 shrink-0">
                             {project.projectUrl && (
                               <button
                                 type="button"
@@ -407,10 +407,10 @@ export default function ProjectsPage() {
 
                         {/* Title & Organization */}
                         <div className="mt-3">
-                          <h3 className="font-display text-xl font-black uppercase tracking-tight text-black dark:text-white">
+                          <h3 className="font-display text-lg sm:text-xl font-black uppercase tracking-tight text-black dark:text-white break-words">
                             {project.name}
                           </h3>
-                          <div className="mt-1 flex flex-wrap items-center gap-2 text-xs font-black uppercase">
+                          <div className="mt-1 flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs font-black uppercase">
                             <span className="text-neo-forest dark:text-neo-yellow">{project.role}</span>
                             <span className="text-slate-400">•</span>
                             <span className="text-slate-600 dark:text-slate-400">{project.institution}</span>
@@ -418,7 +418,7 @@ export default function ProjectsPage() {
                         </div>
 
                         {/* In-Card Interactive Mini-Tabs */}
-                        <div className="mt-4 flex items-center gap-2">
+                        <div className="mt-4 flex flex-wrap items-center gap-1.5 sm:gap-2">
                           <button
                             type="button"
                             onClick={() => setCardTab(project.name, "overview")}

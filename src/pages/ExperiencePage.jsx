@@ -50,7 +50,7 @@ export default function ExperiencePage() {
     <>
       <PageShell title="Experience">
         {/* Interactive Career Timeline Scrubber Bar */}
-        <div className="neo-box rounded-3xl bg-white p-5 sm:p-6 mb-8 dark:bg-neo-darkcard dark:border-white">
+        <div className="neo-box overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 mb-6 sm:mb-8 dark:bg-neo-darkcard dark:border-white min-w-0">
           <div className="flex items-center justify-between border-b-2 border-black/10 pb-3 dark:border-white/20">
             <span className="font-display text-xs font-black uppercase text-black dark:text-neo-yellow">
               Career Timeline
@@ -99,17 +99,17 @@ export default function ExperiencePage() {
               <div
                 id={`exp-${idx}`}
                 key={roleKey}
-                className={`neo-box neo-box-hover rounded-3xl p-6 sm:p-8 transition-all ${
+                className={`neo-box neo-box-hover overflow-hidden rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 transition-all min-w-0 ${
                   isLatest
                     ? "bg-neo-yellow/20 dark:bg-[#1a2233] border-[3px]"
                     : "bg-white dark:bg-[#181b24]"
                 }`}
               >
                 {/* Header Banner */}
-                <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start border-b-[2.5px] border-black pb-5 dark:border-white">
-                  <div className="flex items-start gap-4">
+                <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start border-b-[2.5px] border-black pb-4 sm:pb-5 dark:border-white min-w-0">
+                  <div className="flex items-start gap-3 sm:gap-4 min-w-0 flex-1">
                     <div
-                      className={`neo-btn h-14 w-14 shrink-0 rounded-2xl text-black p-0 ${
+                      className={`neo-btn h-11 w-11 sm:h-14 sm:w-14 shrink-0 rounded-xl sm:rounded-2xl text-black p-0 ${
                         idx % 3 === 0
                           ? "bg-neo-yellow dark:bg-neo-yellow"
                           : idx % 3 === 1
@@ -117,25 +117,25 @@ export default function ExperiencePage() {
                           : "bg-neo-rose dark:bg-neo-rose"
                       }`}
                     >
-                      <Building2 className="h-7 w-7 stroke-[2.5]" />
+                      <Building2 className="h-5 w-5 sm:h-7 sm:w-7 stroke-[2.5]" />
                     </div>
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
                         {isLatest && (
-                          <span className="neo-badge rounded-md bg-neo-green text-black font-black">
+                          <span className="neo-badge rounded-md bg-neo-green text-black font-black text-[10px] sm:text-xs">
                             ✦ PRESENT ROLE
                           </span>
                         )}
-                        <span className="neo-badge rounded-md bg-neo-yellow text-black">
+                        <span className="neo-badge rounded-md bg-neo-yellow text-black text-[10px] sm:text-xs">
                           EXPERIENCE 0{idx + 1}
                         </span>
-                        <span className="neo-badge rounded-md bg-white text-black dark:bg-[#202533] dark:text-white">
+                        <span className="neo-badge rounded-md bg-white text-black dark:bg-[#202533] dark:text-white text-[10px] sm:text-xs">
                           <Calendar className="h-3 w-3 mr-1 inline" />
                           {item.period}
                         </span>
                       </div>
 
-                      <h2 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-black dark:text-white">
+                      <h2 className="font-display text-xl sm:text-2xl lg:text-3xl font-black uppercase tracking-tight text-black dark:text-white break-words">
                         {item.role}
                       </h2>
                       <p className="mt-0.5 text-xs sm:text-sm font-black uppercase text-neo-forest dark:text-neo-yellow">
@@ -148,7 +148,7 @@ export default function ExperiencePage() {
                     <button
                       type="button"
                       onClick={() => setSelectedExperience(item)}
-                      className="neo-btn flex items-center gap-2 rounded-xl bg-neo-sky px-4 py-2 text-xs font-black uppercase text-black hover:bg-sky-300 dark:bg-neo-sky dark:text-black self-start"
+                      className="neo-btn flex items-center justify-center gap-2 rounded-xl bg-neo-sky px-4 py-2 text-xs font-black uppercase text-black hover:bg-sky-300 dark:bg-neo-sky dark:text-black self-start w-full sm:w-auto"
                     >
                       <FileCheck2 className="h-4 w-4 stroke-[2.5]" />
                       <span>View Proof & Document ({item.evidence.length})</span>
@@ -181,14 +181,14 @@ export default function ExperiencePage() {
                   </div>
 
                   {/* Right Column: In-Card Interactive Tabs */}
-                  <div className="neo-box rounded-2xl bg-neo-bg p-5 dark:bg-[#121620] dark:border-white flex flex-col justify-between">
-                    <div>
+                  <div className="neo-box overflow-hidden rounded-2xl bg-neo-bg p-4 sm:p-5 dark:bg-[#121620] dark:border-white flex flex-col justify-between min-w-0">
+                    <div className="min-w-0">
                       {/* Tab buttons */}
                       <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 border-b-2 border-black/10 pb-3 dark:border-white/20">
                         <button
                           type="button"
                           onClick={() => setRoleTab(roleKey, "responsibilities")}
-                          className={`rounded-lg px-3 py-1 text-xs font-black uppercase border border-black dark:border-white transition-all ${
+                          className={`rounded-lg px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-black uppercase border border-black dark:border-white transition-all ${
                             currentTab === "responsibilities"
                               ? "bg-neo-yellow text-black"
                               : "bg-white text-black dark:bg-[#202533] dark:text-white"
@@ -200,7 +200,7 @@ export default function ExperiencePage() {
                           <button
                             type="button"
                             onClick={() => setRoleTab(roleKey, "highlights")}
-                            className={`rounded-lg px-3 py-1 text-xs font-black uppercase border border-black dark:border-white transition-all ${
+                            className={`rounded-lg px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-black uppercase border border-black dark:border-white transition-all ${
                               currentTab === "highlights"
                                 ? "bg-neo-sky text-black"
                                 : "bg-white text-black dark:bg-[#202533] dark:text-white"
@@ -213,7 +213,7 @@ export default function ExperiencePage() {
                           <button
                             type="button"
                             onClick={() => setRoleTab(roleKey, "overview")}
-                            className={`rounded-lg px-3 py-1 text-xs font-black uppercase border border-black dark:border-white transition-all ${
+                            className={`rounded-lg px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-black uppercase border border-black dark:border-white transition-all ${
                               currentTab === "overview"
                                 ? "bg-neo-rose text-black"
                                 : "bg-white text-black dark:bg-[#202533] dark:text-white"
